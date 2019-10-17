@@ -17,7 +17,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
         {
             _house.Clear();
             foreach (var i in import) {
-                _house.Add(new House(i['id'], i['id_by_asc'], i['sign'], i['svg'], i['pos_circle_360'], new Offset(0.0, 0.0)));
+                _house.Add(new House(i.id, i.id_by_asc, i.sign, i.svg, i.pos_circle_360, new Offset(0.0, 0.0)));
             }
         }
 

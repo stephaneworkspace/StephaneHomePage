@@ -8,6 +8,7 @@ namespace StephaneHomePage.Struct.ImportJson
     public class ImportHouses
     {
         public int id { get; set; }
+        public int id_by_asc { get; set; }
         public Double pos_circle_360 { get; set; }
         public String sign { get; set; }
         public String sign_pos { get; set; }
