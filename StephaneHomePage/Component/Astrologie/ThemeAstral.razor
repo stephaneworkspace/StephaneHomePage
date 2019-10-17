@@ -4,6 +4,7 @@
 @using System.IO
 @using Services.Http
 @using Struct.ImportJson
+@using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
 
 @if (b64 != "")
 {
@@ -12,22 +13,37 @@
 
 @code {
     [Parameter] public ImportJson Json { get; set; }
+    [Parameter] public double MaxWidth { get; set; }
+    [Parameter] public double MaxHeight { get; set; }
     private Bitmap bitmap;
     private byte[] byteArray;
     private String b64;
 
     protected override void OnInitialized()
     {
-        Draw();
+        if (Json != null)
+            Draw();
     }
 
     protected override void OnParametersSet()
     {
-        Draw();
+        if (Json != null)
+            Draw();
     }
 
     private void Draw()
     {
+        CalcDraw calcDraw = new CalcDraw(MaxWidth, MaxHeight);
+        double whZodiacSize; // size zodiac by the line between 2 circle
+        double whHouseSize;
+        double whAngleSymbolSize;
+        double whAngleDegSymbolSize;
+        double whAngleMinSymbolSize;
+        double whPlanetSymbolSize;
+        double whPlanetDegSymbolSize;
+        double whPlanetMinSymbolSize;
+
+
         bitmap = new Bitmap(500, 500);
         Graphics graphics = Graphics.FromImage(bitmap);
         graphics.Clear(Color.Black);
