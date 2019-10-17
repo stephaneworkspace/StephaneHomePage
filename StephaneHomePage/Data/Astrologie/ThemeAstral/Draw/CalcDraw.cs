@@ -45,7 +45,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             return getSizeWH() / 2;
         }
 
-        double getRadiusCircle(int i)
+        public double getRadiusCircle(int i)
         {
             switch (i)
             {
@@ -78,32 +78,32 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             return (getRadiusTotal() * (((CIRCLE2 - CIRCLE1) / 2.0) + CIRCLE1)) / 100;
         }
 
-        double getRadiusCircleZodiacCIRCLE1WithoutLine()
+        public double getRadiusCircleZodiacCIRCLE1WithoutLine()
         {
             return getRadiusRulesInsideCircleZodiac(TypeTrait.Grand);
         }
 
-        double getRadiusCircleHouseCIRCLE2WithoutLine()
+        public double getRadiusCircleHouseCIRCLE2WithoutLine()
         {
             return (getRadiusTotal() * ((CIRCLE2 - CIRCLE1) + CIRCLE0)) / 100; // - CIRCLE2
         }
 
-        double getRadiusCirclePlanetCIRCLE3INVISIBLEWithoutLine()
+        public double getRadiusCirclePlanetCIRCLE3INVISIBLEWithoutLine()
         {
             return (getRadiusTotal() * ((CIRCLE3INVISIBLE - CIRCLE2) + CIRCLE0)) / 100; // - CIRCLE3INVISIBLE
         }
 
-        double getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine()
+        public double getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine()
         {
             return (getRadiusTotal() * ((CIRCLE4INVISIBLE - CIRCLE3INVISIBLE) + CIRCLE0)) / 100; // - CIRCLE4INVISIBLE
         }
 
-        double getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine()
+        public double getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine()
         {
             return (getRadiusTotal() * ((CIRCLE5INVISIBLE - CIRCLE4INVISIBLE) + CIRCLE0)) / 100; // - CIRCLE5INVISIBLE for °
         }
 
-        double getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine()
+        public double getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine()
         {
             return (getRadiusTotal() * ((CIRCLE6INVISIBLE - CIRCLE5INVISIBLE) + CIRCLE0)) / 100; // - CIRCLE5INVISIBLE for '
         }
@@ -151,7 +151,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Theorem Pythagoras => Distance between 2 offset
-        double sizeZodiac(Offset xy1, Offset xy2)
+        public double sizeZodiac(Offset xy1, Offset xy2)
         {
             double a = xy1.dx - xy2.dx;
             double b = xy1.dy - xy2.dy;
@@ -159,7 +159,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Theorem Pythagoras => Distance between 2 offset
-        double sizeHouse(Offset xy1, Offset xy2)
+        public double sizeHouse(Offset xy1, Offset xy2)
         {
             double a = xy1.dx - xy2.dx;
             double b = xy1.dy - xy2.dy;
@@ -167,7 +167,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Theorem Pythagoras => Distance between 2 offset
-        double sizePlanet(Offset xy1, Offset xy2)
+        public double sizePlanet(Offset xy1, Offset xy2)
         {
             double a = xy1.dx - xy2.dx;
             double b = xy1.dy - xy2.dy;
@@ -175,7 +175,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Theorem Pythagoras => Distance between 2 offset
-        double sizeAngle(Offset xy1, Offset xy2)
+        public double sizeAngle(Offset xy1, Offset xy2)
         {
             double a = xy1.dx - xy2.dx;
             double b = xy1.dy - xy2.dy;
@@ -203,7 +203,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Trigonometry
-        List<Offset> lineTrigo(double angular, double radiusCircleBegin, double radiusCircleEnd)
+        public List<Offset> lineTrigo(double angular, double radiusCircleBegin, double radiusCircleEnd)
         {
             List<Offset> returnList = new List<Offset>();
             double dx1 = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * new Radius(radiusCircleBegin).x;

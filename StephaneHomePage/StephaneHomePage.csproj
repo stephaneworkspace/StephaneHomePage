@@ -13,4 +13,8 @@
     <PackageReference Include="System.Drawing.Common" Version="4.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Astrologie\ThemeAstral\Zodiac\" />
+  </ItemGroup>
+
 </Project>

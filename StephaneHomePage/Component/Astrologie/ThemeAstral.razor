@@ -5,6 +5,7 @@
 @using Services.Http
 @using Struct.ImportJson
 @using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
+@using StephaneHomePage.Data.Type
 
 @if (b64 != "")
 {
@@ -33,7 +34,24 @@
 
     private void Draw()
     {
-        CalcDraw calcDraw = new CalcDraw(MaxWidth, MaxHeight);
+        CalcZodiac _calcZodiac;
+        List<Zodiac> _zodiac;
+        CalcHouse _calcHouse;
+        List<House> _house;
+        CalcAngle _calcAngle;
+        List<Angle> _angle;
+        CalcPlanet _calcPlanet;
+        List<Planet> _planet;
+        List<Offset> _xyZodiacSizeLine; // size between 2 circle by point on 0° for the size of zodiac
+        List<Offset> _xyHouseSizeLine;
+        List<Offset> _xyAngleSizeLine;
+        List<Offset> _xyAngleDegSizeLine;
+        List<Offset> _xyAngleMinSizeLine;
+        List<Offset> _xyPlanetSizeLine;
+        List<Offset> _xyPlanetDegSizeLine;
+        List<Offset> _xyPlanetMinSizeLine;
+
+
         double whZodiacSize; // size zodiac by the line between 2 circle
         double whHouseSize;
         double whAngleSymbolSize;
@@ -42,6 +60,40 @@
         double whPlanetSymbolSize;
         double whPlanetDegSymbolSize;
         double whPlanetMinSymbolSize;
+
+        CalcDraw calcDraw = new CalcDraw(MaxWidth, MaxHeight);
+        // At °0, no importance, ist juste for have the size of zodiac container care
+        _xyZodiacSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), calcDraw.getRadiusCircle(0));
+        whZodiacSize = calcDraw.sizeZodiac(_xyZodiacSizeLine[0], _xyZodiacSizeLine[1]); 
+        whZodiacSize = (whZodiacSize * 50) / 100;
+        _zodiac = _calcZodiac.calcDrawZodiac(calcDraw, whZodiacSize);
+      
+        _xyHouseSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), calcDraw.getRadiusCircle(0));
+        whHouseSize = calcDraw.sizeHouse(_xyHouseSizeLine[0], _xyHouseSizeLine[1]); 
+        whHouseSize = (whHouseSize * 70) / 100;
+        _house = _calcHouse.calcDrawHouse(calcDraw, whHouseSize);
+      
+        _xyAngleSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whAngleSymbolSize = calcDraw.sizePlanet(_xyAngleSizeLine[0], _xyAngleSizeLine[1]);
+        whAngleSymbolSize = (whAngleSymbolSize * 150) / 100;
+        _xyAngleDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whAngleDegSymbolSize = calcDraw.sizeAngle(_xyAngleDegSizeLine[0], _xyAngleDegSizeLine[1]);
+        whAngleDegSymbolSize = (whAngleDegSymbolSize * 110) / 100;
+        _xyAngleMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whAngleMinSymbolSize = calcDraw.sizeAngle(_xyAngleMinSizeLine[0], _xyAngleMinSizeLine[1]);
+        whAngleMinSymbolSize = (whAngleMinSymbolSize * 80) / 100;
+        _angle = _calcAngle.calcDrawAngle(calcDraw, whAngleSymbolSize, whAngleDegSymbolSize, whAngleMinSymbolSize); // todo angle size for outside circle
+
+        _xyPlanetSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whPlanetSymbolSize = calcDraw.sizePlanet(_xyPlanetSizeLine[0], _xyPlanetSizeLine[1]);
+        whPlanetSymbolSize = (whPlanetSymbolSize * 150) / 100;
+        _xyPlanetDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whPlanetDegSymbolSize = calcDraw.sizePlanet(_xyPlanetDegSizeLine[0], _xyPlanetDegSizeLine[1]);
+        whPlanetDegSymbolSize = (whPlanetDegSymbolSize * 110) / 100;
+        _xyPlanetMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
+        whPlanetMinSymbolSize = calcDraw.sizeAngle(_xyPlanetMinSizeLine[0], _xyPlanetMinSizeLine[1]);
+        whPlanetMinSymbolSize = (whPlanetMinSymbolSize * 80) / 100;
+        _planet = _calcPlanet.calcDrawPlanet(calcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
 
 
         bitmap = new Bitmap(500, 500);
