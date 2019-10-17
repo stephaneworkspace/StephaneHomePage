@@ -11,6 +11,11 @@ using Microsoft.Extensions.Logging;
 
 namespace StephaneHomePage
 {
+    static class Constants
+    {
+        public const string URL_BASE = "http://www.stephane-bressani.ch:8000/";
+    }
+
     public class Program
     {
         public static void Main(string[] args)

@@ -4,12 +4,12 @@
 @page "/"
 <h1>Stéphane Bressani</h1>
 <h2>Programmeur full stack et instructeur</h2>
-<!--
-Welcome to your new app. @password
--->
+@*<!--
+    Welcome to your new app. @password
+    -->*@
 @code {
-    String password = "?";
-    protected override async Task OnInitializedAsync()
+        @*String password = "?";*@
+    protected override void OnInitialized()
     {
         var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -18,7 +18,5 @@ Welcome to your new app. @password
 
         // password = config.GetSection("password").Value;
 
-        // var data = await Http.GetStringAsync("http://www.stephane-bressani.ch:8000/hello/");
-        // password = data;
     }
 }

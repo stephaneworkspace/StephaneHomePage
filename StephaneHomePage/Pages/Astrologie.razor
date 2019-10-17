@@ -1,17 +1,23 @@
 ﻿@page "/astrologie"
-@using System.Drawing;
-@using System.IO;
+@inject IAstrologieServiceHttp AstrologieServiceHttp
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@using System.Drawing
+@using System.IO
+@using Services.Http
+@using System.Net
+@using Newtonsoft.Json
+@using Struct.ImportJson
 
 <h3>Astrologie</h3>
-<center><img src="data:image/png;base64, @Convert.ToBase64String(byteArray)"/></center>
-@*
-<center><BECanvas Width="600" Height="600" @ref="_canvasReference"></BECanvas></center>
-*@
+<center><img src="data:image/png;base64, @Convert.ToBase64String(byteArray)" /></center>
+
 @code {
     Bitmap bitmap;
     byte[] byteArray;
-    protected override void OnInitialized()
+    ImportJson data;
+    protected override async Task OnInitializedAsync()
     {
+        await LoadDatas();
         bitmap = new Bitmap(500, 500);
         Graphics graphics = Graphics.FromImage(bitmap);
         graphics.Clear(Color.Black);
@@ -20,5 +26,21 @@
         MemoryStream memoryStream = new MemoryStream();
         bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
         byteArray = memoryStream.ToArray();
+    }
+
+    private async Task LoadDatas()
+    {
+        var response = await AstrologieServiceHttp.GetThemeAstral();
+        switch (response.StatusCode)
+        {
+            case HttpStatusCode.OK:
+                string content = await response.Content.ReadAsStringAsync();
+                data = JsonConvert.DeserializeObject<ImportJson>(content);
+                break;
+            default:
+                // await JsAlertifyService.Open("Erreur lors du chargement des instruments", TypeAlertify.Error);
+                NavigationManager.NavigateTo("/");
+                break;
+        }
     }
 }
