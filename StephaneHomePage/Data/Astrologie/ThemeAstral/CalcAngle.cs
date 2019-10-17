@@ -20,7 +20,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
             // Order by Asc
             foreach (var i in import)
             {
-                _angle.Add(new Angle(i.id, i.sign, i.sign_pos, i.svg, i.svg_degre, i.svg_min, i.pos_circle_360, new Offset(0.0, 0.0), new Offset(0.0, 0.0), new Offset(0.0, 0.0), System.Drawing.ColorTranslator.FromHtml("#7c7459")));
+                _angle.Add(new Angle(i.id, i.sign, i.sign_pos, i.svg, i.svg_degre, i.svg_min, i.pos_circle_360, new Offset(0.0, 0.0), new Offset(0.0, 0.0), new Offset(0.0, 0.0), ColorTranslator.FromHtml("#7c7459")));
             }
         }
 
