@@ -1,36 +1,24 @@
 ﻿@page "/astrologie"
 @inject IAstrologieServiceHttp AstrologieServiceHttp
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
-@using System.Drawing
-@using System.IO
 @using Services.Http
 @using System.Net
 @using Newtonsoft.Json
 @using Struct.ImportJson
 
 <h3>Astrologie</h3>
-@if (b64 != "")
+
+@if (swLoaded)
 {
-    <center><img src="data:image/png;base64, @b64" /></center>
+    <ThemeAstral Json="data" />
 }
 
 @code {
-    Bitmap bitmap;
-    byte[] byteArray;
-    String b64;
     ImportJson data;
+    bool swLoaded = false;
     protected override async Task OnInitializedAsync()
     {
         await LoadDatas();
-        bitmap = new Bitmap(500, 500);
-        Graphics graphics = Graphics.FromImage(bitmap);
-        graphics.Clear(Color.Black);
-        Pen pen = new Pen(Color.White, 2);
-        graphics.DrawRectangle(pen, 50, 50, 250, 200);
-        MemoryStream memoryStream = new MemoryStream();
-        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-        byteArray = memoryStream.ToArray();
-        b64 = Convert.ToBase64String(byteArray);
     }
 
     private async Task LoadDatas()
@@ -41,6 +29,7 @@
             case HttpStatusCode.OK:
                 string content = await response.Content.ReadAsStringAsync();
                 data = JsonConvert.DeserializeObject<ImportJson>(content);
+                swLoaded = true;
                 break;
             default:
                 // await JsAlertifyService.Open("Erreur lors du chargement des instruments", TypeAlertify.Error);

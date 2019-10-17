@@ -1,0 +1,43 @@
+﻿@inject IAstrologieServiceHttp AstrologieServiceHttp
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@using System.Drawing
+@using System.IO
+@using Services.Http
+@using Struct.ImportJson
+
+@if (b64 != "")
+{
+    <center><img src="data:image/png;base64, @b64" /></center>
+}
+
+@code {
+    [Parameter] public ImportJson Json { get; set; }
+    private Bitmap bitmap;
+    private byte[] byteArray;
+    private String b64;
+
+    protected override void OnInitialized()
+    {
+        Draw();
+    }
+
+    protected override void OnParametersSet()
+    {
+        Draw();
+    }
+
+    private void Draw()
+    {
+        bitmap = new Bitmap(500, 500);
+        Graphics graphics = Graphics.FromImage(bitmap);
+        graphics.Clear(Color.Black);
+        Pen pen = new Pen(Color.White, 2);
+        graphics.DrawRectangle(pen, 50, 50, 250, 200);
+        MemoryStream memoryStream = new MemoryStream();
+        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+        byteArray = memoryStream.ToArray();
+        b64 = Convert.ToBase64String(byteArray);
+        graphics.Dispose();
+        bitmap.Dispose();
+    }
+}
