@@ -63,8 +63,8 @@
         _planet = new List<Planet>();
         _calcZodiac.parseJson(Json.zodiac);
         _calcHouse.parseJson(Json.houses);
-        _calcAngle.parseJson();
-        _calcPlanet.parseJson();
+        _calcAngle.parseJson(Json.angles);
+        _calcPlanet.parseJson(Json.planets);
 
         double whZodiacSize; // size zodiac by the line between 2 circle
         double whHouseSize;
