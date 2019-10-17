@@ -9,11 +9,15 @@
 @using Struct.ImportJson
 
 <h3>Astrologie</h3>
-<center><img src="data:image/png;base64, @Convert.ToBase64String(byteArray)" /></center>
+@if (b64 != "")
+{
+    <center><img src="data:image/png;base64, @b64" /></center>
+}
 
 @code {
     Bitmap bitmap;
     byte[] byteArray;
+    String b64;
     ImportJson data;
     protected override async Task OnInitializedAsync()
     {
@@ -26,6 +30,7 @@
         MemoryStream memoryStream = new MemoryStream();
         bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
         byteArray = memoryStream.ToArray();
+        b64 = Convert.ToBase64String(byteArray);
     }
 
     private async Task LoadDatas()

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.ImportJson
 {
-    public class Angle
+    public class Angles
     {
         public String id { get; set; }
-        public Double posCircle360 { get; set; }
+        public Double pos_circle_360 { get; set; }
         public String sign { get; set; }
-        public String signPos { get; set; }
+        public String sign_pos { get; set; }
         public String svg { get; set; }
-        public String svgDegre { get; set; }
-        public String svgMin { get; set; }
+        public String svg_degre { get; set; }
+        public String svg_min { get; set; }
     }
 }
