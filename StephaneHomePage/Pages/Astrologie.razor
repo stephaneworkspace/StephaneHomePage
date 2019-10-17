@@ -1,0 +1,24 @@
+﻿@page "/astrologie"
+@using System.Drawing;
+@using System.IO;
+
+<h3>Astrologie</h3>
+<center><img src="data:image/png;base64, @Convert.ToBase64String(byteArray)"/></center>
+@*
+<center><BECanvas Width="600" Height="600" @ref="_canvasReference"></BECanvas></center>
+*@
+@code {
+    Bitmap bitmap;
+    byte[] byteArray;
+    protected override void OnInitialized()
+    {
+        bitmap = new Bitmap(500, 500);
+        Graphics graphics = Graphics.FromImage(bitmap);
+        graphics.Clear(Color.Black);
+        Pen pen = new Pen(Color.White, 2);
+        graphics.DrawRectangle(pen, 50, 50, 250, 200);
+        MemoryStream memoryStream = new MemoryStream();
+        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+        byteArray = memoryStream.ToArray();
+    }
+}
