@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.ImportJson
 {
-    public class Houses
+    public class ImportHouses
     {
         public int id { get; set; }
         public Double pos_circle_360 { get; set; }

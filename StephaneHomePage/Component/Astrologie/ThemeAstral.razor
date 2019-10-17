@@ -6,6 +6,8 @@
 @using Struct.ImportJson
 @using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
 @using StephaneHomePage.Data.Type
+@using StephaneHomePage.Data.Astrologie.ThemeAstral
+@using StephaneHomePage.Struct.Astrologie
 
 @if (b64 != "")
 {
@@ -51,6 +53,18 @@
         List<Offset> _xyPlanetDegSizeLine;
         List<Offset> _xyPlanetMinSizeLine;
 
+        _calcZodiac = new CalcZodiac();
+        _zodiac = new List<Zodiac>();
+        _calcHouse = new CalcHouse();
+        _house = new List<House>();
+        _calcAngle = new CalcAngle();
+        _angle = new List<Angle>();
+        _calcPlanet = new CalcPlanet();
+        _planet = new List<Planet>();
+        _calcZodiac.parseJson(Json.zodiac);
+        _calcHouse.parseJson();
+        _calcAngle.parseJson();
+        _calcPlanet.parseJson();
 
         double whZodiacSize; // size zodiac by the line between 2 circle
         double whHouseSize;
@@ -64,15 +78,15 @@
         CalcDraw calcDraw = new CalcDraw(MaxWidth, MaxHeight);
         // At °0, no importance, ist juste for have the size of zodiac container care
         _xyZodiacSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), calcDraw.getRadiusCircle(0));
-        whZodiacSize = calcDraw.sizeZodiac(_xyZodiacSizeLine[0], _xyZodiacSizeLine[1]); 
+        whZodiacSize = calcDraw.sizeZodiac(_xyZodiacSizeLine[0], _xyZodiacSizeLine[1]);
         whZodiacSize = (whZodiacSize * 50) / 100;
         _zodiac = _calcZodiac.calcDrawZodiac(calcDraw, whZodiacSize);
-      
+
         _xyHouseSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), calcDraw.getRadiusCircle(0));
-        whHouseSize = calcDraw.sizeHouse(_xyHouseSizeLine[0], _xyHouseSizeLine[1]); 
+        whHouseSize = calcDraw.sizeHouse(_xyHouseSizeLine[0], _xyHouseSizeLine[1]);
         whHouseSize = (whHouseSize * 70) / 100;
         _house = _calcHouse.calcDrawHouse(calcDraw, whHouseSize);
-      
+
         _xyAngleSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
         whAngleSymbolSize = calcDraw.sizePlanet(_xyAngleSizeLine[0], _xyAngleSizeLine[1]);
         whAngleSymbolSize = (whAngleSymbolSize * 150) / 100;

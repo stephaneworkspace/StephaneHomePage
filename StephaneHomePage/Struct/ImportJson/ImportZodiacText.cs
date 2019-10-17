@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.ImportJson
 {
-    public class ZodiacText
+    public class ImportZodiacText
     {
         public String sign { get; set; }
         public String content { get; set; }

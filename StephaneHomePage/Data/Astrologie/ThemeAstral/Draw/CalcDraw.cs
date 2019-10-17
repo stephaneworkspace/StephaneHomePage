@@ -68,12 +68,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             }
         }
 
-        double getRadiusCircleZodiac()
+        public double getRadiusCircleZodiac()
         {
             return (getRadiusTotal() * (((CIRCLE1 - CIRCLE0) / (2.0 + DIVTRAITGRAND)) + CIRCLE0)) / 100;
         }
 
-        double getRadiusCircleHouse()
+        public double getRadiusCircleHouse()
         {
             return (getRadiusTotal() * (((CIRCLE2 - CIRCLE1) / 2.0) + CIRCLE1)) / 100;
         }
@@ -186,18 +186,18 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         /// 
         /// 0.0 - 0.0 = top left of the screen
         /// so this method is a helper for find the position of the sign
-        Offset getOffsetCenterZodiac(double sizeZodiac, Offset xy00)
+        public Offset getOffsetCenterZodiac(double sizeZodiac, Offset xy00)
         {
             return new Offset(xy00.dx - (sizeZodiac / 2), xy00.dy - (sizeZodiac / 2));
         }
 
         /// Center for the text house
-        Offset getOffsetCenterHouse(double sizeHouse, Offset xy00)
+        public Offset getOffsetCenterHouse(double sizeHouse, Offset xy00)
         {
             return new Offset(xy00.dx - (sizeHouse / 2), xy00.dy - (sizeHouse / 2));
         }
 
-        Offset getOffsetCenterPlanet(double sizePlanet, Offset xy00)
+        public Offset getOffsetCenterPlanet(double sizePlanet, Offset xy00)
         {
             return new Offset(xy00.dx - (sizePlanet / 2), xy00.dy - (sizePlanet / 2));
         }
@@ -216,7 +216,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Trigonometry
-        Offset pointTrigo(double angular, double radiusCircle)
+        public Offset pointTrigo(double angular, double radiusCircle)
         {
             double dx = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * new Radius(radiusCircle).x;
             double dy = getCenter().dy + Math.Sin(angular / CIRC * 2 * Math.PI) * new Radius(radiusCircle).y;
@@ -224,7 +224,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         // Not return radiusCircleEnd
-        List<Offset> pathTrianglePointer(double angular, double angularPointer, double radiusCircleBegin, double radiusCircleEnd)
+        public List<Offset> pathTrianglePointer(double angular, double angularPointer, double radiusCircleBegin, double radiusCircleEnd)
         {
             List<Offset> returnList = new List<Offset>();
             double angular1 = angular - angularPointer;
@@ -248,7 +248,5 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             returnList.Add(new Offset(dx3, dy3));
             return returnList;
         }
-
-
     }
 }
