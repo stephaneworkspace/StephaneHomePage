@@ -53,9 +53,9 @@ namespace StephaneHomePage
                     options.HttpsPort = 443;
                 });
                 services.AddDataProtection()
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"/key/.aspnet/https/")) // \\root\.aspnet\https\
+                    //.PersistKeysToFileSystem(new DirectoryInfo(@"/key/.aspnet/https/")) // \\root\.aspnet\https\
                     .ProtectKeysWithCertificate(
-                        new X509Certificate2("dev_cert.pfx", "123456"));
+                        new X509Certificate2("/key/.aspnet/https/dev_cert.pfx", "123456"));
             }
 
             services.AddServerSideBlazor();
