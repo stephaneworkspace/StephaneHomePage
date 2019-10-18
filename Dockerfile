@@ -11,7 +11,7 @@ RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
 
 #WORKDIR /.aspnet/https/
-RUN dotnet dev-certs https -ep /root/.aspnet/https/aspnetapp.pfx -p { 123456 }
+RUN dotnet dev-certs https -ep /root/.aspnet/https/aspnetapp.pfx -p 123456
 
 WORKDIR "/src/StephaneHomePage"
 RUN dotnet build "StephaneHomePage.csproj" -c Release -o /app/build
