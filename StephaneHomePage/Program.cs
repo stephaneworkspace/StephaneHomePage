@@ -20,7 +20,6 @@ namespace StephaneHomePage
     {
         public static void Main(string[] args)
         {
-            // Start
             CreateHostBuilder(args).Build().Run();
         }
 

@@ -36,16 +36,16 @@ namespace StephaneHomePage
         {
             //services.AddLetsEncrypt();
             services.AddRazorPages();
-            /*services.AddHsts(options =>
+            services.AddHsts(options =>
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromDays(60);
                 //options.ExcludedHosts.Add("stephane-bressani.ch");
                 //options.ExcludedHosts.Add("www.stephane-bressani.ch");
-            });*/
+            });
             // IWebHostEnvironment (stored in _env) is injected into the Startup class.
-            /*if (!this.env.IsDevelopment())
+            if (!this.env.IsDevelopment())
             {
                 services.AddHttpsRedirection(options =>
                 {
@@ -53,10 +53,10 @@ namespace StephaneHomePage
                     options.HttpsPort = 443;
                 });
                 services.AddDataProtection()
-                    //.PersistKeysToFileSystem(new DirectoryInfo(@"/key/.aspnet/https/")) // \\root\.aspnet\https\
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
                     .ProtectKeysWithCertificate(
-                        new X509Certificate2("/key/.aspnet/https/dev_cert.pfx", "123456"));
-            }*/
+                        new X509Certificate2("dev_cert.pfx", "123456"));
+            }
 
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
