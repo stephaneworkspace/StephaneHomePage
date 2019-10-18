@@ -11,6 +11,7 @@ RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
 
 WORKDIR /src/.aspnet/https/
+RUN dotnet dev-certs https --clean
 RUN dotnet dev-certs https -ep /src/.aspnet/https/aspnetapp.pfx -p 123456
 
 WORKDIR "/src/StephaneHomePage"
