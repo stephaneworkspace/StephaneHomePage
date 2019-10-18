@@ -38,7 +38,7 @@ namespace StephaneHomePage
             })
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder.UseStartup<Startup>()
+                webBuilder
                     .ConfigureKestrel(serverOptions =>
                     {
 
@@ -56,7 +56,8 @@ namespace StephaneHomePage
                         {
                             listenOptions.UseHttps("test_cert.pfx", "123456");
                         });
-                    });
+                    })
+                    .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
     }
