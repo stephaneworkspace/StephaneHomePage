@@ -30,40 +30,31 @@ namespace StephaneHomePage
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    services.Configure<KestrelServerOptions>(
-                        context.Configuration.GetSection("Kestrel"));
-                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>().ConfigureKestrel(serverOptions =>
-                    {
-
-                        serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                    webBuilder.UseStartup<Startup>()
+                        .ConfigureKestrel(serverOptions =>
                         {
-                            string certificate = System.IO.File.ReadAllText(@"./dev_cert.pfx");
-                            Console.WriteLine(certificate);
-                            string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes(certificate));
-          
-                            // certificate is an X509Certificate2
-                            listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
-                        });
-                        serverOptions.Listen(IPAddress.Loopback, 80);
-                        serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
+
+                            serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                            {
+                                string certificate = System.IO.File.ReadAllText(@"./dev_cert.pfx");
+                                Console.WriteLine(certificate);
+                                string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes(certificate));
+
+                                // certificate is an X509Certificate2
+                                listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
+                            });
+                            serverOptions.Listen(IPAddress.Loopback, 80);
+                            serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
+                            {
+                                listenOptions.UseHttps("test_cert.pfx", "123456");
+                            });
+                        }).ConfigureServices((context, services) =>
                         {
-                            listenOptions.UseHttps("test_cert.pfx", "123456");
-                        }
-);
-
-                    /*
-                     *       .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
-                             .UnprotectKeysWithAnyCertificate(
-                                new X509Certificate2("dev_cert.pfx", "123456"));
-                    */
-
-
-                }); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+                            services.Configure<KestrelServerOptions>(
+                            context.Configuration.GetSection("Kestrel"));
+                        }); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
                 });
     }
 }
