@@ -1,6 +1,6 @@
 ﻿@inject IAstrologieServiceHttp AstrologieServiceHttp
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
-@using System.Drawing
+@*@using System.Drawing*@
 @using System.IO
 @using Services.Http
 @using Struct.ImportJson
@@ -8,118 +8,99 @@
 @using StephaneHomePage.Data.Type
 @using StephaneHomePage.Data.Astrologie.ThemeAstral
 @using StephaneHomePage.Struct.Astrologie
+@using Blazor.Extensions.Canvas.Canvas2D
+@using Blazor.Extensions.Canvas
 
-@if (b64 != "")
+@if (swOk)
 {
-    <center><img src="data:image/png;base64, @b64" /></center>
+    @*<center><img src="data:image/svg+xml;base64,@imageB64" /></center>*@
+    <center><img src="@imageSVG"/></center>
+
+    <div style="height: 150px; background-repeat: no-repeat; background-image: url(@imageSVG);"></div>
+
 }
 
 @code {
+
+    public bool swOk = false;
+
     [Parameter] public ImportJson Json { get; set; }
     [Parameter] public double MaxWidth { get; set; }
     [Parameter] public double MaxHeight { get; set; }
+
+    /*
     private Bitmap bitmap;
     private byte[] byteArray;
-    private String b64;
+    private String b64;*/
+
+    private ComputeThemeAstral computeThemeAstral;
+    private String imageB64;
+    private String imageSVG;
 
     protected override void OnInitialized()
     {
         if (Json != null)
-            Draw();
+            GeneratePicture();
     }
 
     protected override void OnParametersSet()
     {
         if (Json != null)
-            Draw();
+            GeneratePicture();
     }
 
-    private void Draw()
+    private void GeneratePicture()
     {
-        CalcZodiac _calcZodiac;
-        List<Zodiac> _zodiac;
-        CalcHouse _calcHouse;
-        List<House> _house;
-        CalcAngle _calcAngle;
-        List<Angle> _angle;
-        CalcPlanet _calcPlanet;
-        List<Planet> _planet;
-        List<Offset> _xyZodiacSizeLine; // size between 2 circle by point on 0° for the size of zodiac
-        List<Offset> _xyHouseSizeLine;
-        List<Offset> _xyAngleSizeLine;
-        List<Offset> _xyAngleDegSizeLine;
-        List<Offset> _xyAngleMinSizeLine;
-        List<Offset> _xyPlanetSizeLine;
-        List<Offset> _xyPlanetDegSizeLine;
-        List<Offset> _xyPlanetMinSizeLine;
-
-        _calcZodiac = new CalcZodiac();
-        _zodiac = new List<Zodiac>();
-        _calcHouse = new CalcHouse();
-        _house = new List<House>();
-        _calcAngle = new CalcAngle();
-        _angle = new List<Angle>();
-        _calcPlanet = new CalcPlanet();
-        _planet = new List<Planet>();
-        _calcZodiac.parseJson(Json.zodiac);
-        _calcHouse.parseJson(Json.houses);
-        _calcAngle.parseJson(Json.angles);
-        _calcPlanet.parseJson(Json.planets);
-
-        double whZodiacSize; // size zodiac by the line between 2 circle
-        double whHouseSize;
-        double whAngleSymbolSize;
-        double whAngleDegSymbolSize;
-        double whAngleMinSymbolSize;
-        double whPlanetSymbolSize;
-        double whPlanetDegSymbolSize;
-        double whPlanetMinSymbolSize;
-
-        CalcDraw calcDraw = new CalcDraw(MaxWidth, MaxHeight);
-        // At °0, no importance, ist juste for have the size of zodiac container care
-        _xyZodiacSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), calcDraw.getRadiusCircle(0));
-        whZodiacSize = calcDraw.sizeZodiac(_xyZodiacSizeLine[0], _xyZodiacSizeLine[1]);
-        whZodiacSize = (whZodiacSize * 50) / 100;
-        _zodiac = _calcZodiac.calcDrawZodiac(calcDraw, whZodiacSize);
-
-        _xyHouseSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), calcDraw.getRadiusCircle(0));
-        whHouseSize = calcDraw.sizeHouse(_xyHouseSizeLine[0], _xyHouseSizeLine[1]);
-        whHouseSize = (whHouseSize * 70) / 100;
-        _house = _calcHouse.calcDrawHouse(calcDraw, whHouseSize);
-
-        _xyAngleSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whAngleSymbolSize = calcDraw.sizePlanet(_xyAngleSizeLine[0], _xyAngleSizeLine[1]);
-        whAngleSymbolSize = (whAngleSymbolSize * 150) / 100;
-        _xyAngleDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whAngleDegSymbolSize = calcDraw.sizeAngle(_xyAngleDegSizeLine[0], _xyAngleDegSizeLine[1]);
-        whAngleDegSymbolSize = (whAngleDegSymbolSize * 110) / 100;
-        _xyAngleMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whAngleMinSymbolSize = calcDraw.sizeAngle(_xyAngleMinSizeLine[0], _xyAngleMinSizeLine[1]);
-        whAngleMinSymbolSize = (whAngleMinSymbolSize * 80) / 100;
-        _angle = _calcAngle.calcDrawAngle(calcDraw, whAngleSymbolSize, whAngleDegSymbolSize, whAngleMinSymbolSize); // todo angle size for outside circle
-
-        _xyPlanetSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whPlanetSymbolSize = calcDraw.sizePlanet(_xyPlanetSizeLine[0], _xyPlanetSizeLine[1]);
-        whPlanetSymbolSize = (whPlanetSymbolSize * 150) / 100;
-        _xyPlanetDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whPlanetDegSymbolSize = calcDraw.sizePlanet(_xyPlanetDegSizeLine[0], _xyPlanetDegSizeLine[1]);
-        whPlanetDegSymbolSize = (whPlanetDegSymbolSize * 110) / 100;
-        _xyPlanetMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-        whPlanetMinSymbolSize = calcDraw.sizeAngle(_xyPlanetMinSizeLine[0], _xyPlanetMinSizeLine[1]);
-        whPlanetMinSymbolSize = (whPlanetMinSymbolSize * 80) / 100;
-        _planet = _calcPlanet.calcDrawPlanet(calcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
-
-
-        bitmap = new Bitmap(500, 500);
-        Graphics graphics = Graphics.FromImage(bitmap);
-        graphics.Clear(Color.Black);
-        Pen pen = new Pen(Color.White, 2);
-        graphics.DrawRectangle(pen, 50, 50, 250, 200);
-        MemoryStream memoryStream = new MemoryStream();
-        bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-        byteArray = memoryStream.ToArray();
-        b64 = Convert.ToBase64String(byteArray);
-        graphics.Dispose();
-        bitmap.Dispose();
+        computeThemeAstral = new ComputeThemeAstral(Json, MaxWidth, MaxHeight);
+        DrawImage drawImage = new DrawImage(computeThemeAstral);
+        //imageB64 = drawImage.GetB64();
+        imageSVG = drawImage.GetSvg();
+        swOk = true;
     }
+
+    @*
+
+        void Draw()
+        {
+            CalcDraw _calcDraw = new CalcDraw(MaxWidth, MaxHeight);
+            bitmap = new Bitmap(Convert.ToInt32(_calcDraw.getSizeWH()), Convert.ToInt32(_calcDraw.getSizeWH()));
+            Graphics graphics = Graphics.FromImage(bitmap);
+            graphics.Clear(Color.Green);
+
+            /*var paint = Paint()
+                ..color = Colors.black
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1.0;*/
+            Pen pen = new Pen(ColorTranslator.FromHtml("#000000"), Convert.ToInt32(1.0));
+            Rectangle rectangle = new Rectangle();
+            for (int i = 0; i <= 3; i++)
+            {
+                Radius tempRadius = new Radius(_calcDraw.getRadiusCircle(i));
+                rectangle.Width = Convert.ToInt32(tempRadius.x);
+                rectangle.Height = Convert.ToInt32(tempRadius.y);
+                rectangle.X = Convert.ToInt32(_calcDraw.getCenter().dx);
+                rectangle.Y = Convert.ToInt32(_calcDraw.getCenter().dy);
+                graphics.DrawEllipse(pen, rectangle);
+            }
+
+            /*canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(0), paint);
+            canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(1), paint);
+            canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(2), paint);*/
+
+
+
+
+
+
+
+            //Pen pen = new Pen(Color.White, 2);
+            graphics.DrawRectangle(pen, 50, 50, 250, 200);
+            MemoryStream memoryStream = new MemoryStream();
+            bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+            byteArray = memoryStream.ToArray();
+            b64 = Convert.ToBase64String(byteArray);
+            //brush.Dispose();
+            graphics.Dispose();
+            bitmap.Dispose();
+        }*@
 }

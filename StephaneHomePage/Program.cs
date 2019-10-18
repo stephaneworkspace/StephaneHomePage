@@ -27,7 +27,7 @@ namespace StephaneHomePage
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>(); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+                    webBuilder.UseStartup<Startup>().UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
                 });
     }
 }

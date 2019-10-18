@@ -34,7 +34,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
 
         /// Size (Width Max - Height Max) -> The min value for draw the main content
-        double getSizeWH()
+        public double getSizeWH()
         {
             return _sizeMinWorkingCanvasWidthHeight;
         }
@@ -144,7 +144,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             return (getRadiusTotal() * ((CIRCLE2 - CIRCLE1) - CIRCLE2)) / 100; // - CIRCLE2
         }
 
-        Offset getCenter()
+        public Offset getCenter()
         {
             //return new Offset(size.width / 2, size.height / 2);
             return new Offset(getRadiusTotal(), getRadiusTotal());
