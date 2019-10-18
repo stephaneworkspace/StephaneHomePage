@@ -10,6 +10,12 @@ COPY ["StephaneHomePage/StephaneHomePage.csproj", "StephaneHomePage/"]
 RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
 
+WORKDIR /
+RUN mkdir conf.d
+
+WORKDIR /conf.d
+RUN mkdir https
+
 WORKDIR /conf.d/https/
 RUN dotnet dev-certs https --clean
 RUN dotnet dev-certs https -ep ./conf.d/https/dev_cert.pfx -p 123456
