@@ -10,19 +10,19 @@ COPY ["StephaneHomePage/StephaneHomePage.csproj", "StephaneHomePage/"]
 RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
 
-WORKDIR /
-RUN mkdir key
+#WORKDIR /
+#RUN mkdir key
 
-WORKDIR /key
+WORKDIR /root
 RUN mkdir .aspnet
 
-WORKDIR /key/.aspnet
+WORKDIR /root/.aspnet
 RUN mkdir https
 
-WORKDIR /key/.aspnet/https
+WORKDIR /root/.aspnet/https
 RUN dotnet dev-certs https --clean
-RUN dotnet dev-certs https -ep /key/.aspnet/https/dev_cert.pfx -p 123456
-#RUN dotnet dev-certs https --trust
+RUN dotnet dev-certs https -ep /root/.aspnet/https/dev_cert.pfx -p 123456
+RUN dotnet dev-certs https --trust
 
 WORKDIR "/src/StephaneHomePage"
 RUN dotnet build "StephaneHomePage.csproj" -c Release -o /app/build
