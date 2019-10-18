@@ -36,7 +36,7 @@ namespace StephaneHomePage
         {
             //services.AddLetsEncrypt();
             services.AddRazorPages();
-            services.AddHsts(options =>
+            /*services.AddHsts(options =>
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
@@ -62,7 +62,7 @@ namespace StephaneHomePage
                     .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
                     .UnprotectKeysWithAnyCertificate(
                         new X509Certificate2("dev_cert.pfx", "123456"));
-            }
+            }*/
 
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();

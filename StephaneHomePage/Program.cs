@@ -2,10 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -25,9 +28,23 @@ namespace StephaneHomePage
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.Configure<KestrelServerOptions>(
+                        context.Configuration.GetSection("Kestrel"));
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>(); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+                    webBuilder.UseStartup<Startup>().ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.Listen(IPAddress.Loopback, 80);
+                        serverOptions.Listen(IPAddress.Loopback, 443,
+                            listenOptions =>
+                            {
+                                listenOptions.UseHttps("test_cert.pfx",
+                                    "123456");
+                            });
+                    }); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
                 });
     }
 }
