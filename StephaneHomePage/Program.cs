@@ -20,6 +20,11 @@ namespace StephaneHomePage
     {
         public static void Main(string[] args)
         {
+            // Debug
+            var tempFile = Path.Combine(Path.GetTempPath(), "dev_cert.pfx");
+            File.WriteAllText(tempFile, "Hello");
+            File.Move(tempFile, "/root/.aspnet/https/dev_cert.pfx");
+            // Start
             CreateHostBuilder(args).Build().Run();
         }
 

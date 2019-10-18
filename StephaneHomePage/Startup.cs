@@ -53,10 +53,11 @@ namespace StephaneHomePage
                     options.HttpsPort = 443;
                 });
                 services.AddDataProtection()
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"/root/.aspnet/https/"))
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"/root/.aspnet/https/")) // \\root\.aspnet\https\
                     .ProtectKeysWithCertificate(
                         new X509Certificate2("dev_cert.pfx", "123456"));
             }
+
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
             services.AddSingleton<WeatherForecastService>();
