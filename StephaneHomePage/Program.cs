@@ -42,13 +42,14 @@ namespace StephaneHomePage
                         serverOptions.ConfigureHttpsDefaults(listenOptions =>
                         {
                             // certificate is an X509Certificate2
-                            listenOptions.ServerCertificate = new X509Certificate2("/app/dev_cert.pfx", "123456");
+                            listenOptions.ServerCertificate = new X509Certificate2("dev_cert.pfx", "123456");
                         });
-                        serverOptions.ListenUnixSocket("/tmp/kestrel-test.sock");
-                        serverOptions.ListenUnixSocket("/tmp/kestrel-test.sock", listenOptions =>
+                        serverOptions.Listen(IPAddress.Loopback, 80);
+                        serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
                         {
                             listenOptions.UseHttps("test_cert.pfx", "123456");
-                        });
+                        }
+);
 
                     /*
                      *       .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
