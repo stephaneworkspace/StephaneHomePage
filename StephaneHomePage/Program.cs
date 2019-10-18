@@ -54,7 +54,9 @@ namespace StephaneHomePage
                         serverOptions.Listen(IPAddress.Loopback, 80);
                         serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
                         {
-                            listenOptions.UseHttps("test_cert.pfx", "123456");
+                            string certificate = File.ReadAllText(@"./dev_cert.pfx");
+                            Console.WriteLine(certificate);
+                            listenOptions.UseHttps(new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable));
                         });
                     })
                     .UseStartup<Startup>();
