@@ -3,18 +3,16 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-WORKDIR /.aspnet/https/
-RUN dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p { 123456 }
-
-
-
-WORKDIR /app
-
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build
+
 WORKDIR /src
 COPY ["StephaneHomePage/StephaneHomePage.csproj", "StephaneHomePage/"]
 RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
+
+#WORKDIR /.aspnet/https/
+RUN dotnet dev-certs https -ep /.aspnet/https/aspnetapp.pfx -p { 123456 }
+
 WORKDIR "/src/StephaneHomePage"
 RUN dotnet build "StephaneHomePage.csproj" -c Release -o /app/build
 
