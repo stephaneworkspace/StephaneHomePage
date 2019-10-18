@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -38,12 +39,23 @@ namespace StephaneHomePage
                     webBuilder.UseStartup<Startup>().ConfigureKestrel(serverOptions =>
                     {
                         serverOptions.Listen(IPAddress.Loopback, 80);
-                        serverOptions.Listen(IPAddress.Loopback, 443,
-                            listenOptions =>
-                            {
-                                listenOptions.UseHttps("test_cert.pfx",
-                                    "123456");
-                            });
+                        serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
+                        {
+                            listenOptions.UseHttps("test_cert.pfx", "123456");
+                        });
+                        serverOptions.ConfigureHttpsDefaults(listenOptions =>
+                        {
+                            // certificate is an X509Certificate2
+                            listenOptions.ServerCertificate = new X509Certificate2("dev_cert.pfx", "123456"));
+                        });
+
+                        /*
+                         *       .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
+                                 .UnprotectKeysWithAnyCertificate(
+                                    new X509Certificate2("dev_cert.pfx", "123456"));
+                        */
+
+
                     }); //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
                 });
     }
