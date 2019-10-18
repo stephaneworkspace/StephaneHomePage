@@ -44,7 +44,7 @@ namespace StephaneHomePage
                         {
                             string certificate = System.IO.File.ReadAllText(@"./dev_cert.pfx");
                             Console.WriteLine(certificate);
-                            string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes((certificate));
+                            string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes(certificate));
           
                             // certificate is an X509Certificate2
                             listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
