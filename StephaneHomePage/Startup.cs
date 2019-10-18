@@ -52,6 +52,9 @@ namespace StephaneHomePage
                     options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
                     options.HttpsPort = 443;
                 });
+                string path = @"/.dockerenv";
+                string readText = File.ReadAllText(path);
+                Console.WriteLine(readText);
                 Console.WriteLine("Debug");
                 Console.WriteLine(new DirectoryInfo(@"/https/").FullName);
                 string[] dir = Directory.GetFiles(@"/");
