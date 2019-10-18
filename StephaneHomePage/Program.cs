@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -41,8 +42,12 @@ namespace StephaneHomePage
 
                         serverOptions.ConfigureHttpsDefaults(listenOptions =>
                         {
+                            string certificate = System.IO.File.ReadAllText(@"./dev_cert.pfx");
+                            Console.WriteLine(certificate);
+                            string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes((certificate));
+          
                             // certificate is an X509Certificate2
-                            listenOptions.ServerCertificate = new X509Certificate2("dev_cert.pfx", "123456");
+                            listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
                         });
                         serverOptions.Listen(IPAddress.Loopback, 80);
                         serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
