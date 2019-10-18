@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="dev_cert.pfx*" CopyToPublishDirectory="PreserveNewest" />
     <PackageReference Include="Magick.NET-Q16-HDRI-AnyCPU" Version="7.14.4" />
     <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
