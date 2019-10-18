@@ -22,12 +22,4 @@ RUN dotnet publish "StephaneHomePage.csproj" -c Release -o /app/publish
 FROM base AS final
 COPY --from=publish /app/publish .
 
-WORKDIR "/app/"
-RUN echo "TEST 0"
-RUN ls
-RUN echo "TEST 1"
-WORKDIR "/app/publish/"
-RUN ls
-
-WORKDIR "/src/StephaneHomePage"
 ENTRYPOINT ["dotnet", "StephaneHomePage.dll"]
