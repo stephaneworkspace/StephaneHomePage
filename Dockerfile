@@ -16,12 +16,18 @@ RUN dotnet dev-certs https -ep /src/StephaneHomePage/dev_cert.pfx -p 123456
 WORKDIR "/src/StephaneHomePage"
 RUN dotnet build "StephaneHomePage.csproj" -c Release -o /app/build
 
-run echo "test1"
-RUN ls
-
 FROM build AS publish
 RUN dotnet publish "StephaneHomePage.csproj" -c Release -o /app/publish
 
 FROM base AS final
 COPY --from=publish /app/publish .
+
+WORKDIR "/app/"
+RUN echo "TEST 0"
+RUN ls
+RUN echo "TEST 1"
+WORKDIR "/app/publish/"
+RUN ls
+
+WORKDIR "/src/StephaneHomePage"
 ENTRYPOINT ["dotnet", "StephaneHomePage.dll"]
