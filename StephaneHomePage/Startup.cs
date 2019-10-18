@@ -36,7 +36,7 @@ namespace StephaneHomePage
         {
             //services.AddLetsEncrypt();
             services.AddRazorPages();
-            /*services.AddHsts(options =>
+            services.AddHsts(options =>
             {
                 options.Preload = true;
                 options.IncludeSubDomains = true;
@@ -53,12 +53,32 @@ namespace StephaneHomePage
                     options.HttpsPort = 443;
                 });
                 Console.WriteLine("Debug");
-                Console.WriteLine(new DirectoryInfo(@"./.aspnet/https/").FullName);
+                Console.WriteLine(new DirectoryInfo(@"/https/").FullName);
+                string[] dir = Directory.GetFiles(@"/");
+                foreach(string d in dir)
+                {
+                    Console.WriteLine(d);
+                }
+                dir = Directory.GetFiles(@"/app");
+                foreach (string d in dir)
+                {
+                    Console.WriteLine(d);
+                }
+                dir = Directory.GetFiles(@"/app/https/");
+                foreach (string d in dir)
+                {
+                    Console.WriteLine(d);
+                }
+                dir = Directory.GetFiles(@"/https/");
+                foreach (string d in dir)
+                {
+                    Console.WriteLine(d);
+                }
                 services.AddDataProtection()
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"./.aspnet/https/")) // \\root\.aspnet\https\
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"/https/")) // \\root\.aspnet\https\
                     .ProtectKeysWithCertificate(
                         new X509Certificate2("dev_cert.pfx", "123456"));
-            }*/
+            }
 
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
