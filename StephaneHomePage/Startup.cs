@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -49,6 +52,10 @@ namespace StephaneHomePage
                     options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
                     options.HttpsPort = 443;
                 });
+                services.AddDataProtection()
+                    .PersistKeysToFileSystem(new DirectoryInfo(@"\\root\.aspnet\https\"))
+                    .ProtectKeysWithCertificate(
+                        new X509Certificate2("dev_cert.pfx", "123456"));
             }
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
