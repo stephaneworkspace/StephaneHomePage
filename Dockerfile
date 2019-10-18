@@ -11,17 +11,17 @@ RUN dotnet restore "StephaneHomePage/StephaneHomePage.csproj"
 COPY . .
 
 WORKDIR /
-RUN mkdir conf.d
+RUN mkdir key
 
-WORKDIR /root
+WORKDIR /key
 RUN mkdir .aspnet
 
-WORKDIR /root/.aspnet
+WORKDIR /key/.aspnet
 RUN mkdir https
 
-WORKDIR /root/.aspnet/https
+WORKDIR /key/.aspnet/https
 RUN dotnet dev-certs https --clean
-RUN dotnet dev-certs https -ep /root/.aspnet/https/dev_cert.pfx -p 123456
+RUN dotnet dev-certs https -ep /key/.aspnet/https/dev_cert.pfx -p 123456
 #RUN dotnet dev-certs https --trust
 
 WORKDIR "/src/StephaneHomePage"
