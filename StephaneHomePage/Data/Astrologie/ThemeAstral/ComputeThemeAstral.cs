@@ -32,7 +32,8 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
         public List<Offset> XYPlanetSizeLine;
         public List<Offset> XYPlanetDegSizeLine;
         public List<Offset> XYPlanetMinSizeLine;
-       
+        public CalcDraw CalcDraw;
+
         public ComputeThemeAstral(ImportJson json, double maxWidth, double maxHeight)
         {
             CalcZodiac = new CalcZodiac();
@@ -57,39 +58,39 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
             double whPlanetDegSymbolSize;
             double whPlanetMinSymbolSize;
 
-            CalcDraw calcDraw = new CalcDraw(maxWidth, maxHeight);
+            CalcDraw = new CalcDraw(maxWidth, maxHeight);
             // At °0, no importance, ist juste for have the size of zodiac container care
-            XYZodiacSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), calcDraw.getRadiusCircle(0));
-            whZodiacSize = calcDraw.sizeZodiac(XYZodiacSizeLine[0], XYZodiacSizeLine[1]);
+            XYZodiacSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), CalcDraw.getRadiusCircle(0));
+            whZodiacSize = CalcDraw.sizeZodiac(XYZodiacSizeLine[0], XYZodiacSizeLine[1]);
             whZodiacSize = (whZodiacSize * 50) / 100;
-            Zodiac = CalcZodiac.calcDrawZodiac(calcDraw, whZodiacSize);
+            Zodiac = CalcZodiac.calcDrawZodiac(CalcDraw, whZodiacSize);
 
-            XYHouseSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), calcDraw.getRadiusCircle(0));
-            whHouseSize = calcDraw.sizeHouse(XYHouseSizeLine[0], XYHouseSizeLine[1]);
+            XYHouseSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), CalcDraw.getRadiusCircle(0));
+            whHouseSize = CalcDraw.sizeHouse(XYHouseSizeLine[0], XYHouseSizeLine[1]);
             whHouseSize = (whHouseSize * 70) / 100;
-            House = CalcHouse.calcDrawHouse(calcDraw, whHouseSize);
+            House = CalcHouse.calcDrawHouse(CalcDraw, whHouseSize);
 
-            XYAngleSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whAngleSymbolSize = calcDraw.sizePlanet(XYAngleSizeLine[0], XYAngleSizeLine[1]);
+            XYAngleSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whAngleSymbolSize = CalcDraw.sizePlanet(XYAngleSizeLine[0], XYAngleSizeLine[1]);
             whAngleSymbolSize = (whAngleSymbolSize * 150) / 100;
-            XYAngleDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whAngleDegSymbolSize = calcDraw.sizeAngle(XYAngleDegSizeLine[0], XYAngleDegSizeLine[1]);
+            XYAngleDegSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whAngleDegSymbolSize = CalcDraw.sizeAngle(XYAngleDegSizeLine[0], XYAngleDegSizeLine[1]);
             whAngleDegSymbolSize = (whAngleDegSymbolSize * 110) / 100;
-            XYAngleMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whAngleMinSymbolSize = calcDraw.sizeAngle(XYAngleMinSizeLine[0], XYAngleMinSizeLine[1]);
+            XYAngleMinSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whAngleMinSymbolSize = CalcDraw.sizeAngle(XYAngleMinSizeLine[0], XYAngleMinSizeLine[1]);
             whAngleMinSymbolSize = (whAngleMinSymbolSize * 80) / 100;
-            Angle = CalcAngle.calcDrawAngle(calcDraw, whAngleSymbolSize, whAngleDegSymbolSize, whAngleMinSymbolSize); // todo angle size for outside circle
+            Angle = CalcAngle.calcDrawAngle(CalcDraw, whAngleSymbolSize, whAngleDegSymbolSize, whAngleMinSymbolSize); // todo angle size for outside circle
 
-            XYPlanetSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whPlanetSymbolSize = calcDraw.sizePlanet(XYPlanetSizeLine[0], XYPlanetSizeLine[1]);
+            XYPlanetSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whPlanetSymbolSize = CalcDraw.sizePlanet(XYPlanetSizeLine[0], XYPlanetSizeLine[1]);
             whPlanetSymbolSize = (whPlanetSymbolSize * 150) / 100;
-            XYPlanetDegSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whPlanetDegSymbolSize = calcDraw.sizePlanet(XYPlanetDegSizeLine[0], XYPlanetDegSizeLine[1]);
+            XYPlanetDegSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whPlanetDegSymbolSize = CalcDraw.sizePlanet(XYPlanetDegSizeLine[0], XYPlanetDegSizeLine[1]);
             whPlanetDegSymbolSize = (whPlanetDegSymbolSize * 110) / 100;
-            XYPlanetMinSizeLine = calcDraw.lineTrigo(0, calcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), calcDraw.getRadiusCircle(0));
-            whPlanetMinSymbolSize = calcDraw.sizeAngle(XYPlanetMinSizeLine[0], XYPlanetMinSizeLine[1]);
+            XYPlanetMinSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
+            whPlanetMinSymbolSize = CalcDraw.sizeAngle(XYPlanetMinSizeLine[0], XYPlanetMinSizeLine[1]);
             whPlanetMinSymbolSize = (whPlanetMinSymbolSize * 80) / 100;
-            Planet = CalcPlanet.calcDrawPlanet(calcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
+            Planet = CalcPlanet.calcDrawPlanet(CalcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
         }
     }
 }

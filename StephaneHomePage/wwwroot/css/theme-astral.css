@@ -1,0 +1,13 @@
+﻿.svg-base {
+    background-repeat: no-repeat;
+}
+.svg-console {
+    word-break: keep-all;
+    white-space: pre-wrap;
+    font-family: "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}

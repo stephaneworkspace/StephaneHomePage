@@ -10,32 +10,32 @@
 @using StephaneHomePage.Struct.Astrologie
 @using Blazor.Extensions.Canvas.Canvas2D
 @using Blazor.Extensions.Canvas
+@using System.Text.RegularExpressions;
 
-@if (swOk)
+@if (_swOk)
 {
-    @*<center><img src="data:image/svg+xml;base64,@imageB64" /></center>*@
-    <center><img src="@imageSVG"/></center>
-
-    <div style="height: 150px; background-repeat: no-repeat; background-image: url(@imageSVG);"></div>
-
+    <center>
+        <div class="svg-base" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx; background-image: url('data:image/svg+xml;base64,@_imageSVG');"></div>
+        <div class="svg-base" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx; background-image: url('data:image/svg+xml;utf8,@_imageSVGManual');"></div>
+    </center>
+    <h2>Imagemagick</h2><br />
+    <div class="svg-console">@System.Text.ASCIIEncoding.ASCII.GetString(System.Convert.FromBase64String(_imageSVG)))</div>
+    <h2>Svg</h2><br />
+    <div class="svg-console">@_imageSVGManualConsole</div>
 }
 
+
 @code {
-
-    public bool swOk = false;
-
     [Parameter] public ImportJson Json { get; set; }
     [Parameter] public double MaxWidth { get; set; }
     [Parameter] public double MaxHeight { get; set; }
 
-    /*
-    private Bitmap bitmap;
-    private byte[] byteArray;
-    private String b64;*/
-
-    private ComputeThemeAstral computeThemeAstral;
-    private String imageB64;
-    private String imageSVG;
+    private bool _swOk = false;
+    private ComputeThemeAstral _computeThemeAstral;
+    private String _imageSVG;
+    private String _imageSVGManual;
+    private String _imageSVGManualConsole;
+    private String _sizeThemeAstralpx;
 
     protected override void OnInitialized()
     {
@@ -51,56 +51,12 @@
 
     private void GeneratePicture()
     {
-        computeThemeAstral = new ComputeThemeAstral(Json, MaxWidth, MaxHeight);
-        DrawImage drawImage = new DrawImage(computeThemeAstral);
-        //imageB64 = drawImage.GetB64();
-        imageSVG = drawImage.GetSvg();
-        swOk = true;
+        _computeThemeAstral = new ComputeThemeAstral(Json, MaxWidth, MaxHeight);
+        _sizeThemeAstralpx = _computeThemeAstral.CalcDraw.getSizeWH().ToString() + "px";
+        DrawImage drawImage = new DrawImage(_computeThemeAstral);
+        _imageSVG = drawImage.GetSvg();
+        _imageSVGManual = drawImage.GetSvgImage(false);
+        _imageSVGManualConsole = drawImage.GetSvgImage(true);
+        _swOk = true;
     }
-
-    @*
-
-        void Draw()
-        {
-            CalcDraw _calcDraw = new CalcDraw(MaxWidth, MaxHeight);
-            bitmap = new Bitmap(Convert.ToInt32(_calcDraw.getSizeWH()), Convert.ToInt32(_calcDraw.getSizeWH()));
-            Graphics graphics = Graphics.FromImage(bitmap);
-            graphics.Clear(Color.Green);
-
-            /*var paint = Paint()
-                ..color = Colors.black
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1.0;*/
-            Pen pen = new Pen(ColorTranslator.FromHtml("#000000"), Convert.ToInt32(1.0));
-            Rectangle rectangle = new Rectangle();
-            for (int i = 0; i <= 3; i++)
-            {
-                Radius tempRadius = new Radius(_calcDraw.getRadiusCircle(i));
-                rectangle.Width = Convert.ToInt32(tempRadius.x);
-                rectangle.Height = Convert.ToInt32(tempRadius.y);
-                rectangle.X = Convert.ToInt32(_calcDraw.getCenter().dx);
-                rectangle.Y = Convert.ToInt32(_calcDraw.getCenter().dy);
-                graphics.DrawEllipse(pen, rectangle);
-            }
-
-            /*canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(0), paint);
-            canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(1), paint);
-            canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(2), paint);*/
-
-
-
-
-
-
-
-            //Pen pen = new Pen(Color.White, 2);
-            graphics.DrawRectangle(pen, 50, 50, 250, 200);
-            MemoryStream memoryStream = new MemoryStream();
-            bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-            byteArray = memoryStream.ToArray();
-            b64 = Convert.ToBase64String(byteArray);
-            //brush.Dispose();
-            graphics.Dispose();
-            bitmap.Dispose();
-        }*@
 }
