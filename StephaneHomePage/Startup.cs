@@ -52,6 +52,12 @@ namespace StephaneHomePage
                     options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
                     options.HttpsPort = 443;
                 });
+                Console.WriteLine("Debug");
+                string[] dir = Directory.GetFiles(@"./");
+                foreach(string d in dir)
+                {
+                    Console.WriteLine(d);
+                }
                 services.AddDataProtection()
                     .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
                     .UnprotectKeysWithAnyCertificate(
