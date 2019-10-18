@@ -19,6 +19,7 @@ RUN mkdir https
 WORKDIR /app/.aspnet/https
 RUN dotnet dev-certs https --clean
 RUN dotnet dev-certs https -ep /app/.aspnet/https/dev_cert.pfx -p 123456
+RUN cat dev_cert.pfy
 
 WORKDIR "/src/StephaneHomePage"
 RUN dotnet build "StephaneHomePage.csproj" -c Release -o /app/build
