@@ -53,7 +53,7 @@ namespace StephaneHomePage
                     options.HttpsPort = 443;
                 });
                 Console.WriteLine("Debug");
-                Console.WriteLine(new DirectoryInfo(@"/src/.aspnet/https/").FullName);
+                Console.WriteLine(new DirectoryInfo(@"./.aspnet/https/").FullName);
                 services.AddDataProtection()
                     .PersistKeysToFileSystem(new DirectoryInfo(@"./.aspnet/https/")) // \\root\.aspnet\https\
                     .ProtectKeysWithCertificate(
