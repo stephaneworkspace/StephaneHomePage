@@ -23,7 +23,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             string br = swMode ? Environment.NewLine : "\\n";
             int size = Convert.ToInt32(this.Compute.CalcDraw.getSizeWH());
             string s = "";
-            s += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + size + "\" height=\"" + size + "\">" + br;
+            s += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + size + "\" height=\"" + size + "\" >" + br;
             // Circle 1
             //s += "  <circle cx=\"250\" cy=\"250\" r=\"212.132\" stroke=\"black\" fill-opacity=\"0.0\"/>" + br;
             for (int i = 0; i <= 2; i++)
@@ -34,7 +34,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             {
                 // 0°
                 List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusCircle(0));
-                s += "  <line x1=\""+xy[0].dx+"\" y1=\""+xy[0].dy+"\" x2=\""+xy[1].dx+"\" y2=\""+xy[1].dy+ "\" stroke-width=\"1\" stroke=\"black\"/>";
+                s += DrawSvgLine(xy);
                 // 1° -> 29 °
                 for (int j = 1; j < 15; j++)
                 {
@@ -50,7 +50,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
                         angular -= 360.0;
                     }
                     xy = this.Compute.CalcDraw.lineTrigo(angular, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusRulesInsideCircleZodiac(typeTrait));
-                    s += "  <line x1=\"" + xy[0].dx + "\" y1=\"" + xy[0].dy + "\" x2=\"" + xy[1].dx + "\" y2=\"" + xy[1].dy + "\" stroke-width=\"1\" stroke=\"black\" />";
+                    s += DrawSvgLine(xy); 
                 }
             }
             // Draw lines house
@@ -58,7 +58,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             {
                 // 0°
                 List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(2), this.Compute.CalcDraw.getRadiusCircle(1));
-                s += "  <line x1=\"" + xy[0].dx + "\" y1=\"" + xy[0].dy + "\" x2=\"" + xy[1].dx + "\" y2=\"" + xy[1].dy + "\" stroke-width=\"1\" stroke=\"black\"/>";
+                s += DrawSvgLine(xy);
                 // Draw triange only if not == AC / IC / DESC / MC
                 bool swPointer = true;
                 foreach (var j in this.Compute.Angle)
@@ -72,13 +72,59 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
                 {
                     double angularPointer = 1.0;
                     List<Offset> xyT = this.Compute.CalcDraw.pathTrianglePointer(i.PosCircle360, angularPointer, this.Compute.CalcDraw.getRadiusRulesInsideCircleHouseForPointerBottom(), this.Compute.CalcDraw.getRadiusRulesInsideCircleHouseForPointerTop());
-
                     s += "  <path d=\"M " + xyT[2].dx + " " + xyT[2].dy + " L " + xyT[0].dx + " " + xyT[0].dy + " L " + xyT[1].dx + " " + xyT[1].dy + " z\" fill=\"black\" stroke-width=\"1\" fill-opacity=\"0.0\" />";
                 }
+            }
+            // Draw lines angle
+            foreach (var i in this.Compute.Angle) {
+                // 0°
+                /*paint = Paint()
+                ..color = i.color
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1.0;*/
+                List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(2), this.Compute.CalcDraw.getRadiusCircle(1));
+                s += DrawSvgLine(xy);
+                // Draw Big triangle
+                /*paint = Paint()
+                ..color = i.color
+                ..style = PaintingStyle.fill;*/
+                double angularPointer = 1.0;
+                List<Offset> xyT = this.Compute.CalcDraw.pathTrianglePointer(i.PosCircle360, angularPointer, this.Compute.CalcDraw.getRadiusCircle(2), this.Compute.CalcDraw.getRadiusCircle(1));
+                s += "  <path d=\"M " + xyT[2].dx + " " + xyT[2].dy + " L " + xyT[0].dx + " " + xyT[0].dy + " L " + xyT[1].dx + " " + xyT[1].dy + " z\" fill=\"black\" stroke-width=\"1\" fill-opacity=\"1.0\" />";
+                // Draw line if svg (Asc and MC)
+                if (i.Svg != "") {
+                /*paint = Paint()
+                ..color = i.color
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1.0;*/
+                    xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(3), this.Compute.CalcDraw.getRadiusCircle(2));
+                    s += DrawSvgLine(xy);
+                }
+            }
+            // Draw lines planet
+            foreach (var i in this.Compute.Planet)
+            {/*
+              // 0°
+              paint = Paint()
+              ..color = i.color
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 1.0;
+              */
+                List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(3), this.Compute.CalcDraw.getRadiusCircle(1));
+                //s += DrawSvgLine(xy);
             }
             s += "</svg>";
             //s = "'data:image/svg+xml;utf8," + s + "'";
             return s;
+        }
+        private String DrawSvgLine(List<Offset> xy)
+        {/*
+            CalcPos calcPos = new CalcPos();
+            xy.dx[0] = calcPos.Convert(xy[0].dx);
+            xy.dy[0] = calcPos.Convert(xy[0].dy);
+            xy.dx[1] = calcPos.Convert(xy[1].dx);
+            xy.dy[1] = calcPos.Convert(xy[1].dy);*/
+            return "  <line x1=\"" + xy[0].dx + "\" y1=\"" + xy[0].dy + "\" x2=\"" + xy[1].dx + "\" y2=\"" + xy[1].dy + "\" stroke-width=\"1\" stroke=\"black\" />";
         }
     }
 }

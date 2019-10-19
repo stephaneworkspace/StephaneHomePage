@@ -1,5 +1,8 @@
 ﻿.svg-base {
     background-repeat: no-repeat;
+    /*transform: rotate(180deg);*/
+    /*transform: skewX(180deg);*/
+    /*transform-origin: center center;*/
 }
 .svg-console {
     word-break: keep-all;
