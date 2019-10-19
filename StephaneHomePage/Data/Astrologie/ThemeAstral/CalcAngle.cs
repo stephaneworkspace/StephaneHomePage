@@ -13,12 +13,6 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
     public class CalcAngle
     {
         static List<Angle> _angle = new List<Angle>();
-        private CalcPos _calcPos = new CalcPos();
-
-        public CalcAngle()
-        {
-            this._calcPos = new CalcPos();
-        }
 
         public void parseJson(List<ImportAngles> import)
         {
@@ -26,7 +20,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
             // Order by Asc
             foreach (var i in import)
             {
-                _angle.Add(new Angle(i.id, i.sign, i.sign_pos, i.svg, i.svg_degre, i.svg_min, i.pos_circle_360, this._calcPos.Convert(i.pos_circle_360), new Offset(0.0, 0.0), new Offset(0.0, 0.0), new Offset(0.0, 0.0), ColorTranslator.FromHtml("#7c7459")));
+                _angle.Add(new Angle(i.id, i.sign, i.sign_pos, i.svg, i.svg_degre, i.svg_min, i.pos_circle_360, new Offset(0.0, 0.0), new Offset(0.0, 0.0), new Offset(0.0, 0.0), ColorTranslator.FromHtml("#7c7459")));
             }
         }
 
@@ -42,7 +36,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
                     Offset xy1 = calcDraw.getOffsetCenterPlanet(sizeAngle, calcDraw.pointTrigo(i.PosCircle360, calcDraw.getRadiusCircle(4))); // symbol
                     Offset xy2 = calcDraw.getOffsetCenterPlanet(sizeDegre, calcDraw.pointTrigo(i.PosCircle360, calcDraw.getRadiusCircle(5))); // °
                     Offset xy3 = calcDraw.getOffsetCenterPlanet(sizeDegre, calcDraw.pointTrigo(i.PosCircle360, calcDraw.getRadiusCircle(6))); // '
-                    z.Add(new Angle(i.Id, i.Sign, i.SignPos, i.Svg, i.SvgDegre, i.SvgMin, i.PosCircle360, i.PosCircle360Svg, xy1, xy2, xy3, i.Color));
+                    z.Add(new Angle(i.Id, i.Sign, i.SignPos, i.Svg, i.SvgDegre, i.SvgMin, i.PosCircle360, xy1, xy2, xy3, i.Color));
                 }
             }
             return z;

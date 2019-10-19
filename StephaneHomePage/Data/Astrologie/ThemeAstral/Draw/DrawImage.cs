@@ -76,7 +76,17 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
                 }
             }
             // Draw lines angle
-            foreach (var i in this.Compute.Angle) {
+            //int cpt = 0;
+            foreach (var i in this.Compute.Angle) 
+            {
+                /*cpt++;
+                if (cpt == 2 || cpt == 1)
+                {
+                    
+                } else
+                {
+                    continue;
+                }*/
                 // 0°
                 /*paint = Paint()
                 ..color = i.color
@@ -118,12 +128,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             return s;
         }
         private String DrawSvgLine(List<Offset> xy)
-        {/*
-            CalcPos calcPos = new CalcPos();
-            xy.dx[0] = calcPos.Convert(xy[0].dx);
-            xy.dy[0] = calcPos.Convert(xy[0].dy);
-            xy.dx[1] = calcPos.Convert(xy[1].dx);
-            xy.dy[1] = calcPos.Convert(xy[1].dy);*/
+        {
             return "  <line x1=\"" + xy[0].dx + "\" y1=\"" + xy[0].dy + "\" x2=\"" + xy[1].dx + "\" y2=\"" + xy[1].dy + "\" stroke-width=\"1\" stroke=\"black\" />";
         }
     }

@@ -206,11 +206,15 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         public List<Offset> lineTrigo(double angular, double radiusCircleBegin, double radiusCircleEnd)
         {
             List<Offset> returnList = new List<Offset>();
-            double dx1 = getCenter().dx + (radiusCircleBegin * Math.Cos(angular / CIRC * 2 * Math.PI));// * -1 * new Radius(radiusCircleBegin).x;
-            double dy1 = getCenter().dy + (radiusCircleBegin * Math.Sin(angular / CIRC * 2 * Math.PI));// * new Radius(radiusCircleBegin).y;
+            double dx1 = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * radiusCircleBegin;
+            double dy1 = getCenter().dy + Math.Sin(angular / CIRC * 2 * Math.PI) * radiusCircleBegin;
+            string a = Math.Cos(angular / CIRC * 2 * Math.PI).ToString();
+            string b = Math.Sin(angular / CIRC * 2 * Math.PI).ToString();
+            double xxx1 = getCenter().dx;
+            double xxy2 = getCenter().dy;
             returnList.Add(new Offset(dx1, dy1));
-            double dx2 = getCenter().dx + (radiusCircleEnd * Math.Cos(angular / CIRC * 2 * Math.PI));// * -1 * new Radius(radiusCircleEnd).x;
-            double dy2 = getCenter().dy + (radiusCircleEnd * Math.Sin(angular / CIRC * 2 * Math.PI));// * new Radius(radiusCircleEnd).y;
+            double dx2 = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * radiusCircleEnd;
+            double dy2 = getCenter().dy + Math.Sin(angular / CIRC * 2 * Math.PI) * radiusCircleEnd;
             returnList.Add(new Offset(dx2, dy2));
             return returnList;
         }
@@ -218,8 +222,8 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         // Trigonometry 
         public Offset pointTrigo(double angular, double radiusCircle)
         {
-            double dx = getCenter().dx + (radiusCircle * Math.Cos(angular / CIRC * 2 * Math.PI));// * +1 * new Radius(radiusCircle).x;
-            double dy = getCenter().dy + (radiusCircle * Math.Sin(angular  / CIRC * 2 * Math.PI));// * new Radius(radiusCircle).y;
+            double dx = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * radiusCircle;
+            double dy = getCenter().dy + Math.Sin(angular  / CIRC * 2 * Math.PI) * radiusCircle;
             return new Offset(dx, dy);
         }
 
@@ -237,14 +241,14 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             {
                 angular2 -= 360;
             }
-            double dx1 = getCenter().dx + (radiusCircleBegin * Math.Cos(angular1 / CIRC * 2 * Math.PI));// * -1 * new Radius(radiusCircleBegin).x;
-            double dy1 = getCenter().dy + (radiusCircleBegin * Math.Sin(angular1 / CIRC * 2 * Math.PI));// * new Radius(radiusCircleBegin).y;
+            double dx1 = getCenter().dx + Math.Cos(angular1 / CIRC * 2 * Math.PI) * -1 * radiusCircleBegin;
+            double dy1 = getCenter().dy + Math.Sin(angular1 / CIRC * 2 * Math.PI) * radiusCircleBegin;
             returnList.Add(new Offset(dx1, dy1));
-            double dx2 = getCenter().dx + (radiusCircleBegin * Math.Cos(angular2 / CIRC * 2 * Math.PI));// * -1 * new Radius(radiusCircleBegin).x;
-            double dy2 = getCenter().dy + (radiusCircleBegin * Math.Sin(angular2 / CIRC * 2 * Math.PI));// * new Radius(radiusCircleBegin).y;
+            double dx2 = getCenter().dx + Math.Cos(angular2 / CIRC * 2 * Math.PI) * -1 * radiusCircleBegin;
+            double dy2 = getCenter().dy + Math.Sin(angular2 / CIRC * 2 * Math.PI) * radiusCircleBegin;
             returnList.Add(new Offset(dx2, dy2));
-            double dx3 = getCenter().dx + (radiusCircleEnd * Math.Cos(angular / CIRC * 2 * Math.PI));// * -1 * new Radius(radiusCircleEnd).x;
-            double dy3 = getCenter().dy + (radiusCircleEnd * Math.Sin(angular / CIRC * 2 * Math.PI));// * new Radius(radiusCircleEnd).y;
+            double dx3 = getCenter().dx + Math.Cos(angular / CIRC * 2 * Math.PI) * -1 * radiusCircleEnd;
+            double dy3 = getCenter().dy + Math.Sin(angular / CIRC * 2 * Math.PI) * radiusCircleEnd; ;
             returnList.Add(new Offset(dx3, dy3));
             return returnList;
         }

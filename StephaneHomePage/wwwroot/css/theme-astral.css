@@ -3,6 +3,7 @@
     /*transform: rotate(180deg);*/
     /*transform: skewX(180deg);*/
     /*transform-origin: center center;*/
+    /*transform: scale(-1, -1);*/
 }
 .svg-console {
     word-break: keep-all;
