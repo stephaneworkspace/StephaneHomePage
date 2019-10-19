@@ -36,10 +36,20 @@ namespace StephaneHomePage
                     context.Configuration.GetSection("Kestrel"));
                     
             })*/
+            .ConfigureServices((context, services) => 
+            {
+                services.Configure<KestrelServerOptions>(
+                    context.Configuration.GetSection("Kestrel"));
+                    
+            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
-                /*
+                    .ConfigureKestrel(serverOptions =>
+                    {
+                        serverOptions.Listen(IPAddress.Any, 80);
+                    })
+                    /*
                     .ConfigureKestrel(serverOptions =>
                     {
                         serverOptions.Listen(IPAddress.Any, 80);
