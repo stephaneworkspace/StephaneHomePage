@@ -29,6 +29,11 @@ steps:
     feedsToUse: 'select'
   displayName: Restore
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo '{ "password": "$(security-key)" }' >> ./StephaneHomePage/password.json
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
