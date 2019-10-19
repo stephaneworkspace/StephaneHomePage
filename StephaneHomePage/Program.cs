@@ -54,11 +54,9 @@ namespace StephaneHomePage
                         serverOptions.Listen(IPAddress.Any, 80);
                         serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
                         {
-                            string certificate = File.ReadAllText(@"./dev_cert.pfx", Encoding.UTF8);
-                            // Console.WriteLine(certificate);
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
-                            // listenOptions.UseHttps(new X509Certificate2(Convert.FromBase64String(certificate), "123456", X509KeyStorageFlags.Exportable));
                         });
+                        serverOptions.AddServerHeader = false;
                     })
                     .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
