@@ -47,6 +47,7 @@ namespace StephaneHomePage
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
                     })*/
+                    .UseUrls("http://0.0.0.0:80;https://0.0.0.0:443")
                     .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
