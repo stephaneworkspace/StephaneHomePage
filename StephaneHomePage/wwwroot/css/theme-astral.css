@@ -1,5 +1,7 @@
 ﻿.canvas {
+    display: flex;
     position: relative;
+    margin-top: 3.5rem;
     /*
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;

@@ -21,9 +21,17 @@ app {
 }
 
 .top-row {
-    height: 3.5rem;
+    height: 4rem;
     display: flex;
     align-items: center;
+}
+
+@media (max-width: 767px) {
+    .mat-navbar-fixed-top {
+        top: 0px;
+        position: initial !important;
+        padding-top: 0px !important;
+    }
 }
 
 .main {
@@ -41,11 +49,12 @@ app {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+    /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
+    background-image: linear-gradient(90deg, #283593 0%, #fff 99%);
 }
 
 .sidebar .top-row {
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: #283593;*/ /* Mat Indigo 800 */
 }
 
 .sidebar .navbar-brand {
@@ -82,12 +91,12 @@ app {
 }
 
 .nav-item a.active {
-    background-color: rgba(255,255,255,0.25);
+    background-color: rgba(0,0,0,0.25);
     color: white;
 }
 
 .nav-item a:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(0,0,0,0.1);
     color: white;
 }
 
@@ -96,7 +105,7 @@ app {
 }
 
 .navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -135,8 +144,8 @@ app {
     }
 
     .main > div {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
+        /*padding-left: 2rem !important;
+        padding-right: 1.5rem !important;*/
     }
 
     .navbar-toggler {

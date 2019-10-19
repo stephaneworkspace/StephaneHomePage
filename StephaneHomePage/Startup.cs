@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StephaneHomePage.Data;
 using StephaneHomePage.Services.Http;
+using EmbeddedBlazorContent;
 
 namespace StephaneHomePage
 {
@@ -58,6 +59,7 @@ namespace StephaneHomePage
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
 
             app.UseRouting();
 

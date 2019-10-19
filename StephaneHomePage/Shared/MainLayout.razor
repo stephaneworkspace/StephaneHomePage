@@ -1,15 +1,43 @@
 ﻿@inherits LayoutComponentBase
-
 <div class="sidebar">
     <NavMenu />
 </div>
 
 <div class="main">
-    <div class="top-row px-4">
-        <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
-    </div>
+    <MatThemeProvider Theme="@_theme">
+        <MatAppBarContainer>
+            <MatAppBar Fixed="true" Class="mat-navbar-fixed-top">
+                <MatAppBarRow>
+                    <MatAppBarSection>
+                        <!--<MatIconButton Icon="menu"></MatIconButton>-->
+                        <MatIconButton Icon="lock"></MatIconButton>
+                        <MatAppBarTitle></MatAppBarTitle>
+                    </MatAppBarSection>
+                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                        <MatIconButton Icon="lock"></MatIconButton>
+                    </MatAppBarSection>
+                </MatAppBarRow>
+            </MatAppBar>
 
-    <div class="content px-4">
-        @Body
-    </div>
+            <MatAppBarContent>
+                @Body
+            </MatAppBarContent>
+        </MatAppBarContainer>
+    </MatThemeProvider>
+        @*
+            <div class="top-row px-4">
+                <a href="https://docs.microsoft.com/en-us/aspnet/" target="_blank">About</a>
+            </div>
+
+            <div class="content px-4" style="width: 100%; padding-top: 400px!important;">
+                @Body
+            </div>*@
 </div>
+
+@code {
+    MatTheme _theme = new MatTheme()
+    {
+        Primary = MatThemeColors.Indigo._300.Value,
+        Secondary = MatThemeColors.Blue._500.Value
+    };
+}
