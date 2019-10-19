@@ -56,7 +56,7 @@ namespace StephaneHomePage
                         {
                             string certificate = File.ReadAllText(@"./dev_cert.pfx");
                             // Console.WriteLine(certificate);
-                            listenOptions.UseHttps(new X509Certificate2(Convert.FromBase64String(certificate), "123456", X509KeyStorageFlags.Exportable));
+                            listenOptions.UseHttps(new X509Certificate2(Convert.FromBase64String(certificate.Replace("-", "")), "123456", X509KeyStorageFlags.Exportable));
                         });
                     })
                     .UseStartup<Startup>();
