@@ -30,33 +30,24 @@ namespace StephaneHomePage
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            .ConfigureServices((context, services) =>
+            /*.ConfigureServices((context, services) =>
             {
                 services.Configure<KestrelServerOptions>(
                     context.Configuration.GetSection("Kestrel"));
                     
-            })
+            })*/
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
+                /*
                     .ConfigureKestrel(serverOptions =>
                     {
-                        /*
-                        serverOptions.ConfigureHttpsDefaults(listenOptions =>
-                        {
-                            string certificate = File.ReadAllText(@"./dev_cert.pfx");
-                            Console.WriteLine(certificate);
-                            string base64str = Convert.ToBase64String(Encoding.ASCII.GetBytes(certificate));
-
-                            // certificate is an X509Certificate2
-                            listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
-                        });*/
                         serverOptions.Listen(IPAddress.Any, 80);
                         serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
                         {
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
-                    })
+                    })*/
                     .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });

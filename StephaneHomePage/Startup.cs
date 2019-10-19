@@ -34,36 +34,8 @@ namespace StephaneHomePage
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddLetsEncrypt();
+            services.AddLetsEncrypt();
             services.AddRazorPages();
-            /*services.AddHsts(options =>
-            {
-                options.Preload = true;
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromDays(60);
-                //options.ExcludedHosts.Add("stephane-bressani.ch");
-                //options.ExcludedHosts.Add("www.stephane-bressani.ch");
-            });
-            // IWebHostEnvironment (stored in _env) is injected into the Startup class.
-            if (!this.env.IsDevelopment())
-            {
-                services.AddHttpsRedirection(options =>
-                {
-                    options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
-                    options.HttpsPort = 443;
-                });
-                Console.WriteLine("Debug");
-                string[] dir = Directory.GetFiles(@"./");
-                foreach(string d in dir)
-                {
-                    Console.WriteLine(d);
-                }
-                services.AddDataProtection()
-                    .PersistKeysToFileSystem(new DirectoryInfo(@"./")) // \\root\.aspnet\https\
-                    .UnprotectKeysWithAnyCertificate(
-                        new X509Certificate2("dev_cert.pfx", "123456"));
-            }*/
-
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
             services.AddSingleton<WeatherForecastService>();
