@@ -108,7 +108,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             return (getRadiusTotal() * ((CIRCLE6INVISIBLE - CIRCLE5INVISIBLE) + CIRCLE0)) / 100; // - CIRCLE5INVISIBLE for '
         }
 
-        double getRadiusRulesInsideCircleZodiac(TypeTrait typeTrait)
+        public double getRadiusRulesInsideCircleZodiac(TypeTrait typeTrait)
         {
             double divTrait = 0.0;
             switch (typeTrait)

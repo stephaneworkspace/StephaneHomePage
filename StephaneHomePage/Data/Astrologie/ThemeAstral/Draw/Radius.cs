@@ -15,8 +15,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         public double y { get; set; }
         public Radius(double radius)
         {
-            this.x = radius * Math.Cos(Math.Sin(ANGLE));
-            this.y = radius * Math.Sin(ANGLE);
+            double angle = 2 * Math.PI / 360;
+            this.x = radius * Math.Cos(Math.Sin(angle));
+            this.y = radius * Math.Cos(Math.Sin(angle));
         }
     }
 }

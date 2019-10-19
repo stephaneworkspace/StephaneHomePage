@@ -26,7 +26,38 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             string s = "";
             s += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + size + "\" height=\"" + size + "\">" + br;
             // Circle 1
-            s += "  <circle cx=\"250\" cy=\"250\" r=\"212.132\" stroke=\"black\" fill-opacity=\"0.0\"/>" + br;
+            //s += "  <circle cx=\"250\" cy=\"250\" r=\"212.132\" stroke=\"black\" fill-opacity=\"0.0\"/>" + br;
+            for (int i = 0; i <= 2; i++)
+            {
+                s += "  <circle cx=\""+ this.Compute.CalcDraw.getCenter().dx + "\" cy=\""+ this.Compute.CalcDraw.getCenter().dy + "\" r=\""+ this.Compute.CalcDraw.getRadiusCircle(i) + "\" stroke=\"black\" fill-opacity=\"0.0\"/>" + br;
+            }
+            foreach (var i in this.Compute.Zodiac)
+            {
+                // 0°
+                List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusCircle(0));
+                s += "<line x1=\""+xy[0].dx+"\" y1=\""+xy[0].dy+"\" x2=\""+xy[1].dx+"\" y2=\""+xy[1].dy+ "\" stroke=\"black\"/>";
+                // 1° -> 29 °
+                for (int j = 1; j < 15; j++)
+                {
+                    var typeTrait = TypeTrait.Petit;
+                    if (j == 5 || j == 10 || j == 15)
+                    {
+                        typeTrait = TypeTrait.Grand;
+                    }
+                    // calc angular
+                    double angular = i.PosCircle360 + j * 2.0;
+                    if (angular > 360.0)
+                    {
+                        angular -= 360.0;
+                    }
+                    xy = this.Compute.CalcDraw.lineTrigo(angular, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusRulesInsideCircleZodiac(typeTrait));
+                    s += "<line x1=\"" + xy[0].dx + "\" y1=\"" + xy[0].dy + "\" x2=\"" + xy[1].dx + "\" y2=\"" + xy[1].dy + "\" stroke=\"black\" />";
+                }
+            }
+
+
+
+
             s += "</svg>";
             //s = "'data:image/svg+xml;utf8," + s + "'";
             return s;
@@ -37,12 +68,45 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
             var r = "";
             using (MagickImage image = new MagickImage(MagickColors.Transparent, Convert.ToInt32(this.Compute.CalcDraw.getSizeWH()), Convert.ToInt32(this.Compute.CalcDraw.getSizeWH())))
             {
+                Radius tempRadius = new Radius(0.0);
                 DrawableStrokeColor strokeColor = new DrawableStrokeColor(new MagickColor("black"));
                 DrawableStrokeWidth stokeWidth = new DrawableStrokeWidth(5);
                 DrawableFillColor fillColor = new DrawableFillColor(MagickColors.Transparent);
-                DrawableCircle circle = new DrawableCircle(250, 250, 100, 100);
+                //DrawableCircle circle = new DrawableCircle(250, 250, 100, 100);
+                for (int i = 0; i <= 3; i++)
+                {
+                    tempRadius = new Radius(this.Compute.CalcDraw.getRadiusCircle(i));
+                    DrawableCircle circle = new DrawableCircle(this.Compute.CalcDraw.getCenter().dx, this.Compute.CalcDraw.getCenter().dy, tempRadius.x, tempRadius.y);
+                    // image.Draw(strokeColor, stokeWidth, fillColor, circle);
+                }
 
-                image.Draw(strokeColor, stokeWidth, fillColor, circle);
+                foreach (var i in this.Compute.Zodiac)
+                {
+                    DrawableLine line;
+                    // 0°
+                    List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusCircle(0));
+                    line = new DrawableLine(xy[0].dx, xy[0].dy, xy[1].dx, xy[1].dy);
+                    image.Draw(strokeColor, stokeWidth, fillColor, line);
+                    // 1° -> 29 °
+                    for (int j = 1; j < 15; j++)
+                    {
+                        var typeTrait = TypeTrait.Petit;
+                        if (j == 5 || j == 10 || j == 15)
+                        {
+                            typeTrait = TypeTrait.Grand;
+                        }
+                        // calc angular
+                        double angular = i.PosCircle360 + j * 2.0;
+                        if (angular > 360.0)
+                        {
+                            angular -= 360.0;
+                        }
+                        xy = this.Compute.CalcDraw.lineTrigo(angular, this.Compute.CalcDraw.getRadiusCircle(1), this.Compute.CalcDraw.getRadiusRulesInsideCircleZodiac(typeTrait));
+                        line = new DrawableLine(xy[0].dx, xy[0].dy, xy[1].dx, xy[1].dy);
+                        image.Draw(strokeColor, stokeWidth, fillColor, line);
+                    }
+                }
+
 
                 image.Format = MagickFormat.Svg;
                 Svg svg = new Svg(image.ToBase64());
@@ -67,52 +131,3 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         }
     }
 }
-
-/*
- * 
-    @*
-
-        void Draw()
-        {
-            CalcDraw _calcDraw = new CalcDraw(MaxWidth, MaxHeight);
-            bitmap = new Bitmap(Convert.ToInt32(_calcDraw.getSizeWH()), Convert.ToInt32(_calcDraw.getSizeWH()));
-            Graphics graphics = Graphics.FromImage(bitmap);
-            graphics.Clear(Color.Green);
-
-            /*var paint = Paint()
-                ..color = Colors.black
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1.0;
-Pen pen = new Pen(ColorTranslator.FromHtml("#000000"), Convert.ToInt32(1.0));
-Rectangle rectangle = new Rectangle();
-            for (int i = 0; i <= 3; i++)
-            {
-                Radius tempRadius = new Radius(_calcDraw.getRadiusCircle(i));
-rectangle.Width = Convert.ToInt32(tempRadius.x);
-                rectangle.Height = Convert.ToInt32(tempRadius.y);
-                rectangle.X = Convert.ToInt32(_calcDraw.getCenter().dx);
-                rectangle.Y = Convert.ToInt32(_calcDraw.getCenter().dy);
-                graphics.DrawEllipse(pen, rectangle);
-            }
-
-            //canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(0), paint);
-            //canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(1), paint);
-            //canvas.drawCircle(_calcDraw.getCenter(), _calcDraw.getRadiusCircle(2), paint);
-
-
-
-
-
-
-
-            //Pen pen = new Pen(Color.White, 2);
-            graphics.DrawRectangle(pen, 50, 50, 250, 200);
-            MemoryStream memoryStream = new MemoryStream();
-bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-            byteArray = memoryStream.ToArray();
-            b64 = Convert.ToBase64String(byteArray);
-            //brush.Dispose();
-            graphics.Dispose();
-            bitmap.Dispose();
-        }
-    */
