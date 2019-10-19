@@ -33,7 +33,7 @@
       },
       "httpPort": 80,
       "useSSL": false,
-      "sslPort": 44380
+      "sslPort": 80
     },
     "DockerBackup": {
       "commandName": "DockerB",
