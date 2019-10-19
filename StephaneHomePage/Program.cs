@@ -48,8 +48,8 @@ namespace StephaneHomePage
                         });
                     })*/
                     .UseUrls("http://0.0.0.0:80;https://0.0.0.0:443")
-                    .UseStartup<Startup>();
-                    //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+                    .UseStartup<Startup>()
+                    .UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
     }
 }
