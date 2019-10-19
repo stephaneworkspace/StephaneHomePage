@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using StephaneHomePage.Data;
 using StephaneHomePage.Services.Http;
 using EmbeddedBlazorContent;
+using MatBlazor;
 
 namespace StephaneHomePage
 {
@@ -39,6 +40,15 @@ namespace StephaneHomePage
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
+            services.AddMatToaster(config =>
+            {
+                config.Position = MatToastPosition.BottomFullWidth;
+                config.PreventDuplicates = true;
+                config.NewestOnTop = true;
+                config.ShowCloseButton = true;
+                config.MaximumOpacity = 95;
+                config.VisibleStateDuration = 10000;
+            });
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IAstrologieServiceHttp, AstrologieServiceHttp>();
         }

@@ -1,5 +1,6 @@
 ﻿@inject IAstrologieServiceHttp AstrologieServiceHttp
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+@inject IMatToaster Toaster
 @using System.IO
 @using Services.Http
 @using Struct.ImportJson
@@ -9,6 +10,7 @@
 @using StephaneHomePage.Struct.Astrologie
 @using System.Text.RegularExpressions;
 @using System.Text;
+@using StephaneHomePage.Data.OpenFile;
 @if (_swOk)
 {
     <center>
@@ -20,9 +22,16 @@
                 i++;
                 if (i == 1)
                 {
-                    string svgZ = System.IO.File.ReadAllText(z.Svg);
-                    Svg svgZ_ = new Svg(Convert.ToBase64String(ASCIIEncoding.UTF8.GetBytes(svgZ)));
-                    <div class="element svg-zodiac" style="background-image: url('data:image/svg+xml;base64,@svgZ_.SvgB64');"></div>
+                    OpenSvg openSvg = new OpenSvg(z.Svg);
+                    openSvg.LoadSvgB64();
+                    if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+                    {
+                        Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+                    }
+                    else
+                    {
+                        <div class="element svg-zodiac" style="background-image: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"></div>
+                    }
                 }
             }
         </div>
