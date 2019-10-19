@@ -24,7 +24,6 @@ namespace StephaneHomePage.Data.OpenFile
         }
         public void LoadSvgB64()
         {
-            string svg = "";
             try
             {
                 this._svgRaw = System.IO.File.ReadAllText(this._file);

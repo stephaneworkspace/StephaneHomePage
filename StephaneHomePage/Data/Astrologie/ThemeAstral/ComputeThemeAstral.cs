@@ -34,6 +34,15 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
         public List<Offset> XYPlanetMinSizeLine;
         public CalcDraw CalcDraw;
 
+        public double whZodiacSize; // size zodiac by the line between 2 circle
+        public double whHouseSize;
+        public double whAngleSymbolSize;
+        public double whAngleDegSymbolSize;
+        public double whAngleMinSymbolSize;
+        public double whPlanetSymbolSize;
+        public double whPlanetDegSymbolSize;
+        public double whPlanetMinSymbolSize;
+
         public ComputeThemeAstral(ImportJson json, double maxWidth, double maxHeight)
         {
             CalcZodiac = new CalcZodiac();
@@ -48,15 +57,6 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
             CalcHouse.parseJson(json.houses);
             CalcAngle.parseJson(json.angles);
             CalcPlanet.parseJson(json.planets);
-
-            double whZodiacSize; // size zodiac by the line between 2 circle
-            double whHouseSize;
-            double whAngleSymbolSize;
-            double whAngleDegSymbolSize;
-            double whAngleMinSymbolSize;
-            double whPlanetSymbolSize;
-            double whPlanetDegSymbolSize;
-            double whPlanetMinSymbolSize;
 
             CalcDraw = new CalcDraw(maxWidth, maxHeight);
             // At °0, no importance, ist juste for have the size of zodiac container care
