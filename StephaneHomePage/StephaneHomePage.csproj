@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Content Include="dev_cert.pfx*" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="assets/**/*" CopyToPublishDirectory="PreserveNewest" />
     <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
   </ItemGroup>

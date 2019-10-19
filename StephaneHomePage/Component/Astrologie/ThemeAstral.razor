@@ -8,16 +8,80 @@
 @using StephaneHomePage.Data.Astrologie.ThemeAstral
 @using StephaneHomePage.Struct.Astrologie
 @using System.Text.RegularExpressions;
+@using System.Text;
 
 @if (_swOk)
 {
     <center>
-        <div class="svg-base" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx; background-image: url('data:image/svg+xml;utf8,@_imageSVG');"></div>
+        <div class="canvas" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx;">
+            @{ int i = 0;}
+            <div class="element svg-base" style="background-image: url('data:image/svg+xml;utf8,@_imageSVG');"></div>
+            @foreach (var z in this._computeThemeAstral.Zodiac)
+            {
+                i++;
+                if (i == 1)
+                {
+                    string svgZ = System.IO.File.ReadAllText(z.Svg);
+                    Svg svgZ_ = new Svg(Convert.ToBase64String(ASCIIEncoding.UTF8.GetBytes(svgZ)));
+                    <div class="element svg-zodiac" style="background-image: url('data:image/svg+xml;base64,@svgZ_.SvgB64');"></div>
+                }
+            }
+        </div>
     </center>
-    <h2>Svg</h2><br />
+    <!--<div style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx;"></div>-->
+    <h2>Svg</h2>
+    <br />
     <div class="svg-console">@_imageSVGConsole</div>
 }
 
+@*
+
+
+        public String SvgB64;
+    public String SvgStringWithoutMod;
+    public String SvgStringWithMod;
+
+    /// <summary>
+    /// inspired from https://github.com/yoksel/url-encoder/
+    /// </summary>
+    /// <param name="imageMagickB64">Base 64 from ImageMagik</param>
+    public Svg (String imageMagickB64)
+    {
+        byte[] dataByteArray = Convert.FromBase64String(imageMagickB64);
+        String temp = ASCIIEncoding.UTF8.GetString(dataByteArray);
+
+
+
+
+
+          for (var z in _zodiac)
+            new Positioned( //.fill not identic
+              left: z.xyZodiac.dx,
+              top: z.xyZodiac.dy,
+              child: new GestureDetector(
+                onTap: () {
+                  _zodiacClick(z.idByAsc);
+                  print("onTap called. " + z.sign);
+                },
+                child: new Container(
+                  width: whZodiacSize,
+                  height: whZodiacSize,
+                  margin: const EdgeInsets.only(left: 0.0, right: 0.0),
+                  padding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                  child: SvgPicture.asset(z.svg,
+                    width: whZodiacSize,
+                    height: whZodiacSize,
+                    fit: BoxFit.scaleDown,
+                    allowDrawingOutsideViewBox: true,
+                    alignment: Alignment.center,
+                    color: z.element.color,
+                    semanticsLabel: z.sign
+                  ),
+                )
+              ),
+            ),
+
+*@
 
 @code {
     [Parameter] public ImportJson Json { get; set; }

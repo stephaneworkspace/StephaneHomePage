@@ -17,9 +17,9 @@ namespace StephaneHomePage.Data.Type
         /// inspired from https://github.com/yoksel/url-encoder/
         /// </summary>
         /// <param name="imageMagickB64">Base 64 from ImageMagik</param>
-        public Svg (String imageMagickB64)
+        public Svg (String imageB64)
         {
-            byte[] dataByteArray = Convert.FromBase64String(imageMagickB64);
+            byte[] dataByteArray = Convert.FromBase64String(imageB64);
             String temp = ASCIIEncoding.UTF8.GetString(dataByteArray);
             this.SvgStringWithoutMod = temp;
             Regex r;
