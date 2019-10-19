@@ -11,9 +11,9 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  solution2: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  project: "**/*.csproj"
 
 steps:
 - task: UseDotNet@2
@@ -25,7 +25,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: '$(solution2)'
+    projects: '$(solution)'
     feedsToUse: 'select'
   displayName: Restore
 
