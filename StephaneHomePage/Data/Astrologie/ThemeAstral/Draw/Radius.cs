@@ -15,8 +15,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         public double y { get; set; }
         public Radius(double radius)
         {
-            double angle = 2 * Math.PI / 360;
-            this.x = radius * Math.Cos(Math.Sin(angle));
+            double angle = 2 * Math.PI / ANGLE;
+            //double angle = (180 / Math.PI) * radius; // nice picture
+            this.x = radius * Math.Cos(Math.Sin(angle)) * -1; // Because in dart it convert with -1
             this.y = radius * Math.Cos(Math.Sin(angle));
         }
     }

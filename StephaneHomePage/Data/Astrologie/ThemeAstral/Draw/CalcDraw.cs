@@ -129,7 +129,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         ///     II
         ///     II
         ///    HERE
-        double getRadiusRulesInsideCircleHouseForPointerBottom()
+        public double getRadiusRulesInsideCircleHouseForPointerBottom()
         {
             return (getRadiusTotal() * (((CIRCLE2 - CIRCLE1) / DIVTRAITPOINTER) - CIRCLE2)) / 100; // - CIRCLE2
         }
@@ -139,7 +139,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
         ///    /  \
         ///     II
         ///     II
-        double getRadiusRulesInsideCircleHouseForPointerTop()
+        public double getRadiusRulesInsideCircleHouseForPointerTop()
         {
             return (getRadiusTotal() * ((CIRCLE2 - CIRCLE1) - CIRCLE2)) / 100; // - CIRCLE2
         }
