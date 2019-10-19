@@ -1,0 +1,58 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+  displayName: Install .NET Core 3.0 SDK
+  inputs:
+    packageType: 'sdk'
+    version: '3.0.100'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '$(solution)'
+    feedsToUse: 'select'
+  displayName: Restore
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    arguments: '--configuration $(BuildConfiguration)'
+    projects: '$(project)'
+  displayName: Build
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True 
+
+- task: FtpUpload@2
+  inputs:
+    
+    credentialsOption: 'inputs'
+    serverUrl: '$(ftp-server)'
+    username: '$(ftp-user)'
+    password: '$(ftp-password)'
+    rootDirectory: '$(Build.ArtifactStagingDirectory)'
+    filePatterns: '**'
+    remoteDirectory: '/home/stephane/ftp/buildblazor/$(Build.BuildId)/'
+    clean: false
+    cleanContents: false
+    preservePaths: false
+    trustSSL: false
