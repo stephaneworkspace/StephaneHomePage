@@ -30,16 +30,15 @@ namespace StephaneHomePage
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-            /*.ConfigureServices((context, services) =>
+            .ConfigureServices((context, services) =>
             {
                 services.Configure<KestrelServerOptions>(
                     context.Configuration.GetSection("Kestrel"));
                     
-            })*/
+            })
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
-                    /*
                     .ConfigureKestrel(serverOptions =>
                     {
                         serverOptions.Listen(IPAddress.Any, 80);
@@ -47,7 +46,7 @@ namespace StephaneHomePage
                         {
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
-                    })*/
+                    })
                     .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
