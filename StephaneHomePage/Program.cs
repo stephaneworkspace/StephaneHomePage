@@ -56,7 +56,6 @@ namespace StephaneHomePage
                         {
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
-                        serverOptions.AddServerHeader = false;
                     })
                     .UseStartup<Startup>();
                     //.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
