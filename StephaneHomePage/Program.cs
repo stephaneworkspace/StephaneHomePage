@@ -51,8 +51,8 @@ namespace StephaneHomePage
                             // certificate is an X509Certificate2
                             listenOptions.ServerCertificate = new X509Certificate2(Encoding.ASCII.GetBytes(certificate), "123456", X509KeyStorageFlags.Exportable); // new X509Certificate2("dev_cert.pfx", "123456");
                         });*/
-                        serverOptions.Listen(IPAddress.Loopback, 80);
-                        serverOptions.Listen(IPAddress.Loopback, 443, listenOptions =>
+                        serverOptions.Listen(IPAddress.Any, 80);
+                        serverOptions.Listen(IPAddress.Any, 443, listenOptions =>
                         {
                             string certificate = File.ReadAllText(@"./dev_cert.pfx", Encoding.UTF8);
                             // Console.WriteLine(certificate);
