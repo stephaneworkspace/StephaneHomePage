@@ -3,17 +3,14 @@
         <MatAppBarSection>
             <MatAppBarTitle>@Title</MatAppBarTitle>
         </MatAppBarSection>
-        @if (SwAstral)
+        @if (Title == "Astrologie")
         {
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                <MatTooltip Tooltip="Partie privée">
-                    <MatIconButton Icon="lock"></MatIconButton>
-                </MatTooltip>
+                <MatIconButton Icon="lock"></MatIconButton>
             </MatAppBarSection>
         }
     </MatAppBarRow>
 </MatAppBar>
 @code {
     [Parameter] public string Title { get; set; }
-    [Parameter] public bool SwAstral { get; set; } = false;
 }
