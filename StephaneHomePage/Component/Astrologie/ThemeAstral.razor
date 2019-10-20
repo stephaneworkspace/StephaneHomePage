@@ -15,16 +15,9 @@
 {
     <center>
         <div class="canvas" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx;">
-            @{ int i = 0;}
             @RenderSvgCircle(_imageSVG)
             @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
-            {
-                i++;
-                if (i == 1)
-                {
-                    @RenderSvgZodiac(Toaster, z)
-                }
-            }
+                @RenderSvgZodiac(Toaster, z)
         </div>
     </center>
     <h2>Svg</h2>
@@ -118,12 +111,16 @@
         }
         else
         {
-            string sizepx = this._computeThemeAstral.whZodiacSize + "px";
+            string sizePx = this._computeThemeAstral.whZodiacSize + "px";
+            string leftPx = z.XYZodiac.dx + "px";
+            string topPx = z.XYZodiac.dy + "px";
             return @<div
                         class="element svg-zodiac"
                         style="
-                            width:@sizepx;
-                            height:@sizepx;
+                            width:@sizePx;
+                            height:@sizePx;
+                            left:@leftPx;
+                            top:@topPx;
                             background-image: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
                     ></div>;
         }
