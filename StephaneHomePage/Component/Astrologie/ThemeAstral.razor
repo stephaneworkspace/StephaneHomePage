@@ -80,7 +80,8 @@
             string leftPx = z.XYZodiac.dx + "px";
             string topPx = z.XYZodiac.dy + "px";
             return @<MatTooltip Tooltip="@z.Sign">
-                        <div class="element svg-zodiac"
+                        <div @ref="context.Current"
+                             class="element svg-zodiac"
                              style="
                                     width:@sizePx;
                                     height:@sizePx;
