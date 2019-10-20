@@ -1,7 +1,7 @@
 ﻿@inject IAstrologieServiceHttp AstrologieServiceHttp
 @inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
 @inject IMatToaster Toaster
-@using System.IO
+@using System.Drawing
 @using Services.Http
 @using Struct.ImportJson
 @using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
@@ -93,11 +93,9 @@
 
     private RenderFragment RenderSvgCircle(string svg)
     {
-        return @<div
-                    class="element svg-base"
-                    style= " 
-                        background-image: url('data:image/svg+xml;utf8,@svg');"
-                ></div>;
+        return@<div class="element svg-base"
+                    style="
+                        background-image: url('data:image/svg+xml;utf8,@svg');"></div>;
     }
 
     private RenderFragment RenderSvgZodiac(IMatToaster Toaster, Zodiac z)
@@ -106,22 +104,23 @@
         openSvg.LoadSvgB64();
         if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
         {
-            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
-            return @<div />;
+        Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+        return @<div />;
         }
         else
         {
             string sizePx = this._computeThemeAstral.whZodiacSize + "px";
             string leftPx = z.XYZodiac.dx + "px";
             string topPx = z.XYZodiac.dy + "px";
-            return @<div
-                        class="element svg-zodiac"
-                        style="
-                            width:@sizePx;
-                            height:@sizePx;
-                            left:@leftPx;
-                            top:@topPx;
-                            background-image: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
+            return @<div class="element svg-zodiac"
+                         style="
+                                width:@sizePx;
+                                height:@sizePx;
+                                left:@leftPx;
+                                top:@topPx;
+                                background-color: @ColorTranslator.ToHtml(z.Element.Color);
+                                -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                -webkit-mask-size: contain"
                     ></div>;
         }
     }
