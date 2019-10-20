@@ -23,6 +23,7 @@ namespace StephaneHomePage.Struct.Astrologie
             this.IdByAsc = idByAsc;
             this.Symbol = symbol;
             this.Element = element;
+            this.Sign = sign;
             this.Svg = svg;
             this.PosCircle360 = posCircle360;
             this.XYZodiac = xyZodiac;

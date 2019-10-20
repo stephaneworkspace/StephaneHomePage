@@ -5,11 +5,8 @@
 @using Services.Http
 @using Struct.ImportJson
 @using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
-@using StephaneHomePage.Data.Type
 @using StephaneHomePage.Data.Astrologie.ThemeAstral
 @using StephaneHomePage.Struct.Astrologie
-@using System.Text.RegularExpressions;
-@using System.Text;
 @using StephaneHomePage.Data.OpenFile;
 @if (_swOk)
 {
@@ -25,36 +22,6 @@
     <div class="svg-console">@_imageSVGConsole</div>
 }
 @*
-
-
-
-
-    for (var z in _zodiac)
-      new Positioned( //.fill not identic
-        left: z.xyZodiac.dx,
-        top: z.xyZodiac.dy,
-        child: new GestureDetector(
-          onTap: () {
-            _zodiacClick(z.idByAsc);
-            print("onTap called. " + z.sign);
-          },
-          child: new Container(
-            width: whZodiacSize,
-            height: whZodiacSize,
-            margin: const EdgeInsets.only(left: 0.0, right: 0.0),
-            padding: const EdgeInsets.only(left: 0.0, right: 0.0),
-            child: SvgPicture.asset(z.svg,
-              width: whZodiacSize,
-              height: whZodiacSize,
-              fit: BoxFit.scaleDown,
-              allowDrawingOutsideViewBox: true,
-              alignment: Alignment.center,
-              color: z.element.color,
-              semanticsLabel: z.sign
-            ),
-          )
-        ),
-      ),
 
 *@
 
@@ -112,16 +79,18 @@
             string sizePx = this._computeThemeAstral.whZodiacSize + "px";
             string leftPx = z.XYZodiac.dx + "px";
             string topPx = z.XYZodiac.dy + "px";
-            return @<div class="element svg-zodiac"
-                         style="
-                                width:@sizePx;
-                                height:@sizePx;
-                                left:@leftPx;
-                                top:@topPx;
-                                background-color: @ColorTranslator.ToHtml(z.Element.Color);
-                                -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                -webkit-mask-size: contain"
-                    ></div>;
+            return @<MatTooltip Tooltip="@z.Sign">
+                        <div class="element svg-zodiac"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(z.Element.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
+                        ></div>
+                    </MatTooltip>;
         }
     }
 }
