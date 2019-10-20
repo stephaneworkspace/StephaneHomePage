@@ -26,11 +26,16 @@ app {
     align-items: center;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .mat-navbar-fixed-top {
         top: 0px;
         position: initial !important;
         padding-top: 0px !important;
+    }
+}
+@media (min-width: 768px) {
+    .mat-navbar-fixed-max-width {
+        width: calc(100% - 250px) !important;
     }
 }
 
