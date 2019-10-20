@@ -29,7 +29,7 @@ namespace StephaneHomePage.Struct.Astrologie
             this.SignPos = signPos;
             this.Svg = svg;
             this.SvgDegre = svgDegre;
-            this.SvgMin = SvgMin;
+            this.SvgMin = svgMin;
             this.PosCircle360 = posCircle360;
             this.XYPlanet = xyPlanet;
             this.XYDeg = xyDeg;

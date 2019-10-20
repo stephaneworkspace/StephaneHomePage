@@ -15,12 +15,14 @@ namespace StephaneHomePage.Data.OpenFile
         private string _svgRaw { get; set; }
         public bool SwStatus { get; set; }
         public string ErrMessage { get; set; }
+        public string ErrTitle { get; set; }
         public OpenSvg(string s)
         {
             this._file = s;
             this._svgRaw = "";
             this.SwStatus = false;
             this.ErrMessage = "";
+            this.ErrTitle = "Erreur de chargement svg: " + this._file;
         }
         public void LoadSvgB64()
         {
