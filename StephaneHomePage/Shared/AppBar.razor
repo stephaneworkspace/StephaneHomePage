@@ -1,0 +1,19 @@
+﻿<MatAppBar Fixed="true" Class="mat-navbar-fixed-top mat-navbar-fixed-max-width">
+    <MatAppBarRow>
+        <MatAppBarSection>
+            <MatAppBarTitle>@Title</MatAppBarTitle>
+        </MatAppBarSection>
+        @if (SwAstral)
+        {
+            <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <MatTooltip Tooltip="Partie privée">
+                    <MatIconButton Icon="lock"></MatIconButton>
+                </MatTooltip>
+            </MatAppBarSection>
+        }
+    </MatAppBarRow>
+</MatAppBar>
+@code {
+    [Parameter] public string Title { get; set; }
+    [Parameter] public bool SwAstral { get; set; } = false;
+}

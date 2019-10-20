@@ -7,23 +7,8 @@
 <div class="main">
     <MatThemeProvider Theme="@_theme">
         <MatAppBarContainer>
-            <MatAppBar Fixed="true" Class="mat-navbar-fixed-top mat-navbar-fixed-max-width">
-                <MatAppBarRow>
-                    <MatAppBarSection>
-                        <!--<MatIconButton Icon="menu"></MatIconButton>-->
-                        <MatIconButton Icon="lock"></MatIconButton>
-                        <MatAppBarTitle></MatAppBarTitle>
-                    </MatAppBarSection>
-                    <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                        <MatIconButton Icon="lock"></MatIconButton>
-                    </MatAppBarSection>
-                </MatAppBarRow>
-            </MatAppBar>
-
-            <MatAppBarContent>
-                @Body
-                <MatToastContainer />
-            </MatAppBarContent>
+            @Body
+            <MatToastContainer />
         </MatAppBarContainer>
     </MatThemeProvider>
     @*
