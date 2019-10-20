@@ -15,6 +15,8 @@
             @RenderSvgCircle(_imageSVG)
             @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
                 @RenderSvgZodiac(Toaster, z)
+            @foreach (House h in this._computeThemeAstral.House)
+                @RenderSvgHouse(Toaster, h)
         </div>
     </center>
     <h2>Svg</h2>
@@ -22,7 +24,7 @@
     <div class="svg-console">@_imageSVGConsole</div>
 }
 @*
-
+             
 *@
 
 @code {
@@ -71,8 +73,8 @@
         openSvg.LoadSvgB64();
         if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
         {
-        Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
-        return @<div />;
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
         }
         else
         {
@@ -94,4 +96,37 @@
                     </MatTooltip>;
         }
     }
+
+    private RenderFragment RenderSvgHouse(IMatToaster Toaster, House h)
+    {
+        OpenSvg openSvg = new OpenSvg(h.Svg);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whHouseSize + "px";
+            string leftPx = h.XYHouse.dx + "px";
+            string topPx = h.XYHouse.dy + "px";
+            string tooltip = "Maison " + h.Id.ToString();
+            return @<MatTooltip Tooltip="@tooltip">
+                        <div @ref="context.Current"
+                             class="element svg-house"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-image: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
 }
+
+@*
+
+*@
