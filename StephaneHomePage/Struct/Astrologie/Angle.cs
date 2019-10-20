@@ -17,10 +17,10 @@ namespace StephaneHomePage.Struct.Astrologie
         public String SvgMin { get; set; }
         public double PosCircle360 { get; set; }
         public Offset XYAngle { get; set; }
-        public Offset XYDef { get; set; }
+        public Offset XYDeg { get; set; }
         public Offset XYMin { get; set; }
         public Color Color { get; set; }
-        public Angle(String id, String sign, String signPos, String svg, String svgDegre, String svgMin, double posCircle360, Offset xyAngle, Offset xyDef, Offset xyMin, Color color)
+        public Angle(String id, String sign, String signPos, String svg, String svgDegre, String svgMin, double posCircle360, Offset xyAngle, Offset xyDeg, Offset xyMin, Color color)
         {
             this.Id = id;
             this.Sign = sign;
@@ -30,7 +30,7 @@ namespace StephaneHomePage.Struct.Astrologie
             this.SvgMin = svgMin;
             this.PosCircle360 = posCircle360;
             this.XYAngle = xyAngle;
-            this.XYDef = xyDef;
+            this.XYDeg = xyDeg;
             this.XYMin = xyMin;
             this.Color = color;
         }
