@@ -17,6 +17,9 @@
                 @RenderSvgZodiac(Toaster, z)
             @foreach (House h in this._computeThemeAstral.House)
                 @RenderSvgHouse(Toaster, h)
+            @foreach (Angle a in this._computeThemeAstral.Angle)
+                @if(a.Svg != "")
+                    @RenderSvgAngleSymbol(Toaster, a)
         </div>
     </center>
     <h2>Svg</h2>
@@ -121,6 +124,36 @@
                                     left:@leftPx;
                                     top:@topPx;
                                     background-image: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
+
+    private RenderFragment RenderSvgAngleSymbol(IMatToaster Toaster, Angle a)
+    {
+        OpenSvg openSvg = new OpenSvg(a.Svg);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whAngleSymbolSize + "px";
+            string leftPx = a.XYAngle.dx + "px";
+            string topPx = a.XYAngle.dy + "px";
+            return @<MatTooltip Tooltip="@a.Id">
+                        <div @ref="context.Current"
+                             class="element svg-angle"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(a.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
                         ></div>
                     </MatTooltip>;
         }
