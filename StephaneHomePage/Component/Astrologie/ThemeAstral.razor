@@ -15,6 +15,8 @@
             @RenderSvgCircle()
             @foreach (Angle a in this._computeThemeAstral.Angle)
                 @RenderSvgAngleLine(a)
+            @foreach (Planet p in this._computeThemeAstral.Planet)
+                @RenderSvgPlanetLine(p)
             @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
                 @RenderSvgZodiac(Toaster, z)
             @foreach (House h in this._computeThemeAstral.House)
@@ -28,17 +30,14 @@
                 }
                 @foreach (Planet p in this._computeThemeAstral.Planet)
                 {
-                    if (p.IsRetrograde)
+                    @if (p.IsRetrograde)
                         @RenderSvgPlanetRetrogradeSymbol(Toaster, p)
                         @RenderSvgPlanetSymbol(Toaster, p)
                         @RenderSvgPlanetDegSymbol(Toaster, p)
                         @RenderSvgPlanetMinSymbol(Toaster, p)
-                    }
-            </div>
+                }
+        </div>
     </center>
-    <h2>Svg</h2>
-    <br />
-    <div class="svg-console">@_imageSVGConsole</div>
 }
 @*
              
@@ -54,7 +53,6 @@
     private bool _swOk = false;
     private ComputeThemeAstral _computeThemeAstral;
     private DrawImage _drawImage;
-    private String _imageSVGConsole;
     private String _sizeThemeAstralpx;
 
     protected override void OnInitialized()
@@ -89,7 +87,17 @@
         return@<div class="element svg-base"
                     style="
                         background-color:@ColorTranslator.ToHtml(angle.Color);
-                        -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgAngle(true, angle)') no-repeat center;
+                        -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)') no-repeat center;
+                        -webkit-mask-size:contain"
+               ></div>;
+    }
+
+    private RenderFragment RenderSvgPlanetLine(Planet planet)
+    {
+        return@<div class="element svg-base"
+                    style="
+                        background-color:@ColorTranslator.ToHtml(planet.Color);
+                        -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgPlanetLine(true, planet)') no-repeat center;
                         -webkit-mask-size:contain"
                ></div>;
     }

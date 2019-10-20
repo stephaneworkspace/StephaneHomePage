@@ -79,25 +79,13 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
                     s += "  <path d=\"M " + xyT[2].dx + " " + xyT[2].dy + " L " + xyT[0].dx + " " + xyT[0].dy + " L " + xyT[1].dx + " " + xyT[1].dy + " z\" fill=\"black\" stroke-width=\"1\" fill-opacity=\"0.0\" />";
                 }
             }
-            // Draw lines planet
-            foreach (var i in this.Compute.Planet)
-            {/*
-              // 0°
-              paint = Paint()
-              ..color = i.color
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 1.0;
-              */
-                List<Offset> xy = this.Compute.CalcDraw.lineTrigo(i.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(3), this.Compute.CalcDraw.getRadiusCircle(1));
-                //s += DrawSvgLine(xy);
-            }
             s += "</svg>";
             if (swEncodeB64)
                 s = EncodeB64(s);
             return s;
         }
 
-        public string GetSvgAngle(bool swEncodeB64, Angle angle)
+        public string GetSvgAngleLine(bool swEncodeB64, Angle angle)
         {
             string br = swEncodeB64 ? "\\n" : Environment.NewLine;
             int size = Convert.ToInt32(this.Compute.CalcDraw.getSizeWH());
@@ -128,6 +116,28 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
                 xy = this.Compute.CalcDraw.lineTrigo(angle.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(3), this.Compute.CalcDraw.getRadiusCircle(2));
                 s += DrawSvgLine(xy);
             }
+            s += "</svg>";
+            if (swEncodeB64)
+                s = EncodeB64(s);
+            return s;
+        }
+
+        public string GetSvgPlanetLine(bool swEncodeB64, Planet planet)
+        {
+            string br = swEncodeB64 ? "\\n" : Environment.NewLine;
+            int size = Convert.ToInt32(this.Compute.CalcDraw.getSizeWH());
+            string s = "";
+            s += "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + size + "\" height=\"" + size + "\" >" + br;
+            // Draw lines planet
+            // 0°
+            /*
+            paint = Paint()
+            ..color = i.color
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.0;
+            */
+            List<Offset> xy = this.Compute.CalcDraw.lineTrigo(planet.PosCircle360, this.Compute.CalcDraw.getRadiusCircle(3), this.Compute.CalcDraw.getRadiusCircle(1));
+            s += DrawSvgLine(xy);
             s += "</svg>";
             if (swEncodeB64)
                 s = EncodeB64(s);
