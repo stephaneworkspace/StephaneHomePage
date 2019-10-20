@@ -24,8 +24,15 @@
                     @RenderSvgAngleDegSymbol(Toaster, a)
                     @RenderSvgAngleMinSymbol(Toaster, a)
                 }
-
-            </div>
+            @foreach (Planet p in this._computeThemeAstral.Planet)
+            {
+                if (p.IsRetrograde)
+                    @RenderSvgPlanetRetrogradeSymbol(Toaster, p)
+                @RenderSvgPlanetSymbol(Toaster, p)
+                @RenderSvgPlanetDegSymbol(Toaster, p)
+                @RenderSvgPlanetMinSymbol(Toaster, p)
+            }
+        </div>
     </center>
     <h2>Svg</h2>
     <br />
@@ -39,6 +46,8 @@
     [Parameter] public ImportJson Json { get; set; }
     [Parameter] public double MaxWidth { get; set; }
     [Parameter] public double MaxHeight { get; set; }
+
+    const string SVGRETROGRADE = "assets/svg/planet/Retrograde.svg";
 
     private bool _swOk = false;
     private ComputeThemeAstral _computeThemeAstral;
@@ -220,6 +229,130 @@
                                     left:@leftPx;
                                     top:@topPx;
                                     background-color: @ColorTranslator.ToHtml(a.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
+
+    private RenderFragment RenderSvgPlanetRetrogradeSymbol(IMatToaster Toaster, Planet p)
+    {
+        OpenSvg openSvg = new OpenSvg(SVGRETROGRADE);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whAngleMinSymbolSize + "px";
+            string leftPx = p.XYPlanet.dx + "px";
+            string topPx = p.XYPlanet.dy + "px";
+            string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
+            return @<MatTooltip Tooltip="@tooltip">
+                        <div @ref="context.Current"
+                             class="element svg-planet"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(p.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
+
+    private RenderFragment RenderSvgPlanetSymbol(IMatToaster Toaster, Planet p)
+    {
+        OpenSvg openSvg = new OpenSvg(p.Svg);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whPlanetSymbolSize + "px";
+            string leftPx = p.XYPlanet.dx + "px";
+            string topPx = p.XYPlanet.dy + "px";
+            string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
+            return @<MatTooltip Tooltip="@tooltip">
+                        <div @ref="context.Current"
+                             class="element svg-planet"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(p.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
+
+    private RenderFragment RenderSvgPlanetDegSymbol(IMatToaster Toaster, Planet p)
+    {
+        OpenSvg openSvg = new OpenSvg(p.SvgDegre);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whPlanetDegSymbolSize + "px";
+            string leftPx = p.XYDeg.dx + "px";
+            string topPx = p.XYDeg.dy + "px";
+            string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
+            return @<MatTooltip Tooltip="@tooltip">
+                        <div @ref="context.Current"
+                             class="element svg-planet"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(p.Color);
+                                    -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                    -webkit-mask-size: contain"
+                        ></div>
+                    </MatTooltip>;
+        }
+    }
+
+    private RenderFragment RenderSvgPlanetMinSymbol(IMatToaster Toaster, Planet p)
+    {
+        OpenSvg openSvg = new OpenSvg(p.SvgMin);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, "Erreur de chargement d'image", "danger");
+            return @<div />;
+        }
+        else
+        {
+            string sizePx = this._computeThemeAstral.whPlanetMinSymbolSize + "px";
+            string leftPx = p.XYMin.dx + "px";
+            string topPx = p.XYMin.dy + "px";
+            string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
+            return @<MatTooltip Tooltip="@tooltip">
+                        <div @ref="context.Current"
+                             class="element svg-planet"
+                             style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;
+                                    background-color: @ColorTranslator.ToHtml(p.Color);
                                     -webkit-mask: url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
                                     -webkit-mask-size: contain"
                         ></div>
