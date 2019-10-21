@@ -16,11 +16,11 @@ namespace StephaneHomePage.Pages
     public partial class Astrologie
     {
         [Inject]
-        private NavigationManager _navigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
         [Inject]
-        private IMatToaster _matToaster { get; set; }
+        private IMatToaster MatToaster { get; set; }
         [Inject]
-        private IAstrologieServiceHttp _astrologieServiceHttp { get; set; }
+        private IAstrologieServiceHttp AstrologieServiceHttp { get; set; }
 
         public ThemeAstralModel model = new ThemeAstralModel();
         public ImportJson data;
@@ -40,7 +40,7 @@ namespace StephaneHomePage.Pages
 
         private async Task LoadDatas()
         {
-            var response = await _astrologieServiceHttp.GetThemeAstral(model);
+            var response = await AstrologieServiceHttp.GetThemeAstral(model);
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
@@ -49,8 +49,8 @@ namespace StephaneHomePage.Pages
                     swLoaded = true;
                     break;
                 default:
-                    _matToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                    _navigationManager.NavigateTo("/");
+                    MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
+                    NavigationManager.NavigateTo("/");
                     break;
             }
         }
