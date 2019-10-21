@@ -30,6 +30,7 @@
 </MatAppBarContent>
 @code {
     private ThemeAstralModel _model = new ThemeAstralModel();
+    
     ImportJson data;
     bool swLoaded = false;
 
@@ -38,12 +39,11 @@
         await LoadDatas();
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         this._model.utc = "+02:00";
         this._model.geo_pos_ns = "46n12";
         this._model.geo_pos_we = "6e9";
-        //await LoadDatas();
     }
 
     private async Task LoadDatas()
