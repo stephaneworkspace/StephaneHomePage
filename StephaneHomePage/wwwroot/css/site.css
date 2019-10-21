@@ -55,7 +55,7 @@ app {
 
 .sidebar {
     /*background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);*/
-    background-image: linear-gradient(90deg, #283593 0%, #fff 99%);
+    background-image: linear-gradient(90deg, #283593 0%, #7986cb 99%);
 }
 
 .sidebar .top-row {
@@ -141,6 +141,7 @@ app {
         height: 100vh;
         position: sticky;
         top: 0;
+        box-shadow: 1px 2px 20px 2px rgba(121, 134, 203, 0.9);
     }
 
     .main .top-row {
@@ -161,6 +162,16 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+
+    .mat-app-bar-title {
+        box-shadow: 35px 35px 35px 35px rgba(121, 134, 203, 0.9);
+    }
+}
+
+.mat-app-bar-content-body {
+    padding-top: 1.5rem !important;
+    padding-left: 2rem !important;
+    padding-right: 1.5rem !important;
 }
 
 .sound-cloud-player {

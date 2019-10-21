@@ -9,9 +9,11 @@
 <div class="main">
     <MatThemeProvider Theme="@_theme">
         <MatAppBarContainer>
-            <AppBar Title="@AppStateServiceCore.Title" />
+            <div class="mat-app-bar-title">
+                <AppBar Title="@AppStateServiceCore.Title"></AppBar>
+            </div>
             <MatAppBarContent>
-                @Body
+                <div class="mat-app-bar-content-body">@Body</div>
             </MatAppBarContent>
             <MatToastContainer />
         </MatAppBarContainer>
