@@ -1,5 +1,7 @@
-﻿using System;
+﻿using StephaneHomePage.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -24,9 +26,15 @@ namespace StephaneHomePage.Services.Http
         {
             _httpClient = httpClient;
         }
-        public async Task<HttpResponseMessage> GetThemeAstral()
+        public async Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model)
         {
-            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme");
+            NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            queryString["year_month_day"] = model.year_month_day;
+            queryString["hour_min"] = model.hour_min;
+            queryString["utc"] = model.utc;
+            queryString["geo_pos_ns"] = model.geo_pos_ns;
+            queryString["geo_pos_we"] = model.geo_pos_we;
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme{queryString.ToString()}");
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);
         }

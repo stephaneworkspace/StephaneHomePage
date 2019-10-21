@@ -6,24 +6,49 @@
 @using System.Net
 @using Newtonsoft.Json
 @using Struct.ImportJson
+@using StephaneHomePage.Model
 <AppBar Title="Astrologie" />
 <MatAppBarContent>
     @if (swLoaded)
     {
         <ThemeAstral Json="data" MaxWidth="500" MaxHeight="500" />
+    } else
+    {
+        <EditForm Model="@_model" OnValidSubmit="@HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <InputText id="year_month_day" @bind-Value="@_model.year_month_day" />
+            <InputText id="hour_min" @bind-Value="@_model.hour_min" />
+            <InputText id="utc" @bind-Value="@_model.utc" />
+            <InputText id="geo_pos_ns" @bind-Value="@_model.geo_pos_ns" />
+            <InputText id="geo_pos_we" @bind-Value="@_model.geo_pos_we" />
+
+            <button type="submit">Submit</button>
+        </EditForm>
     }
 </MatAppBarContent>
 @code {
+    private ThemeAstralModel _model = new ThemeAstralModel();
     ImportJson data;
     bool swLoaded = false;
-    protected override async Task OnInitializedAsync()
+
+    private async Task HandleValidSubmit()
     {
         await LoadDatas();
     }
 
+    protected override async Task OnInitializedAsync()
+    {
+        this._model.utc = "+02:00";
+        this._model.geo_pos_ns = "46n12";
+        this._model.geo_pos_we = "6e9";
+        //await LoadDatas();
+    }
+
     private async Task LoadDatas()
     {
-        var response = await AstrologieServiceHttp.GetThemeAstral();
+        var response = await AstrologieServiceHttp.GetThemeAstral(this._model);
         switch (response.StatusCode)
         {
             case HttpStatusCode.OK:
@@ -33,7 +58,7 @@
                 break;
             default:
                 Toaster.Add("Impossible de recevoir les données par http", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                NavigationManager.NavigateTo("/");
+                //NavigationManager.NavigateTo("/");
                 break;
         }
     }

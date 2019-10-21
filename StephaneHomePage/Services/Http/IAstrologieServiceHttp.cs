@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StephaneHomePage.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,7 +12,7 @@ namespace StephaneHomePage.Services.Http
     /// </summary>
     public interface IAstrologieServiceHttp
     {
-        Task<HttpResponseMessage> GetThemeAstral();
+        Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model);
         Task<HttpResponseMessage> GetSwagger();
     }
 }
