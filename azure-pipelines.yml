@@ -22,24 +22,21 @@ steps:
     packageType: 'sdk'
     version: '3.1.100-preview1-014459'
 
-- task: DotNetCoreCLI@2
+- task: NuGetCommand@2
   inputs:
-    command: 'restore'
-    projects: '$(solution)'
-    feedsToUse: 'select'
-  displayName: Restore
+    restoreSolution: '$(solution)'
 
 - task: CmdLine@2
   inputs:
     script: |
       echo '{ "password": "$(security-key)" }' >> ./StephaneHomePage/password.json
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    arguments: '--configuration $(BuildConfiguration)'
-    projects: '$(project)'
-  displayName: Build
+
+- script: dotnet restore
+  displayName: 'dotnet restore'
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
