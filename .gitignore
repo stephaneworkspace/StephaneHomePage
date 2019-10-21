@@ -4,6 +4,7 @@
 
 /.vs/StephaneHomePage
 /StephaneHomePage/bin/Debug/netcoreapp3.0
+/StephaneHomePage/bin/Debug/netcoreapp3.1
 /StephaneHomePage/obj/Container
 /StephaneHomePage/obj
 /StephaneHomePage/password.json

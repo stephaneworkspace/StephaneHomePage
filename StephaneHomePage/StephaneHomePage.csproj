@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>7871fc71-cc0a-4f5c-9f88-bfa2570badf8</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -9,10 +9,11 @@
   <ItemGroup>
     <Content Include="dev_cert.pfx" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="assets.sh" CopyToPublishDirectory="PreserveNewest" />
-    <PackageReference Include="EmbeddedBlazorContent" Version="1.9.0" />
+    <PackageReference Include="EmbeddedBlazorContent" Version="1.10.0" />
     <PackageReference Include="MatBlazor" Version="1.10.1" />
     <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
+    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="2.2.0" />
   </ItemGroup>
 
 </Project>
