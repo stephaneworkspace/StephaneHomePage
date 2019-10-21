@@ -28,38 +28,3 @@
         </EditForm>
     }
 </MatAppBarContent>
-@code {
-    private ThemeAstralModel _model = new ThemeAstralModel();
-    
-    ImportJson data;
-    bool swLoaded = false;
-
-    private async Task HandleValidSubmit()
-    {
-        await LoadDatas();
-    }
-
-    protected override void OnInitialized()
-    {
-        this._model.utc = "+02:00";
-        this._model.geo_pos_ns = "46n12";
-        this._model.geo_pos_we = "6e9";
-    }
-
-    private async Task LoadDatas()
-    {
-        var response = await AstrologieServiceHttp.GetThemeAstral(this._model);
-        switch (response.StatusCode)
-        {
-            case HttpStatusCode.OK:
-                string content = await response.Content.ReadAsStringAsync();
-                data = JsonConvert.DeserializeObject<ImportJson>(content);
-                swLoaded = true;
-                break;
-            default:
-                Toaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                NavigationManager.NavigateTo("/");
-                break;
-        }
-    }
-}
