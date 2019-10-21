@@ -24,11 +24,13 @@
         AppStateServiceCore.OnChange += OnTitleChange;
     }
 
+    #pragma warning disable 1998
     private async Task OnTitleChange(string page)
     {
         AppStateServiceCore.Title = page;
         StateHasChanged();
     }
+    #pragma warning restore 1998
 
     MatTheme _theme = new MatTheme()
     {
