@@ -58,6 +58,7 @@ namespace StephaneHomePage
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,8 +73,6 @@ namespace StephaneHomePage
             app.UseHttpsRedirection();
             app.UseStaticFiles();
     
-            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

@@ -1,19 +1,36 @@
 ﻿@page "/astrologie"
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">
+        <div class="col">
+            <MatDatePicker Id="year_month_day"
+                           Label="Naissance"
+                           EnableTime="true"
+                           Required="true"
+                           Class="form-control"
+                           DateFormat="d-m-Y H:i"
+                           @bind-Value="@model.Datetime">
+            </MatDatePicker>
+        </div>
+        <div class="col">
+            <MatTextField Id="utc" Required="true" Class="form-control" @bind-Value="@model.utc" Label="Fuseau horraire"></MatTextField>
+        </div>
+        <div class="col">
+            <MatTextField Id="geo_pos_ns" Required="true" Class="form-control" @bind-Value="@model.geo_pos_ns" Label="Loc. degré(s)°, minute(s)' nord/sud"></MatTextField>
+        </div>
+        <div class="col">
+            <MatTextField Id="geo_pos_we" Required="true" Class="form-control" @bind-Value="@model.geo_pos_we" Label="Loc. degré(s)°, minute(s)' ouest/est"></MatTextField>
+        </div>
+    </div>
+    <div style="padding-top: 1.5rem;">
+        <center>
+            <MatButton Type="submit">Afficher le thème natal avec la calculation des maisons selon Placidus</MatButton>
+        </center>
+    </div>
 @if (swLoaded)
 {
-    <ThemeAstral Json="data" MaxWidth="500" MaxHeight="500" />
-} else
-{
-    <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <InputText id="year_month_day" @bind-Value="@model.year_month_day" />
-        <InputText id="hour_min" @bind-Value="@model.hour_min"/>
-        <InputText id="utc" @bind-Value="@model.utc" />
-        <InputText id="geo_pos_ns" @bind-Value="@model.geo_pos_ns" />
-        <InputText id="geo_pos_we" @bind-Value="@model.geo_pos_we" />
-
-        <button type="submit">Afficher le thème natal</button>
-    </EditForm>
-}
+    <ThemeAstral Json="data" MaxWidth="390" MaxHeight="390" />
+} 
+</EditForm>

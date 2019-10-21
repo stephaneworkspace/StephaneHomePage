@@ -29,8 +29,8 @@ namespace StephaneHomePage.Services.Http
         public async Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model)
         {
             NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            queryString["year_month_day"] = model.year_month_day;
-            queryString["hour_min"] = model.hour_min;
+            queryString["year_month_day"] = $"{model.Datetime.Value.Year.ToString()}/{model.Datetime.Value.Month.ToString()}/{model.Datetime.Value.Day.ToString()}";
+            queryString["hour_min"] = $"{model.Datetime.Value.Hour.ToString()}:{model.Datetime.Value.Minute.ToString()}";
             queryString["utc"] = model.utc;
             queryString["geo_pos_ns"] = model.geo_pos_ns;
             queryString["geo_pos_we"] = model.geo_pos_we;
