@@ -34,7 +34,7 @@ namespace StephaneHomePage.Services.Http
             queryString["utc"] = model.utc;
             queryString["geo_pos_ns"] = model.geo_pos_ns;
             queryString["geo_pos_we"] = model.geo_pos_we;
-            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme{queryString.ToString()}");
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme?{queryString.ToString()}");
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);
         }
