@@ -26,7 +26,13 @@ namespace StephaneHomePage.Services.Http
         }
         public async Task<HttpResponseMessage> GetThemeAstral()
         {
-            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}hello/");
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme");
+            // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
+            return await _httpClient.SendAsync(req);
+        }
+        public async Task<HttpResponseMessage> GetSwagger()
+        {
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/swagger");
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);
         }
