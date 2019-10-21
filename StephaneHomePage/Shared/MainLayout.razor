@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject IMatToaster Toaster
+@inject AppStateServiceCore AppStateServiceCore
+@using Services.Core
 <div class="sidebar">
     <NavMenu />
 </div>
@@ -7,13 +9,27 @@
 <div class="main">
     <MatThemeProvider Theme="@_theme">
         <MatAppBarContainer>
-            @Body
+            <AppBar Title="@AppStateServiceCore.Title" />
+            <MatAppBarContent>
+                @Body
+            </MatAppBarContent>
             <MatToastContainer />
         </MatAppBarContainer>
     </MatThemeProvider>
 </div>
 
 @code {
+    protected override void OnInitialized()
+    {
+        AppStateServiceCore.OnChange += OnTitleChange;
+    }
+
+    private async Task OnTitleChange(string page)
+    {
+        AppStateServiceCore.Title = page;
+        StateHasChanged();
+    }
+
     MatTheme _theme = new MatTheme()
     {
         Primary = MatThemeColors.Indigo._300.Value,

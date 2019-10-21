@@ -1,22 +1,23 @@
 ﻿@page "/astrologie"
-<AppBar Title="Astrologie" />
-<MatAppBarContent>
-    @if (swLoaded)
-    {
-        <ThemeAstral Json="data" MaxWidth="500" MaxHeight="500" />
-    } else
-    {
-        <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+@if (swLoaded)
+{
+    <ThemeAstral Json="data" MaxWidth="500" MaxHeight="500" />
+} else
+{
+    <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-            <InputText id="year_month_day" @bind-Value="@model.year_month_day" />
-            <InputText id="hour_min" @bind-Value="@model.hour_min" />
-            <InputText id="utc" @bind-Value="@model.utc" />
-            <InputText id="geo_pos_ns" @bind-Value="@model.geo_pos_ns" />
-            <InputText id="geo_pos_we" @bind-Value="@model.geo_pos_we" />
+        <InputText id="year_month_day" @bind-Value="@model.year_month_day" />
+        <InputText id="hour_min" @bind-Value="@model.hour_min"/>
+        <InputText id="utc" @bind-Value="@model.utc" />
+        <InputText id="geo_pos_ns" @bind-Value="@model.geo_pos_ns" />
+        <InputText id="geo_pos_we" @bind-Value="@model.geo_pos_we" />
 
-            <button type="submit">Afficher le thème natal</button>
-        </EditForm>
-    }
-</MatAppBarContent>
+        <button type="submit">Afficher le thème natal</button>
+    </EditForm>
+}
+@*
+@bind:format="yyyy-MM-dd"    
+@bind:format="hh:mm"
+*@

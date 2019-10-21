@@ -1,19 +1,19 @@
 ﻿@inject HttpClient Http
+@inject AppStateServiceCore AppStateServiceCore
+@using Services.Core
 @using Microsoft.Extensions.Configuration;
 @using System.IO;
 @page "/"
-<AppBar Title="Page d'accueil" />
-<MatAppBarContent>
-    <h1>Stéphane Bressani</h1>
-    <h2>Programmeur full stack et instructeur udemy</h2>
-</MatAppBarContent>
+<h1>Stéphane Bressani</h1>
+<h2>Programmeur full stack et instructeur udemy</h2>
 @*<!--
     Welcome to your new app. @password
     -->*@
 @code {
-        @*String password = "?";*@
-    protected override void OnInitialized()
+    @*String password = "?";*@
+    protected override async Task OnInitializedAsync()
     {
+        await AppStateServiceCore.ChangeTitle("Page d'acceuil");
         var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("password.json").Build();

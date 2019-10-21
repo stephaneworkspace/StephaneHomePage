@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 using StephaneHomePage.Model;
+using StephaneHomePage.Services.Core;
 using StephaneHomePage.Services.Http;
 using StephaneHomePage.Struct.ImportJson;
 using System;
@@ -15,6 +16,8 @@ namespace StephaneHomePage.Pages
 {
     public partial class Astrologie
     {
+        [Inject]
+        private AppStateServiceCore AppStateServiceCore { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         [Inject]
@@ -31,8 +34,9 @@ namespace StephaneHomePage.Pages
             await LoadDatas();
         }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
+            await AppStateServiceCore.ChangeTitle("Astrologie");
             model.utc = "+02:00";
             model.geo_pos_ns = "46n12";
             model.geo_pos_we = "6e9";

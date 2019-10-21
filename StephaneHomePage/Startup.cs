@@ -18,6 +18,7 @@ using StephaneHomePage.Data;
 using StephaneHomePage.Services.Http;
 using EmbeddedBlazorContent;
 using MatBlazor;
+using StephaneHomePage.Services.Core;
 
 namespace StephaneHomePage
 {
@@ -51,6 +52,7 @@ namespace StephaneHomePage
             });
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IAstrologieServiceHttp, AstrologieServiceHttp>();
+            services.AddSingleton<AppStateServiceCore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

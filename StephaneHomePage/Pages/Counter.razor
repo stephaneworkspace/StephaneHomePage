@@ -1,12 +1,10 @@
 ﻿@page "/counter"
-<AppBar />
-<MatAppBarContent>
-    <h1>Counter</h1>
+<h1>Counter</h1>
 
-    <p>Current count: @currentCount</p>
+<p>Current count: @currentCount</p>
 
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-</MatAppBarContent>
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
 @code {
     int currentCount = 0;
 
