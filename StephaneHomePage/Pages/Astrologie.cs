@@ -17,31 +17,14 @@ namespace StephaneHomePage.Pages
     {
         [Inject]
         private NavigationManager _navigationManager { get; set; }
-
         [Inject]
         private IMatToaster _matToaster { get; set; }
-
         [Inject]
         private IAstrologieServiceHttp _astrologieServiceHttp { get; set; }
 
         public ThemeAstralModel model = new ThemeAstralModel();
-
         public ImportJson data;
-
         public bool swLoaded = false;
-
-        public Astrologie(NavigationManager navigationManager, IMatToaster matToaster, IAstrologieServiceHttp astrologieServiceHttp)
-        {
-            _navigationManager = navigationManager;
-            _matToaster = matToaster;
-            _astrologieServiceHttp = astrologieServiceHttp;
-        }
-
-        public Astrologie()
-        {
-
-        }
-
 
         private async Task HandleValidSubmit()
         {
