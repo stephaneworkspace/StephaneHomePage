@@ -13,7 +13,6 @@
     <PackageReference Include="MatBlazor" Version="1.10.1" />
     <PackageReference Include="McMaster.AspNetCore.LetsEncrypt" Version="0.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
-    <PackageReference Include="Telerik.UI.for.Blazor.Trial" Version="1.1.0" />
   </ItemGroup>
 
 </Project>
