@@ -17,15 +17,11 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: Install .NET Core 3.0 SDK
+  displayName: Install .NET Core 3.1 SDK
   inputs:
     packageType: 'sdk'
     version: '3.1.100-preview1-014459'
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
+    
 - task: CmdLine@2
   inputs:
     script: |
