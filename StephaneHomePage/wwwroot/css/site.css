@@ -113,6 +113,7 @@ app {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
+/*
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
@@ -124,6 +125,7 @@ app {
 .validation-message {
     color: red;
 }
+*/
 
 @media (max-width: 767.98px) {
     .main .top-row {

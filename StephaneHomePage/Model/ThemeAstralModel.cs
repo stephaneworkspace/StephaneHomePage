@@ -9,10 +9,8 @@ namespace StephaneHomePage.Model
     public class ThemeAstralModel
     {
         [Required]
-        public DateTime? Datetime { get; set; }
-
         public string year_month_day { get; set; }
-
+        [Required]
         public string hour_min { get; set; }
         [Required]
         public string utc { get; set; }

@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.JSInterop;
 
 namespace StephaneHomePage.Pages
 {
@@ -38,8 +39,8 @@ namespace StephaneHomePage.Pages
         {
             await AppStateServiceCore.ChangeTitle("Astrologie");
             model.utc = "+02:00";
-            model.geo_pos_ns = "46n12";
-            model.geo_pos_we = "6e9";
+            model.geo_pos_ns = "46.20222";
+            model.geo_pos_we = "6.14569";
         }
 
         private async Task LoadDatas()
@@ -54,7 +55,7 @@ namespace StephaneHomePage.Pages
                     break;
                 default:
                     MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                    NavigationManager.NavigateTo("/");
+                    // NavigationManager.NavigateTo("/");
                     break;
             }
         }
