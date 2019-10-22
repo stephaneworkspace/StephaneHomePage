@@ -7,6 +7,7 @@
         <div class="col">
             <MatDatePicker Id="year_month_day"
                            Label="Naissance"
+                           Enable24hours="true"
                            EnableTime="true"
                            Required="true"
                            Class="form-control"
@@ -15,7 +16,7 @@
             </MatDatePicker>
         </div>
         <div class="col">
-            <MatTextField Id="utc" Required="true" Class="form-control" @bind-Value="@model.utc" Label="Fuseau horraire"></MatTextField>
+            <MatTextField Id="utc" Required="true" Class="form-control" @bind-Value="@model.utc" Label="Fuseau horaire"></MatTextField>
         </div>
         <div class="col">
             <MatTextField Id="geo_pos_ns" Required="true" Class="form-control" @bind-Value="@model.geo_pos_ns" Label="Loc. degré(s)°, minute(s)' nord/sud"></MatTextField>
