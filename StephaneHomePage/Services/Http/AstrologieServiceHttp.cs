@@ -30,8 +30,8 @@ namespace StephaneHomePage.Services.Http
         public async Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model)
         {
             //NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            //queryString["year_month_day"] = $"'{model.year_month_day.Replace('-', '/')}'";
-            //queryString["hour_min"] = $"'{model.hour_min}'";
+            //queryString["year_month_day"] = $"{model.year_month_day.Replace('-', '/')}";
+            //queryString["hour_min"] = $"{model.hour_min}";
             //queryString["lat"] = model.lat.ToString();
             //queryString["lng"] = model.lng.ToString();
             string queryString = $"year_month_day={model.year_month_day.Replace('-', '/')}";

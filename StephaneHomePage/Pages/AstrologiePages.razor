@@ -14,8 +14,9 @@
             <MatTextField Id="year_month_day"
                           Type="date"
                           Required="true"
-                          Class="form-control"
+                          Disabled="@swLock"
                           Label="Date de naissance"
+                          Class="mat-form-input"
                           @bind-Value="@model.year_month_day" />
         @*<ValidationMessage For="@(() => MyFormModel.SelectedFilm)" />*@
         </div>
@@ -23,17 +24,25 @@
             <MatTextField Id="hour_min"
                           Type="time"
                           Required="true"
-                          Class="form-control"
-                          Label="Date de naissance"
+                          Disabled="@swLock"
+                          Label="Heure:Minute"
+                          Class="mat-form-input"
                           @bind-Value="@model.hour_min" />
         </div>
         <div class="col">
-            <MatTextField Id="Localize" Required="true" Class="form-control" @bind-Value="citySearch" Label="Lieu de naissance"></MatTextField>
+            <MatTextField 
+                Id="Localize" 
+                Required="true" 
+                Disabled="@swLock"
+                Label="Lieu de naissance"
+                Class="mat-form-input"
+                @bind-Value="citySearch">
+            </MatTextField>
         </div>
-        @if (swSearch)
+        @if (swSearch && !swLock)
         {
             <div class="col">
-                <MatSelect Label="Confirmer lieu de naissance" Class="form-control" Enhanced="true" @bind-Value="@citySearchId" @onchange="BindCity">
+                <MatSelect Label="Confirmer lieu de naissance" Disabled="@swLock" Enhanced="true" Class="mat-form-input" @bind-Value="@citySearchId" @onchange="BindCity">
                     @foreach (var i in search)
                     {
                         <MatOption Value="@i.Id.ToString()">@i.Name</MatOption>
@@ -42,15 +51,18 @@
             </div>
         }
         <div class="col">
-            <MatTextField Id="lat" Disable="true" Required="true" Class="form-control" @bind-Value="@model.lat" Label="Latitude"></MatTextField>
+            <MatTextField Id="lat" Disabled="true" Required="true" Class="mat-form-input" @bind-Value="@model.lat" Label="Latitude"></MatTextField>
         </div>
         <div class="col">
-            <MatTextField Id="lgn" Disable="true" Required="true" Class="form-control" @bind-Value="@model.lng" Label="Longitude"></MatTextField>
+            <MatTextField Id="lgn" Disabled="true" Required="true" Class="mat-form-input" @bind-Value="@model.lng" Label="Longitude"></MatTextField>
         </div>
     </div>
     <div style="padding-top: 1.5rem;">
         <center>
-            <MatButton Type="submit">Afficher le thème natal avec la calculation des maisons selon Placidus</MatButton>
+            @if (!swLock)
+            {
+                <MatButton Type="submit">Afficher le thème natal avec la calculation des maisons selon Placidus</MatButton>
+            }
         </center>
     </div>
     @if (swLoaded)
@@ -59,6 +71,7 @@
     }
 </EditForm>
 @code {
+    public bool swLock { get; set; } = false;
     public bool swSearch { get; set; } = false;
     public List<CityWithFlag> search = new List<CityWithFlag>();
 
@@ -107,7 +120,7 @@
                 break;
             default:
                 MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                // NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo("/");
                 search = null;
                 StateHasChanged();
                 break;

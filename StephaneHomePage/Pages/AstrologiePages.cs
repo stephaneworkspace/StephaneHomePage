@@ -52,6 +52,7 @@ namespace StephaneHomePage.Pages
                     string content = await response.Content.ReadAsStringAsync();
                     data = JsonConvert.DeserializeObject<ImportJson>(content);
                     swLoaded = true;
+                    swLock = true;
                     break;
                 default:
                     MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
