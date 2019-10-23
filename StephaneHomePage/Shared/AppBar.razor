@@ -9,10 +9,14 @@
         @if (Title == "Astrologie")
         {
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
-                <MatIconButton Icon="accessibility_new" OnClick="@NewThemeOnClick"></MatIconButton>
+                <MatTooltip Tooltip="Initialiser les données">
+                    <MatIconButton Icon="accessibility_new" OnClick="@NewThemeOnClick" RefBack="@context"></MatIconButton>
+                </MatTooltip>
                 @if (!swSecret)
                 {
-                    <MatIconButton OnClick="@UnlockOnClick" Icon="lock"></MatIconButton>
+                    <MatTooltip Tooltip="Déverouiller">
+                        <MatIconButton Icon="lock" OnClick="@UnlockOnClick" RefBack="@context"></MatIconButton>
+                    </MatTooltip>
                 } else
                 {
                     <MatIcon Icon="lock_open"></MatIcon>
