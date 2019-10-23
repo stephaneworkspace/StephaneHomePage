@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace StephaneHomePage.Services.Http
@@ -28,12 +29,15 @@ namespace StephaneHomePage.Services.Http
         }
         public async Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model)
         {
-            NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            queryString["year_month_day"] = model.year_month_day.Replace('-', '/');
-            queryString["hour_min"] = model.hour_min;
-            queryString["utc"] = model.utc;
-            queryString["geo_pos_ns"] = model.geo_pos_ns;
-            queryString["geo_pos_we"] = model.geo_pos_we;
+            //NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            //queryString["year_month_day"] = $"'{model.year_month_day.Replace('-', '/')}'";
+            //queryString["hour_min"] = $"'{model.hour_min}'";
+            //queryString["lat"] = model.lat.ToString();
+            //queryString["lng"] = model.lng.ToString();
+            string queryString = $"year_month_day={model.year_month_day.Replace('-', '/')}";
+            queryString += $"&hour_min={model.hour_min.Substring(0, 4)}";
+            queryString += $"&lat={model.lat}";
+            queryString += $"&lng={model.lng}";
             var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme?{queryString.ToString()}");
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);

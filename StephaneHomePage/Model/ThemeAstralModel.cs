@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StephaneHomePage.Struct.AutoComplete;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,10 +14,8 @@ namespace StephaneHomePage.Model
         [Required]
         public string hour_min { get; set; }
         [Required]
-        public string utc { get; set; }
+        public string lat { get; set; }
         [Required]
-        public string geo_pos_ns { get; set; }
-        [Required]
-        public string geo_pos_we { get; set; }
+        public string lng { get; set; }
     }
 }

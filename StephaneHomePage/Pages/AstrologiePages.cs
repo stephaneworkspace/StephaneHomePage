@@ -12,10 +12,11 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
+using StephaneHomePage.Struct.AutoComplete;
 
 namespace StephaneHomePage.Pages
 {
-    public partial class Astrologie
+    public partial class AstrologiePages
     {
         [Inject]
         private AppStateServiceCore AppStateServiceCore { get; set; }
@@ -38,9 +39,8 @@ namespace StephaneHomePage.Pages
         protected override async Task OnInitializedAsync()
         {
             await AppStateServiceCore.ChangeTitle("Astrologie");
-            model.utc = "+02:00";
-            model.geo_pos_ns = "46.20222";
-            model.geo_pos_we = "6.14569";
+            model.lat = "46.20222";
+            model.lng = "6.14569";
         }
 
         private async Task LoadDatas()

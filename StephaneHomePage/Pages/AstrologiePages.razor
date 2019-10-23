@@ -1,0 +1,131 @@
+﻿@page "/astrologie"
+@inject ICityServiceHttp CityServiceHttp
+@using StephaneHomePage.Struct.AutoComplete
+@using StephaneHomePage.Services.Http
+@using System.Net
+@using Newtonsoft.Json
+@using StephaneHomePage.Struct.ImportJson.Filter
+
+<EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="row">
+        <div class="col">
+            <MatTextField Id="year_month_day"
+                          Type="date"
+                          Required="true"
+                          Class="form-control"
+                          Label="Date de naissance"
+                          @bind-Value="@model.year_month_day" />
+        @*<ValidationMessage For="@(() => MyFormModel.SelectedFilm)" />*@
+        </div>
+        <div class="col">
+            <MatTextField Id="hour_min"
+                          Type="time"
+                          Required="true"
+                          Class="form-control"
+                          Label="Date de naissance"
+                          @bind-Value="@model.hour_min" />
+        </div>
+        <div class="col">
+            <MatTextField Id="Localize" Required="true" Class="form-control" @bind-Value="citySearch" Label="Lieu de naissance"></MatTextField>
+        </div>
+        @if (swSearch)
+        {
+            <div class="col">
+                <MatSelect Label="Confirmer lieu de naissance" Class="form-control" Enhanced="true" @bind-Value="@citySearchId" @onchange="BindCity">
+                    @foreach (var i in search)
+                    {
+                        <MatOption Value="@i.Id.ToString()">@i.Name</MatOption>
+                    }
+                </MatSelect>
+            </div>
+        }
+        <div class="col">
+            <MatTextField Id="lat" Disable="true" Required="true" Class="form-control" @bind-Value="@model.lat" Label="Latitude"></MatTextField>
+        </div>
+        <div class="col">
+            <MatTextField Id="lgn" Disable="true" Required="true" Class="form-control" @bind-Value="@model.lng" Label="Longitude"></MatTextField>
+        </div>
+    </div>
+    <div style="padding-top: 1.5rem;">
+        <center>
+            <MatButton Type="submit">Afficher le thème natal avec la calculation des maisons selon Placidus</MatButton>
+        </center>
+    </div>
+    @if (swLoaded)
+    {
+        <ThemeAstral Json="data" MaxWidth="390" MaxHeight="390" />
+    }
+</EditForm>
+@code {
+    public bool swSearch { get; set; } = false;
+    public List<CityWithFlag> search = new List<CityWithFlag>();
+
+    public string citySearch
+    {
+        get { return _citySearch; }
+        set
+        {
+            _citySearch = value;
+            SearchCity();
+        }
+    }
+
+    private string _citySearch;
+
+    public string citySearchId
+    {
+        get { return _citySearchId; }
+        set
+        {
+            _citySearchId = value;
+            BindCity();
+        }
+    }
+
+    public string _citySearchId;
+
+    private async void SearchCity()
+    {
+        swSearch = false;
+        var response = await CityServiceHttp.GetCitys(_citySearch);
+        switch (response.StatusCode)
+        {
+            case HttpStatusCode.OK:
+                string content = await response.Content.ReadAsStringAsync();
+                var data_city_filter = JsonConvert.DeserializeObject<CityFilter>(content);
+                var data_return = new List<CityWithFlag>();
+                if (data_city_filter.filter != null)
+                    foreach(var d in data_city_filter.filter)
+                    {
+                        swSearch = true;
+                        data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
+                    }
+                search = data_return;
+                StateHasChanged();
+                break;
+            default:
+                MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
+                // NavigationManager.NavigateTo("/");
+                search = null;
+                StateHasChanged();
+                break;
+        }
+    }
+
+    private void BindCity()
+    {
+        model.lat = "";
+        model.lng = "";
+        foreach(var b in search)
+        {
+            if (b.Id.ToString() == _citySearchId)
+            {
+                model.lat = b.Lat.ToString();
+                model.lng = b.Lng.ToString();
+            }
+        }
+        StateHasChanged();
+    }
+}
