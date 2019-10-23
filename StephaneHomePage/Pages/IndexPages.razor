@@ -1,8 +1,6 @@
 ﻿@inject HttpClient Http
 @inject AppStateServiceCore AppStateServiceCore
 @using Services.Core
-@using Microsoft.Extensions.Configuration;
-@using System.IO;
 @page "/"
 <h1>Stéphane Bressani</h1>
 <h2>Programmeur full stack et instructeur udemy</h2>
@@ -14,12 +12,5 @@
     protected override async Task OnInitializedAsync()
     {
         await AppStateServiceCore.ChangeTitle("Page d'acceuil");
-        var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("password.json").Build();
-
-
-        // password = config.GetSection("password").Value;
-
     }
 }

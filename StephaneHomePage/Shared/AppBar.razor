@@ -1,4 +1,6 @@
 ﻿@inject NavigationManager NavigationManager
+@using Microsoft.Extensions.Configuration;
+@using System.IO;
 <MatAppBar Fixed="true" Class="mat-navbar-fixed-top mat-navbar-fixed-max-width">
     <MatAppBarRow>
         <MatAppBarSection>
@@ -8,16 +10,54 @@
         {
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
                 <MatIconButton Icon="accessibility_new" OnClick="@NewThemeOnClick"></MatIconButton>
-                <MatIconButton Icon="lock"></MatIconButton>
+                @if (!swSecret)
+                {
+                    <MatIconButton OnClick="@UnlockOnClick" Icon="lock"></MatIconButton>
+                } else
+                {
+                    <MatIcon Icon="lock_open"></MatIcon>
+                }
             </MatAppBarSection>
         }
     </MatAppBarRow>
 </MatAppBar>
+<MatDialog @bind-IsOpen="@unlockDialogIsOpen">
+    <MatDialogTitle>Accès à ma base de donnée privée de mes livres d'astrologie</MatDialogTitle>
+    <MatDialogContent>
+        <p>Mot de passe :</p>
+        <MatTextField @bind-Value="@password"></MatTextField>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { unlockDialogIsOpen = false; })">Je ne connais pas le mot de passe</MatButton>
+        <MatButton OnClick="@UnlockVerifPasswordOnClick">OK</MatButton>
+    </MatDialogActions>
+</MatDialog>
 @code {
     [Parameter] public string Title { get; set; }
+
+    bool unlockDialogIsOpen = false;
+    string password = null;
+    bool swSecret = false;
 
     public void NewThemeOnClick(MouseEventArgs e)
     {
         NavigationManager.NavigateTo("/astrologie?swRefresh=refresh");
+    }
+
+    public void UnlockOnClick(MouseEventArgs e)
+    {
+        unlockDialogIsOpen = true;
+    }
+
+    void UnlockVerifPasswordOnClick()
+    {
+        var config = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("password.json").Build();
+        if (password == config.GetSection("password").Value)
+        {
+            swSecret = true;
+            unlockDialogIsOpen = false;
+        }
     }
 }

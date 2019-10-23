@@ -87,11 +87,10 @@ namespace StephaneHomePage.Pages
             {
                 if (swRefreshQuery == "refresh")
                 {
-                    model = new ThemeAstralModel
-                    {
-                        lat = "46.20222",
-                        lng = "6.14569"
-                    };
+                    model = new ThemeAstralModel();
+                    model.lat = "46.20222";
+                    model.lng = "6.14569";
+                    citySearch = "";
                     citySearchId = "";
                     swLock = false;
                     swLoaded = false;
@@ -126,15 +125,23 @@ namespace StephaneHomePage.Pages
             {
                 case HttpStatusCode.OK:
                     string content = await response.Content.ReadAsStringAsync();
-                    var data_city_filter = JsonConvert.DeserializeObject<CityFilter>(content);
-                    var data_return = new List<CityWithFlag>();
-                    if (data_city_filter.filter != null)
-                        foreach (var d in data_city_filter.filter)
-                        {
-                            swSearch = true;
-                            data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
-                        }
-                    search = data_return;
+                    if (content != "[]")
+                    {
+                        var data_city_filter = JsonConvert.DeserializeObject<CityFilter>(content);
+                        var data_return = new List<CityWithFlag>();
+                        if (data_city_filter.filter != null)
+                            foreach (var d in data_city_filter.filter)
+                            {
+                                swSearch = true;
+                                data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
+                            }
+                        search = data_return;
+                    } else
+                    {
+                        search = new List<CityWithFlag>();
+                        model.lat = "46.20222";
+                        model.lng = "6.14569";
+                    }
                     StateHasChanged();
                     break;
                 default:
