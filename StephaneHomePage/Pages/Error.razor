@@ -1,6 +1,7 @@
 ﻿@page "/error"
 @inject AppStateServiceCore AppStateServiceCore
-@using Services.Core
+@using StephaneHomePage.Services.Core
+@using StephaneHomePage.Struct.Layout
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
@@ -17,7 +18,10 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        await AppStateServiceCore.ChangeTitle("Page non trouée");
+        var oldStruct = AppStateServiceCore.AppBarStruct;
+        var newStruct = new AppBarStruct("Page non trouée", false, oldStruct.AstroZoom);
+        await AppStateServiceCore.ChangeStruct(newStruct);
+
 
     }
 }

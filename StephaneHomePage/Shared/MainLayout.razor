@@ -1,7 +1,4 @@
 ﻿@inherits LayoutComponentBase
-@inject IMatToaster Toaster
-@inject AppStateServiceCore AppStateServiceCore
-@using Services.Core
 <div class="sidebar">
     <NavMenu />
 </div>
@@ -10,7 +7,7 @@
     <MatThemeProvider Theme="@_theme">
         <MatAppBarContainer>
             <div class="mat-app-bar-title">
-                <AppBar Title="@AppStateServiceCore.Title"></AppBar>
+                <AppBar Title="@AppStateServiceCore.AppBarStruct.Title" ShowSwAstroZoom="@AppStateServiceCore.AppBarStruct.ShowSwAstroZoom" Zoom="@AppStateServiceCore.AppBarStruct.AstroZoom"></AppBar>
             </div>
             <MatAppBarContent>
                 <div class="mat-app-bar-content-body">@Body</div>
@@ -18,29 +15,8 @@
             <MatToastContainer />
         </MatAppBarContainer>
     </MatThemeProvider>
-    @if (AppStateServiceCore.Title == "Page d'acceuil")
+    @if (AppStateServiceCore.AppBarStruct.Title == "Page d'accueil")
     {
         <center><div class="index-background"></div></center>
     }
 </div>
-
-@code {
-    protected override void OnInitialized()
-    {
-        AppStateServiceCore.OnChange += OnTitleChange;
-    }
-
-    #pragma warning disable 1998
-    private async Task OnTitleChange(string page)
-    {
-        AppStateServiceCore.Title = page;
-        StateHasChanged();
-    }
-    #pragma warning restore 1998
-
-    MatTheme _theme = new MatTheme()
-    {
-        Primary = MatThemeColors.Indigo._300.Value,
-        Secondary = MatThemeColors.Blue._500.Value
-    };
-}

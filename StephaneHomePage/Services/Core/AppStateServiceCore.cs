@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StephaneHomePage.Struct.Layout;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,18 +8,18 @@ namespace StephaneHomePage.Services.Core
 {
     public class AppStateServiceCore
     {
-        public Func<string, Task> OnChange;
-        public string Title { get; set; }
+        public Func<AppBarStruct, Task> OnChange;
+        public AppBarStruct AppBarStruct { get; set; }
 
-        public async Task ChangeTitle(string title)
+        public async Task ChangeStruct(AppBarStruct appBarStruct)
         {
-            await OnChangeTitle(title);
+            await OnChangeStruct(appBarStruct);
         }
 
-        private async Task OnChangeTitle(string title)
+        private async Task OnChangeStruct(AppBarStruct appBarStruct)
         {
-            Title = title;
-            await OnChange?.Invoke(title);
+            AppBarStruct = appBarStruct;
+            await OnChange?.Invoke(appBarStruct);
         }
     }
 }

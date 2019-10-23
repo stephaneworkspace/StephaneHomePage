@@ -1,11 +1,1 @@
-﻿@inject HttpClient Http
-@inject AppStateServiceCore AppStateServiceCore
-@using Services.Core
-@page "/"
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await AppStateServiceCore.ChangeTitle("Page d'acceuil");
-    }
-}
+﻿@page "/"

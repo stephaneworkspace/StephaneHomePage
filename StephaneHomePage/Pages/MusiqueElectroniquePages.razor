@@ -1,7 +1,4 @@
 ﻿@page "/musique_electronique"
-@inject AppStateServiceCore AppStateServiceCore
-@using Services.Core
-
 <h1>Compositions AbletonLive / Renoise</h1>
 <h2>Hi tek</h2>
 <iframe class="sound-cloud-player" height="166" scrolling="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/597322239&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
@@ -15,11 +12,3 @@
 <h1>Mix</h1>
 <h2>Mix psychedelic trance</h2>
 <iframe class="sound-cloud-player" height="166" scrolling="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/432153582&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
-
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await AppStateServiceCore.ChangeTitle("Musique électronique");
-    }
-}

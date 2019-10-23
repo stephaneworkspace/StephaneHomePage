@@ -17,6 +17,7 @@ using StephaneHomePage.Struct.ImportJson.Filter;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Components.Routing;
+using StephaneHomePage.Struct.Layout;
 
 namespace StephaneHomePage.Pages
 {
@@ -72,7 +73,10 @@ namespace StephaneHomePage.Pages
         protected override async Task OnInitializedAsync()
         {
             NavigationManager.LocationChanged += OnLocationChanges;
-            await AppStateServiceCore.ChangeTitle("Astrologie");
+            var oldStruct = AppStateServiceCore.AppBarStruct;
+            var newStruct = new AppBarStruct("Astrologie", true, oldStruct.AstroZoom);
+            await AppStateServiceCore.ChangeStruct(newStruct);
+            AppStateServiceCore.OnChange += OnStructChange;
             model.lat = "46.20222";
             model.lng = "6.14569";
         }
@@ -167,6 +171,20 @@ namespace StephaneHomePage.Pages
             }
             StateHasChanged();
         }
+
+
+        /// <summary>
+        /// For detect zoom change
+        /// </summary>
+        /// <param name="appBarStruct">App bar struct</param>
+        /// <returns></returns>
+        #pragma warning disable 1998
+        private async Task OnStructChange(AppBarStruct appBarStruct)
+        {
+            AppStateServiceCore.AppBarStruct = appBarStruct;
+            StateHasChanged();
+        }
+        #pragma warning restore 1998
     }
 }
 

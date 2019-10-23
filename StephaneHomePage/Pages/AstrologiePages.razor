@@ -25,13 +25,12 @@
             <ValidationMessage For="@(() => model.hour_min)" />
         </div>
         <div class="col">
-            <MatTextField 
-                Id="Localize" 
-                Required="true" 
-                Disabled="@swLock"
-                Label="Lieu de naissance"
-                Class="mat-form-input"
-                @bind-Value="citySearch">
+            <MatTextField Id="Localize"
+                          Required="true"
+                          Disabled="@swLock"
+                          Label="Lieu de naissance"
+                          Class="mat-form-input"
+                          @bind-Value="citySearch">
             </MatTextField>
         </div>
         @if (swSearch && !swLock)
@@ -48,50 +47,48 @@
         <div class="col">
             @if (!swLock)
             {
-                <MatTextField 
-                    Id="lat" 
-                    Disabled="true" 
-                    Required="true"
-                    Label="Latitude" 
-                    Class="mat-form-input" 
-                    @bind-Value="@model.lat">
+                <MatTextField Id="lat"
+                              Disabled="true"
+                              Required="true"
+                              Label="Latitude"
+                              Class="mat-form-input"
+                              @bind-Value="@model.lat">
                 </MatTextField>
-            } else
+            }
+            else
             {
-                <MatTextField 
-                    Id="lat" 
-                    Disabled="true" 
-                    Required="true"
-                    Label="Latitude" 
-                    Class="mat-form-input modified valid" 
-                    @bind-Value="@model.lat">
+                <MatTextField Id="lat"
+                              Disabled="true"
+                              Required="true"
+                              Label="Latitude"
+                              Class="mat-form-input modified valid"
+                              @bind-Value="@model.lat">
                 </MatTextField>
             }
             <ValidationMessage For="@(() => model.lat)" />
         </div>
-       <div class="col">
+        <div class="col">
             @if (!swLock)
             {
-                <MatTextField 
-                    Id="lng" 
-                    Disabled="true" 
-                    Required="true"
-                    Label="Latitude" 
-                    Class="mat-form-input" 
-                    @bind-Value="@model.lng">
-                </MatTextField>
-            } else
-            {
-                <MatTextField 
-                    Id="lng" 
-                    Disabled="true" 
-                    Required="true"
-                    Label="Latitude" 
-                    Class="mat-form-input modified valid" 
-                    @bind-Value="@model.lng">
+                <MatTextField Id="lng"
+                              Disabled="true"
+                              Required="true"
+                              Label="Latitude"
+                              Class="mat-form-input"
+                              @bind-Value="@model.lng">
                 </MatTextField>
             }
-           <ValidationMessage For="@(() => model.lng)" />
+            else
+            {
+                <MatTextField Id="lng"
+                              Disabled="true"
+                              Required="true"
+                              Label="Latitude"
+                              Class="mat-form-input modified valid"
+                              @bind-Value="@model.lng">
+                </MatTextField>
+            }
+            <ValidationMessage For="@(() => model.lng)" />
         </div>
     </div>
     <div style="padding-top: 1.5rem;">
@@ -104,6 +101,7 @@
     </div>
     @if (swLoaded)
     {
-        <ThemeAstral Json="data" MaxWidth="390" MaxHeight="390" />
+        <ThemeAstral Json="data" MaxWidth="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" MaxHeight="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" />
     }
 </EditForm>
+
