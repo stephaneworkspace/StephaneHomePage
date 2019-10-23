@@ -185,3 +185,13 @@ app {
     width: 100%;
     border: 0;
 }
+
+.index-background {
+    width: 75%!important; 
+    height: 522px; 
+    box-shadow: 1px 2px 20px 2px rgb(128, 128, 128); 
+    border-radius: 50% 20% / 10% 40%; 
+    background-image: url('/img/index.png'); 
+    background-repeat:repeat-y; 
+    background-size: contain;
+}

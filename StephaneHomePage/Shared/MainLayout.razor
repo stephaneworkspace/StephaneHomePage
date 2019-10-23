@@ -18,6 +18,10 @@
             <MatToastContainer />
         </MatAppBarContainer>
     </MatThemeProvider>
+    @if (AppStateServiceCore.Title == "Page d'acceuil")
+    {
+        <center><div class="index-background"></div></center>
+    }
 </div>
 
 @code {
