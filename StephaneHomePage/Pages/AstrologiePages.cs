@@ -13,6 +13,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using StephaneHomePage.Struct.AutoComplete;
+using StephaneHomePage.Struct.ImportJson.Filter;
 
 namespace StephaneHomePage.Pages
 {
@@ -26,10 +27,39 @@ namespace StephaneHomePage.Pages
         private IMatToaster MatToaster { get; set; }
         [Inject]
         private IAstrologieServiceHttp AstrologieServiceHttp { get; set; }
+        [Inject]
+        private ICityServiceHttp CityServiceHttp { get; set; }
+
+        public bool swLock { get; set; } = false;
+        public bool swLoaded = false;
 
         public ThemeAstralModel model = new ThemeAstralModel();
         public ImportJson data;
-        public bool swLoaded = false;
+        
+        public bool swSearch { get; set; } = false;
+        public List<CityWithFlag> search = new List<CityWithFlag>();
+
+        public string citySearch
+        {
+            get { return _citySearch; }
+            set
+            {
+                _citySearch = value;
+                SearchCity();
+            }
+        }
+        private string _citySearch;
+
+        public string citySearchId
+        {
+            get { return _citySearchId; }
+            set
+            {
+                _citySearchId = value;
+                BindCity();
+            }
+        }
+        public string _citySearchId;
 
         private async Task HandleValidSubmit()
         {
@@ -59,6 +89,49 @@ namespace StephaneHomePage.Pages
                     // NavigationManager.NavigateTo("/");
                     break;
             }
+        }
+
+        private async void SearchCity()
+        {
+            swSearch = false;
+            var response = await CityServiceHttp.GetCitys(_citySearch);
+            switch (response.StatusCode)
+            {
+                case HttpStatusCode.OK:
+                    string content = await response.Content.ReadAsStringAsync();
+                    var data_city_filter = JsonConvert.DeserializeObject<CityFilter>(content);
+                    var data_return = new List<CityWithFlag>();
+                    if (data_city_filter.filter != null)
+                        foreach (var d in data_city_filter.filter)
+                        {
+                            swSearch = true;
+                            data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
+                        }
+                    search = data_return;
+                    StateHasChanged();
+                    break;
+                default:
+                    MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
+                    NavigationManager.NavigateTo("/");
+                    search = null;
+                    StateHasChanged();
+                    break;
+            }
+        }
+
+        private void BindCity()
+        {
+            model.lat = "";
+            model.lng = "";
+            foreach (var b in search)
+            {
+                if (b.Id.ToString() == _citySearchId)
+                {
+                    model.lat = b.Lat.ToString();
+                    model.lng = b.Lng.ToString();
+                }
+            }
+            StateHasChanged();
         }
     }
 }

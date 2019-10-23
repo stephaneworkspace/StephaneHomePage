@@ -1,10 +1,4 @@
 ﻿@page "/astrologie"
-@inject ICityServiceHttp CityServiceHttp
-@using StephaneHomePage.Struct.AutoComplete
-@using StephaneHomePage.Services.Http
-@using System.Net
-@using Newtonsoft.Json
-@using StephaneHomePage.Struct.ImportJson.Filter
 
 <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -45,16 +39,56 @@
                 <MatSelect Label="Confirmer lieu de naissance" Disabled="@swLock" Enhanced="true" Class="mat-form-input" @bind-Value="@citySearchId" @onchange="BindCity">
                     @foreach (var i in search)
                     {
-                        <MatOption Value="@i.Id.ToString()">@i.Name</MatOption>
+                        <MatOption Value="@i.Id.ToString()">@i.Name (@i.Country) @i.Lat/@i.Lng</MatOption>
                     }
                 </MatSelect>
             </div>
         }
         <div class="col">
-            <MatTextField Id="lat" Disabled="true" Required="true" Class="mat-form-input" @bind-Value="@model.lat" Label="Latitude"></MatTextField>
+            @if (!swLock)
+            {
+                <MatTextField 
+                    Id="lat" 
+                    Disabled="true" 
+                    Required="true"
+                    Label="Latitude" 
+                    Class="mat-form-input" 
+                    @bind-Value="@model.lat">
+                </MatTextField>
+            } else
+            {
+                <MatTextField 
+                    Id="lat" 
+                    Disabled="true" 
+                    Required="true"
+                    Label="Latitude" 
+                    Class="mat-form-input modified valid" 
+                    @bind-Value="@model.lat">
+                </MatTextField>
+            }
         </div>
-        <div class="col">
-            <MatTextField Id="lgn" Disabled="true" Required="true" Class="mat-form-input" @bind-Value="@model.lng" Label="Longitude"></MatTextField>
+       <div class="col">
+            @if (!swLock)
+            {
+                <MatTextField 
+                    Id="lng" 
+                    Disabled="true" 
+                    Required="true"
+                    Label="Latitude" 
+                    Class="mat-form-input" 
+                    @bind-Value="@model.lng">
+                </MatTextField>
+            } else
+            {
+                <MatTextField 
+                    Id="lng" 
+                    Disabled="true" 
+                    Required="true"
+                    Label="Latitude" 
+                    Class="mat-form-input modified valid" 
+                    @bind-Value="@model.lng">
+                </MatTextField>
+            }
         </div>
     </div>
     <div style="padding-top: 1.5rem;">
@@ -70,75 +104,3 @@
         <ThemeAstral Json="data" MaxWidth="390" MaxHeight="390" />
     }
 </EditForm>
-@code {
-    public bool swLock { get; set; } = false;
-    public bool swSearch { get; set; } = false;
-    public List<CityWithFlag> search = new List<CityWithFlag>();
-
-    public string citySearch
-    {
-        get { return _citySearch; }
-        set
-        {
-            _citySearch = value;
-            SearchCity();
-        }
-    }
-
-    private string _citySearch;
-
-    public string citySearchId
-    {
-        get { return _citySearchId; }
-        set
-        {
-            _citySearchId = value;
-            BindCity();
-        }
-    }
-
-    public string _citySearchId;
-
-    private async void SearchCity()
-    {
-        swSearch = false;
-        var response = await CityServiceHttp.GetCitys(_citySearch);
-        switch (response.StatusCode)
-        {
-            case HttpStatusCode.OK:
-                string content = await response.Content.ReadAsStringAsync();
-                var data_city_filter = JsonConvert.DeserializeObject<CityFilter>(content);
-                var data_return = new List<CityWithFlag>();
-                if (data_city_filter.filter != null)
-                    foreach(var d in data_city_filter.filter)
-                    {
-                        swSearch = true;
-                        data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
-                    }
-                search = data_return;
-                StateHasChanged();
-                break;
-            default:
-                MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                NavigationManager.NavigateTo("/");
-                search = null;
-                StateHasChanged();
-                break;
-        }
-    }
-
-    private void BindCity()
-    {
-        model.lat = "";
-        model.lng = "";
-        foreach(var b in search)
-        {
-            if (b.Id.ToString() == _citySearchId)
-            {
-                model.lat = b.Lat.ToString();
-                model.lng = b.Lng.ToString();
-            }
-        }
-        StateHasChanged();
-    }
-}
