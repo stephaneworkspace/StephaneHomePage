@@ -2,13 +2,8 @@
 @inject AppStateServiceCore AppStateServiceCore
 @using Services.Core
 @page "/"
-<h1>Stéphane Bressani</h1>
-<h2>Programmeur full stack et instructeur udemy</h2>
-@*<!--
-    Welcome to your new app. @password
-    -->*@
+<center><div style="width: 817px; height: 522px; box-shadow: 1px 2px 20px 2px rgb(128, 128, 128); border-radius: 50% 20% / 10% 40%; background-image: url('/img/index.png'); background-size: contain;";></div></center>
 @code {
-    @*String password = "?";*@
     protected override async Task OnInitializedAsync()
     {
         await AppStateServiceCore.ChangeTitle("Page d'acceuil");
