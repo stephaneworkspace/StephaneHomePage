@@ -35,7 +35,7 @@ namespace StephaneHomePage.Services.Http
             //queryString["lat"] = model.lat.ToString();
             //queryString["lng"] = model.lng.ToString();
             string queryString = $"year_month_day={model.year_month_day.Replace('-', '/')}";
-            queryString += $"&hour_min={model.hour_min.Substring(0, 4)}";
+            queryString += $"&hour_min={model.hour_min.Substring(0, 5)}";
             queryString += $"&lat={model.lat}";
             queryString += $"&lng={model.lng}";
             var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/astrology_birth_theme?{queryString.ToString()}");
