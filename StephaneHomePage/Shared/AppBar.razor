@@ -22,20 +22,30 @@
     </MatAppBarRow>
 </MatAppBar>
 <MatDialog @bind-IsOpen="@unlockDialogIsOpen">
-    <MatDialogTitle>Accès à ma base de donnée privée de mes livres d'astrologie</MatDialogTitle>
+    <MatDialogTitle>Relation du thème à mes livres d'astrologie</MatDialogTitle>
     <MatDialogContent>
         <p>Mot de passe :</p>
-        <MatTextField @bind-Value="@password"></MatTextField>
+        <MatTextField Type="password" @bind-Value="@password"></MatTextField>
     </MatDialogContent>
     <MatDialogActions>
         <MatButton OnClick="@(e => { unlockDialogIsOpen = false; })">Je ne connais pas le mot de passe</MatButton>
-        <MatButton OnClick="@UnlockVerifPasswordOnClick">OK</MatButton>
+        <MatButton OnClick="@UnlockVerifPasswordOnClick">Ok</MatButton>
+    </MatDialogActions>
+</MatDialog>
+<MatDialog @bind-IsOpen="@unlockDialogIsOpen2">
+    <MatDialogTitle>Relation du thème à mes livres d'astrologie</MatDialogTitle>
+    <MatDialogContent>
+        <p>Contenu déverouillé</p>
+    </MatDialogContent>
+    <MatDialogActions>
+        <MatButton OnClick="@(e => { unlockDialogIsOpen2 = false; })">Ok</MatButton>
     </MatDialogActions>
 </MatDialog>
 @code {
     [Parameter] public string Title { get; set; }
 
     bool unlockDialogIsOpen = false;
+    bool unlockDialogIsOpen2 = false;
     string password = null;
     bool swSecret = false;
 
@@ -58,6 +68,7 @@
         {
             swSecret = true;
             unlockDialogIsOpen = false;
+            unlockDialogIsOpen2 = true;
         }
     }
 }
