@@ -121,11 +121,12 @@ app {
 .invalid {
     outline: 1px solid red;
 }
-
+*/
 .validation-message {
+    font-size: 0.7rem;
     color: red;
 }
-*/
+
 
 .mat-form-input {
     width: 100%;
