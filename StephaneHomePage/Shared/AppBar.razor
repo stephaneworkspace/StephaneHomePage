@@ -1,4 +1,5 @@
-﻿<MatAppBar Fixed="true" Class="mat-navbar-fixed-top mat-navbar-fixed-max-width">
+﻿@inject NavigationManager NavigationManager
+<MatAppBar Fixed="true" Class="mat-navbar-fixed-top mat-navbar-fixed-max-width">
     <MatAppBarRow>
         <MatAppBarSection>
             <MatAppBarTitle>@Title</MatAppBarTitle>
@@ -6,6 +7,7 @@
         @if (Title == "Astrologie")
         {
             <MatAppBarSection Align="@MatAppBarSectionAlign.End">
+                <MatIconButton Icon="accessibility_new" OnClick="@NewThemeOnClick"></MatIconButton>
                 <MatIconButton Icon="lock"></MatIconButton>
             </MatAppBarSection>
         }
@@ -13,4 +15,9 @@
 </MatAppBar>
 @code {
     [Parameter] public string Title { get; set; }
+
+    public void NewThemeOnClick(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo("/astrologie?swRefresh=refresh");
+    }
 }

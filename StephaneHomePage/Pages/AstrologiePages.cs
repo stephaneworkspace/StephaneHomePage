@@ -14,6 +14,9 @@ using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using StephaneHomePage.Struct.AutoComplete;
 using StephaneHomePage.Struct.ImportJson.Filter;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.AspNetCore.Components.Routing;
 
 namespace StephaneHomePage.Pages
 {
@@ -68,9 +71,33 @@ namespace StephaneHomePage.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            NavigationManager.LocationChanged += OnLocationChanges;
             await AppStateServiceCore.ChangeTitle("Astrologie");
             model.lat = "46.20222";
             model.lng = "6.14569";
+        }
+
+        private void OnLocationChanges(object sender, LocationChangedEventArgs e)
+        {
+            var uri = new Uri(NavigationManager.Uri);
+            string swRefreshQuery = QueryHelpers.ParseQuery(uri.Query).TryGetValue("swRefresh", out var sw) ? sw.First() : "";
+            if (swRefreshQuery.Length == 0)
+            {
+            } else
+            {
+                if (swRefreshQuery == "refresh")
+                {
+                    model = new ThemeAstralModel
+                    {
+                        lat = "46.20222",
+                        lng = "6.14569"
+                    };
+                    citySearchId = "";
+                    swLock = false;
+                    swLoaded = false;
+                }
+            }
+            StateHasChanged();
         }
 
         private async Task LoadDatas()
@@ -86,7 +113,7 @@ namespace StephaneHomePage.Pages
                     break;
                 default:
                     MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                    // NavigationManager.NavigateTo("/");
+                    NavigationManager.NavigateTo("/");
                     break;
             }
         }
