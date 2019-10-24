@@ -19,7 +19,7 @@
     protected override async Task OnInitializedAsync()
     {
         var oldStruct = AppStateServiceCore.AppBarStruct;
-        var newStruct = new AppBarStruct("Page non trouée", false, oldStruct.AstroZoom);
+        var newStruct = new AppBarStruct("Page non trouée", false, oldStruct.AstroZoom, oldStruct.LockBook);
         await AppStateServiceCore.ChangeStruct(newStruct);
 
 

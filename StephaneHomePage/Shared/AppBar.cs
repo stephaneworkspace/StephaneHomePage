@@ -28,6 +28,9 @@ namespace StephaneHomePage.Shared
         [Parameter]
         public int Zoom { get; set; }
 
+        [Parameter]
+        public bool LockBook { get; set; }
+
         bool unlockDialogIsOpen = false;
         bool unlockDialogIsOpen2 = false;
         string password = null;
@@ -41,7 +44,7 @@ namespace StephaneHomePage.Shared
         public async Task ZoomThemeInOnClick(MouseEventArgs e)
         {
             Zoom += 1;
-            var newStruct = new AppBarStruct("Astrologie", true, Zoom);
+            var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
             await AppStateServiceCore.ChangeStruct(newStruct);
             StateHasChanged();
         }
@@ -49,7 +52,7 @@ namespace StephaneHomePage.Shared
         public async Task ZoomThemeOutOnClick(MouseEventArgs e)
         {
             Zoom = 1;
-            var newStruct = new AppBarStruct("Astrologie", true, Zoom);
+            var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
             await AppStateServiceCore.ChangeStruct(newStruct);
             StateHasChanged();
         }
@@ -59,7 +62,7 @@ namespace StephaneHomePage.Shared
             unlockDialogIsOpen = true;
         }
 
-        void UnlockVerifPasswordOnClick()
+        public async Task UnlockVerifPasswordOnClick()
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -69,6 +72,10 @@ namespace StephaneHomePage.Shared
                 swSecret = true;
                 unlockDialogIsOpen = false;
                 unlockDialogIsOpen2 = true;
+                LockBook = true;
+                var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
+                await AppStateServiceCore.ChangeStruct(newStruct);
+                StateHasChanged();
             }
         }
     }

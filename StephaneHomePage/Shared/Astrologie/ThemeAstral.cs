@@ -22,6 +22,8 @@ namespace StephaneHomePage.Shared.Astrologie
         public double MaxWidth { get; set; }
         [Parameter]
         public double MaxHeight { get; set; }
+        [Parameter]
+        public bool LockBook { get; set; }
 
         const string SVGRETROGRADE = "assets/svg/planet/Retrograde.svg";
 

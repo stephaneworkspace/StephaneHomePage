@@ -16,7 +16,7 @@ namespace StephaneHomePage.Pages
         protected override async Task OnInitializedAsync()
         {
             var oldStruct = AppStateServiceCore.AppBarStruct;
-            var newStruct = new AppBarStruct("Musique électronique", false, oldStruct.AstroZoom);
+            var newStruct = new AppBarStruct("Musique électronique", false, oldStruct.AstroZoom, oldStruct.LockBook);
             await AppStateServiceCore.ChangeStruct(newStruct);
         }
     }

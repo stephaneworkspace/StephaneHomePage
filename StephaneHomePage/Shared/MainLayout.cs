@@ -19,7 +19,7 @@ namespace StephaneHomePage.Shared
 
         protected override void OnInitialized()
         {
-            AppStateServiceCore.AppBarStruct = new AppBarStruct("Page d'acceuil", false, 1);
+            AppStateServiceCore.AppBarStruct = new AppBarStruct("Page d'acceuil", false, 1, false);
             AppStateServiceCore.OnChange += OnStructChange;
         }
 

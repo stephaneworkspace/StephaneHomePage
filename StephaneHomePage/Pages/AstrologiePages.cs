@@ -74,7 +74,7 @@ namespace StephaneHomePage.Pages
         {
             NavigationManager.LocationChanged += OnLocationChanges;
             var oldStruct = AppStateServiceCore.AppBarStruct;
-            var newStruct = new AppBarStruct("Astrologie", true, oldStruct.AstroZoom);
+            var newStruct = new AppBarStruct("Astrologie", true, oldStruct.AstroZoom, oldStruct.LockBook);
             await AppStateServiceCore.ChangeStruct(newStruct);
             AppStateServiceCore.OnChange += OnStructChange;
             model.lat = "46.20222";
