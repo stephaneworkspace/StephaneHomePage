@@ -2,6 +2,7 @@
 @using System.Drawing
 @using StephaneHomePage.Struct.Astrologie
 @using StephaneHomePage.Data.OpenFile;
+@using StephaneHomePage.Struct.Astrologie.Text;
 @if (_swOk)
 {
     <center>
@@ -31,11 +32,14 @@
                         @RenderSvgPlanetMinSymbol(Toaster, p)
                 }
         </div>
-        @if (LockBook)
-        {
-            <div>test</div>
-        }
     </center>
+    @if (LockBook)
+    {
+        @foreach (ZodiacT z in this._computeThemeAstral.ZodiacT)
+        {
+            <ZodiacText ZodiacT="@z" />
+        }
+    }
 }
 
 @code {

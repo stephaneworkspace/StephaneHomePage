@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StephaneHomePage.Struct.Astrologie.Text.Content;
+using StephaneHomePage.Struct.Astrologie.Text.ContentText;
 
 namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
 {
@@ -36,7 +36,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
         const double TITLESIZ3 = 16.0;
 
 
-        List<Content> makeContent(String s)
+        public List<Content> makeContent(String s)
         {
             List<Content> l = new List<Content>();
             bool swLoop = true;
@@ -71,6 +71,11 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                                 }
                                 else
                                 {
+                                    // Mod of dart
+                                    if (endIndex > cn.Content.Length - startIndex)
+                                    {
+                                        endIndex = cn.Content.Length - startIndex;
+                                    }
                                     switch (cn.Content.Substring(startIndex, endIndex))
                                     {
                                         case "1":
@@ -175,6 +180,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGTIT.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeTitle;
                 }
@@ -194,6 +205,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGTEX.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeText;
                 }
@@ -213,6 +230,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGSVG.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = "assets/svg/astro_py_text/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeSvg;
                 }
@@ -232,6 +255,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGSVZ.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = "assets/svg/zodiac/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeSvg;
                 }
@@ -251,6 +280,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGPNG.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = "assets/png/astro_py_text/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypePng;
                 }
@@ -258,7 +293,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
             return new ContentNext(type, nextPos, content);
         }
 
-        ContentNextTextRich _nextContentRichText(String s)
+        private ContentNextTextRich _nextContentRichText(String s)
         {
             // print('str: ' + s);
             int pos = s.Length;
@@ -283,7 +318,13 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHNORMAL.Length;
-                    content = s.Substring(startIndex, endIndex);
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
+                    content = s.Substring(startIndex, endIndex );
                     fontStyle = FontStyle.Normal;
                 }
             }
@@ -302,6 +343,12 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHITALIC.Length;
+                    // Mod of dart
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
+                    // End mod of dart
                     content = s.Substring(startIndex, endIndex);
                     fontStyle = FontStyle.Italic;
                 }
@@ -321,6 +368,10 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHBOLD.Length;
+                    if (endIndex > s.Length - startIndex)
+                    {
+                        endIndex = s.Length - startIndex;
+                    }
                     content = s.Substring(startIndex, endIndex);
                     fontWeight = FontWeight.Bold;
                 }

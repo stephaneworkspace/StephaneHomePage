@@ -45,9 +45,8 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
         public double whPlanetMinSymbolSize;
 
         // Text
-
-        public TextZodiac TextZodiac;
-        public List<ZodiactT> ZodiactT;
+        public CalcZodiacText CalcZodiactText;
+        public List<ZodiacT> ZodiacT;
 
         public ComputeThemeAstral(ImportJson json, double maxWidth, double maxHeight)
         {
@@ -99,8 +98,10 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral
             Planet = CalcPlanet.calcDrawPlanet(CalcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
 
             // Compute text
-            TextZodiac = new TextZodiac();
-            ZodiactT = new List<ZodiactT>();
+
+            CalcZodiactText = new CalcZodiacText();
+            ZodiacT = new List<ZodiacT>();
+            ZodiacT = CalcZodiactText.parseJson(json.zodiac_text);
         }
     }
 }
