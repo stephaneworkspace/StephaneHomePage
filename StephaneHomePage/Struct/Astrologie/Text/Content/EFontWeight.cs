@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.Astrologie.Text.Content
 {
-    public class FontStyle
+    public enum FontWeight
     {
-        public string Style { get; set; }
-        public FontStyle (string style)
-        {
-            Style = style;
-        }
+        Normal,
+        Bold,
+        Null
     }
 }

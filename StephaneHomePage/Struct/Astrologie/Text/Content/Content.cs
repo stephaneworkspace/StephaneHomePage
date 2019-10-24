@@ -12,5 +12,13 @@ namespace StephaneHomePage.Struct.Astrologie.Text.Content
         public ContentText ContentText { get; set; }
         public ContentSvg ContentSvg { get; set; }
         public ContentPng ContentPng { get; set; }
+        public Content(TypeContent typeContent, ContentTitle contentTitle, ContentText contentText, ContentSvg contentSvg, ContentPng contentPng)
+        {
+            TypeContent = typeContent;
+            ContentTitle = contentTitle;
+            ContentText = contentText;
+            ContentSvg = contentSvg;
+            ContentPng = contentPng;
+        }
     }
 }
