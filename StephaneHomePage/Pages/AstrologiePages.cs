@@ -92,10 +92,10 @@ namespace StephaneHomePage.Pages
                 if (swRefreshQuery == "refresh")
                 {
                     model = new ThemeAstralModel();
-                    model.lat = "46.20222";
-                    model.lng = "6.14569";
                     citySearch = "";
                     citySearchId = "";
+                    model.lat = "46.20222";
+                    model.lng = "6.14569";
                     swLock = false;
                     swLoaded = false;
                 }

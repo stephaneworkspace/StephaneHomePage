@@ -16,11 +16,11 @@ namespace StephaneHomePage.Shared.Astrologie
         [Inject]
         private IMatToaster Toaster { get; set; }
 
-        [Parameter] 
+        [Parameter]
         public ImportJson Json { get; set; }
-        [Parameter] 
+        [Parameter]
         public double MaxWidth { get; set; }
-        [Parameter] 
+        [Parameter]
         public double MaxHeight { get; set; }
 
         const string SVGRETROGRADE = "assets/svg/planet/Retrograde.svg";
@@ -34,16 +34,16 @@ namespace StephaneHomePage.Shared.Astrologie
         {
             _swOk = false;
             if (Json != null)
-                GeneratePicture();
+                ComputeAndGeneratePicture();
         }
 
         protected override void OnParametersSet()
         {
             if (Json != null)
-                GeneratePicture();
+                ComputeAndGeneratePicture();
         }
 
-        private void GeneratePicture()
+        private void ComputeAndGeneratePicture()
         {
             _computeThemeAstral = new ComputeThemeAstral(Json, MaxWidth, MaxHeight);
             _sizeThemeAstralpx = this._computeThemeAstral.CalcDraw.getSizeWH().ToString() + "px";
