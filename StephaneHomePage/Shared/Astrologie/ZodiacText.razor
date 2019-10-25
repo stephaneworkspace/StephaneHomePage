@@ -1,48 +1,42 @@
-﻿@using StephaneHomePage.Struct.Astrologie.Text.ContentText
+﻿@using System
+@using System.Web
+@using StephaneHomePage.Struct.Astrologie.Text.ContentText
 @foreach (Content z in ZodiacT.Content)
 {
     @if (z.TypeContent == TypeContent.TypeTitle)
     {
         <center><div style="font-size: @Convert.ToInt32(z.ContentTitle.FontSize)px;">@z.ContentTitle.Text</div></center>
-    } else if (z.TypeContent == TypeContent.TypeText)
+    }
+    else if (z.TypeContent == TypeContent.TypeText)
     {
         <p>
-            @foreach (ContentTextRich r in z.ContentText.RichText) {
+            @foreach (ContentTextRich r in z.ContentText.RichText)
+            {
                 @RenderRichText(r)
             }
         </p>
-    } else if (z.TypeContent == TypeContent.TypeSvg)
+    }
+    else if (z.TypeContent == TypeContent.TypeSvg)
     {
-        <center><div>A FAIRE SvgPicture.asset(z.ContentSvg.Asset</div></center>
-    } else if (z.TypeContent == TypeContent.TypePng)
+        <center><div>A FAIRE SvgPicture.asset(z.ContentSvg.Asset)</div></center>
+    }
+    else if (z.TypeContent == TypeContent.TypePng)
     {
-        <center><div>A FAIRE Image.asset(z.contentPng.Asset</div></center>
+        <center><div>A FAIRE Image.asset(z.contentPng.Asset)</div></center>
     }
 }
 
 @code {
     private RenderFragment RenderRichText(ContentTextRich r)
     {
-        string fontsize = $"font-size: {Convert.ToInt32(FONTSIZERICHTEXT)}px;";
+        string bold = "";
+        string italic = "";
+        if (r.FontStyle == FontStyle.Italic)
+            italic = "font-style: italic;";
         if (r.FontWeight == FontWeight.Bold)
-        {
-            if (r.FontStyle == FontStyle.Italic)
-            {
-                return@<b><i><div style="@fontsize">@r.Text</div></i></b>;
-            } else
-            {
-                return@<b><div style="@fontsize">@r.Text</div></b>;
-            }
-        } else
-        {
-            if (r.FontStyle == FontStyle.Italic)
-            {
-                return@<i><div style="@fontsize">@r.Text</div></i>;
-            } else
-            {
-                return@<div style="@fontsize">@r.Text</div>;
-            }
-        }
-
-    }
+            bold = "font-weight: bold;";
+        string fontsize = $"font-size: {Convert.ToInt32(FONTSIZERICHTEXT)}px; white-space:pre-wrap; {italic} {bold}";
+        string text = HttpUtility.HtmlEncode(r.Text);
+        return@<span style="@fontsize">@((MarkupString) text)</span>;
+}
 }

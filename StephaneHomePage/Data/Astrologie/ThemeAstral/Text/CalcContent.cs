@@ -74,13 +74,8 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                                 else
                                 {
                                     // Mod of dart
-                                    if (endIndex > cn.Content.Length - startIndex)
-                                    {
-                                        endIndex = cn.Content.Length - startIndex;
-                                    }
-                                    temp = endIndex - ENDTAGNES.Length + 1;
-                                    switch (cn.Content.Substring(startIndex, temp))
                                     //switch (cn.Content.Substring(startIndex, endIndex))
+                                    switch (cn.Content.Substring(startIndex, endIndex - startIndex))
                                     // End mod of dart
                                     {
                                         case "1":
@@ -186,12 +181,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGTIT.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    content = s.Substring(startIndex, endIndex - startIndex);
+                    //content = s.Substring(startIndex, endIndex);
                     // End mod of dart
-                    content = s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeTitle;
                 }
             }
@@ -211,12 +203,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGTEX.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = s.Substring(startIndex, endIndex);
+                    content = s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeText;
                 }
             }
@@ -236,12 +225,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGSVG.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = "assets/svg/astro_py_text/" + s.Substring(startIndex, endIndex);
+                    content = "assets/svg/astro_py_text/" + s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = "assets/svg/astro_py_text/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeSvg;
                 }
             }
@@ -261,12 +247,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGSVZ.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = "assets/svg/zodiac/" + s.Substring(startIndex, endIndex);
+                    content = "assets/svg/zodiac/" + s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = "assets/svg/zodiac/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypeSvg;
                 }
             }
@@ -286,12 +269,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDTAGPNG.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = "assets/png/astro_py_text/" + s.Substring(startIndex, endIndex);
+                    content = "assets/png/astro_py_text/" + s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = "assets/png/astro_py_text/" + s.Substring(startIndex, endIndex);
                     type = TypeContent.TypePng;
                 }
             }
@@ -324,12 +304,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHNORMAL.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = s.Substring(startIndex, endIndex);
+                    content = s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = s.Substring(startIndex, endIndex );
                     fontStyle = FontStyle.Normal;
                 }
             }
@@ -349,12 +326,9 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHITALIC.Length;
                     // Mod of dart
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
+                    // content = s.Substring(startIndex, endIndex);
+                    content = s.Substring(startIndex, endIndex - startIndex);
                     // End mod of dart
-                    content = s.Substring(startIndex, endIndex);
                     fontStyle = FontStyle.Italic;
                 }
             }
@@ -373,11 +347,10 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                 {
                     pos = startIndex;
                     nextPos = endIndex + ENDRICHBOLD.Length;
-                    if (endIndex > s.Length - startIndex)
-                    {
-                        endIndex = s.Length - startIndex;
-                    }
-                    content = s.Substring(startIndex, endIndex);
+                    // Mod of dart
+                    //content = s.Substring(startIndex, endIndex);
+                    content = s.Substring(startIndex, endIndex - startIndex);
+                    // En mod of dart
                     fontWeight = FontWeight.Bold;
                 }
             }
