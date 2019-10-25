@@ -38,6 +38,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
 
         public List<Content> makeContent(String s)
         {
+            int temp = 0;
             List<Content> l = new List<Content>();
             bool swLoop = true;
             ContentNext cn = new ContentNext(TypeContent.Null, 0, "");
@@ -62,6 +63,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                                 int startIndex = 0;
                                 int endIndex = 0;
                                 // Size
+                                var test = cn.Content.IndexOf(STARTTAGSIZ);
                                 startIndex = cn.Content.IndexOf(STARTTAGSIZ) == -1 ? 0 : cn.Content.IndexOf(STARTTAGSIZ) + STARTTAGSIZ.Length;
                                 endIndex = cn.Content.IndexOf(ENDTAGNES, startIndex);
                                 bool swValidTitle = (startIndex > 0) && (endIndex - startIndex) > 0;
@@ -76,7 +78,10 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
                                     {
                                         endIndex = cn.Content.Length - startIndex;
                                     }
-                                    switch (cn.Content.Substring(startIndex, endIndex))
+                                    temp = endIndex - ENDTAGNES.Length + 1;
+                                    switch (cn.Content.Substring(startIndex, temp))
+                                    //switch (cn.Content.Substring(startIndex, endIndex))
+                                    // End mod of dart
                                     {
                                         case "1":
                                             size = TITLESIZ1;

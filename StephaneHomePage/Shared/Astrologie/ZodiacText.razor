@@ -3,7 +3,7 @@
 {
     @if (z.TypeContent == TypeContent.TypeTitle)
     {
-        <center><div style="font-size: @Convert.ToInt32(z.ContentTitle.FontSize);">@z.ContentTitle.Text</div></center>
+        <center><div style="font-size: @Convert.ToInt32(z.ContentTitle.FontSize)px;">@z.ContentTitle.Text</div></center>
     } else if (z.TypeContent == TypeContent.TypeText)
     {
         <p>
@@ -23,7 +23,7 @@
 @code {
     private RenderFragment RenderRichText(ContentTextRich r)
     {
-        string fontsize = $"font-size: {Convert.ToInt32(FONTSIZERICHTEXT)};";
+        string fontsize = $"font-size: {Convert.ToInt32(FONTSIZERICHTEXT)}px;";
         if (r.FontWeight == FontWeight.Bold)
         {
             if (r.FontStyle == FontStyle.Italic)
