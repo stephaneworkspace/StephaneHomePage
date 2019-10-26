@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using MatBlazor;
+using Microsoft.AspNetCore.Components;
 using StephaneHomePage.Struct.Astrologie.Text;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ namespace StephaneHomePage.Shared.Astrologie
 {
     public partial class ZodiacText
     {
+        [Inject]
+        private IMatToaster Toaster { get; set; }
+
         [Parameter]
         public ZodiacT ZodiacT { get; set; }
 

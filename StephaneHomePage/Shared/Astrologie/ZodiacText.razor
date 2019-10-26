@@ -1,6 +1,7 @@
 ﻿@using System
 @using System.Web
 @using StephaneHomePage.Struct.Astrologie.Text.ContentText
+@using StephaneHomePage.Data.OpenFile
 @foreach (Content z in ZodiacT.Content)
 {
     @if (z.TypeContent == TypeContent.TypeTitle)
@@ -18,7 +19,7 @@
     }
     else if (z.TypeContent == TypeContent.TypeSvg)
     {
-        <center><div>A FAIRE SvgPicture.asset(z.ContentSvg.Asset)</div></center>
+        <center>@RenderSvg(z)</center>
     }
     else if (z.TypeContent == TypeContent.TypePng)
     {
@@ -37,6 +38,26 @@
             bold = "font-weight: bold;";
         string fontsize = $"font-size: {Convert.ToInt32(FONTSIZERICHTEXT)}px; white-space:pre-wrap; {italic} {bold}";
         string text = HttpUtility.HtmlEncode(r.Text);
-        return@<span style="@fontsize">@((MarkupString) text)</span>;
-}
+        return@<span style="@fontsize">@((MarkupString)text)</span>;
+    }
+
+    private RenderFragment RenderSvg(Content z)
+    {
+        OpenSvg openSvg = new OpenSvg(z.ContentSvg.Asset);
+        openSvg.LoadSvgB64();
+        if (openSvg.SwStatus == false || openSvg.ErrMessage != "")
+        {
+            Toaster.Add(openSvg.ErrMessage, MatToastType.Danger, openSvg.ErrTitle, "danger");
+            return @<div />;
+        }
+        else
+        {
+            return @<img src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64" />;
+        //  - background-color:@ColorTranslator.ToHtml(angle.Color);
+            /*return@<div class="element svg-base"
+                    style="
+                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                            -webkit-mask-size:contain"></div>;*/
+        }
+    }
 }
