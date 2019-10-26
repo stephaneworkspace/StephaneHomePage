@@ -23,7 +23,7 @@
     }
     else if (z.TypeContent == TypeContent.TypePng)
     {
-        <center><div>A FAIRE Image.asset(z.contentPng.Asset)</div></center>
+        <center>@RenderPng(z)</center>
     }
 }
 
@@ -58,6 +58,22 @@
                     style="
                             -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
                             -webkit-mask-size:contain"></div>;*/
+        }
+    }
+
+    private RenderFragment RenderPng(Content z)
+    {
+        OpenPng openPng = new OpenPng(z.ContentPng.Asset);
+        openPng.LoadPngB64();
+        if (openPng.SwStatus == false || openPng.ErrMessage != "")
+        {
+            Toaster.Add(openPng.ErrMessage, MatToastType.Danger, openPng.ErrTitle, "danger");
+            return @<div />;
+        }
+        else
+        {
+            //return @<img src="data:image/png;charset=utf-8,base64,@openPng.getPng().PngB64" />;
+            return @<img src="data:image/png;base64,@openPng.getPng()" />;
         }
     }
 }
