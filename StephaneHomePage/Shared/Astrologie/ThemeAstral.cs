@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using StephaneHomePage.Data.Astrologie.ThemeAstral;
 using StephaneHomePage.Data.Astrologie.ThemeAstral.Draw;
 using StephaneHomePage.Services.Http;
+using StephaneHomePage.Struct.Astrologie;
 using StephaneHomePage.Struct.ImportJson;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace StephaneHomePage.Shared.Astrologie
         public double MaxHeight { get; set; }
         [Parameter]
         public bool LockBook { get; set; }
+        [Parameter]
+        public StructThemeAstral Struct { get; set; }
 
         const string SVGRETROGRADE = "assets/svg/planet/Retrograde.svg";
 

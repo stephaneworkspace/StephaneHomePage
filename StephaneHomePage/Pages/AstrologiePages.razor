@@ -1,4 +1,5 @@
 ﻿@page "/astrologie"
+@using StephaneHomePage.Struct.Astrologie
 
 <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -101,7 +102,7 @@
     </div>
     @if (swLoaded)
     {
-        <ThemeAstral Json="data" MaxWidth="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" MaxHeight="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" LockBook="@AppStateServiceCore.AppBarStruct.LockBook" />
+        <ThemeAstral Json="data" MaxWidth="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" MaxHeight="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" LockBook="@AppStateServiceCore.AppBarStruct.LockBook" Struct="StructThemeAstral.Css" />
     }
 </EditForm>
 

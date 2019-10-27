@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.Astrologie
 {
-    public class StructThemeAstral
+    public enum StructThemeAstral
     {
-
+        Css,
+        Img,
     }
 }

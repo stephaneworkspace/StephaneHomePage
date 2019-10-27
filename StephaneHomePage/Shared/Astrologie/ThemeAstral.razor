@@ -7,29 +7,29 @@
 {
     <center>
         <div class="canvas" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx;">
-            @RenderSvgCircle()
+            @RenderSvgCircle(Struct)
             @foreach (Angle a in this._computeThemeAstral.Angle)
-                @RenderSvgAngleLine(a)
+                @RenderSvgAngleLine(Struct, a)
             @foreach (Planet p in this._computeThemeAstral.Planet)
-                @RenderSvgPlanetLine(p)
+                @RenderSvgPlanetLine(Struct, p)
             @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
-                @RenderSvgZodiac(Toaster, z)
+                @RenderSvgZodiac(Struct, Toaster, z)
             @foreach (House h in this._computeThemeAstral.House)
-                @RenderSvgHouse(Toaster, h)
+                @RenderSvgHouse(Struct, Toaster, h)
             @foreach (Angle a in this._computeThemeAstral.Angle)
                 @if (a.Svg != "")
                 {
-                    @RenderSvgAngleSymbol(Toaster, a)
-                    @RenderSvgAngleDegSymbol(Toaster, a)
-                    @RenderSvgAngleMinSymbol(Toaster, a)
+                    @RenderSvgAngleSymbol(Struct, Toaster, a)
+                    @RenderSvgAngleDegSymbol(Struct, Toaster, a)
+                    @RenderSvgAngleMinSymbol(Struct, Toaster, a)
                 }
                 @foreach (Planet p in this._computeThemeAstral.Planet)
                 {
                     @if (p.IsRetrograde)
-                        @RenderSvgPlanetRetrogradeSymbol(Toaster, p)
-                        @RenderSvgPlanetSymbol(Toaster, p)
-                        @RenderSvgPlanetDegSymbol(Toaster, p)
-                        @RenderSvgPlanetMinSymbol(Toaster, p)
+                        @RenderSvgPlanetRetrogradeSymbol(Struct, Toaster, p)
+                        @RenderSvgPlanetSymbol(Struct, Toaster, p)
+                        @RenderSvgPlanetDegSymbol(Struct, Toaster, p)
+                        @RenderSvgPlanetMinSymbol(Struct, Toaster, p)
                 }
         </div>
     </center>
@@ -43,34 +43,54 @@
 }
 
 @code {
-    private RenderFragment RenderSvgCircle()
+    private RenderFragment RenderSvgCircle(StructThemeAstral e)
     {
-        return@<div class="element svg-base"
-                    style="
-                        background-image:url('data:image/svg+xml;base64,@this._drawImage.GetSvgCircle(true)');"></div>;
+        switch (e)
+        {
+            case StructThemeAstral.Css:
+                return@<div class="element svg-base"
+                            style="
+                                background-image:url('data:image/svg+xml;base64,@this._drawImage.GetSvgCircle(true)');"></div>;
+            case StructThemeAstral.Img:
+                return @<img class="element" src="data:image/svg+xml;base64,@this._drawImage.GetSvgCircle(true)" />;
+            default:
+                return @<div />;
+        }
     }
 
-    private RenderFragment RenderSvgAngleLine(Angle angle)
+    private RenderFragment RenderSvgAngleLine(StructThemeAstral e, Angle angle)
     {
-        return@<div class="element svg-base"
-                    style="
-                        background-color:@ColorTranslator.ToHtml(angle.Color);
-                        -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)') no-repeat center;
-                        -webkit-mask-size:contain"
-               ></div>;
+        switch (e)
+        {
+            case StructThemeAstral.Css:
+                return@<div class="element svg-base"
+                            style="
+                                background-color:@ColorTranslator.ToHtml(angle.Color);
+                                -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)') no-repeat center;
+                                -webkit-mask-size:contain"
+                       ></div>;
+            default:
+                return @<div />;
+        }
     }
 
-    private RenderFragment RenderSvgPlanetLine(Planet planet)
+    private RenderFragment RenderSvgPlanetLine(StructThemeAstral e, Planet planet)
     {
-        return@<div class="element svg-base"
-                    style="
-                        background-color:@ColorTranslator.ToHtml(planet.Color);
-                        -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgPlanetLine(true, planet)') no-repeat center;
-                        -webkit-mask-size:contain"
-               ></div>;
+        switch (e)
+        {
+            case StructThemeAstral.Css:
+                return@<div class="element svg-base"
+                            style="
+                                background-color:@ColorTranslator.ToHtml(planet.Color);
+                                -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgPlanetLine(true, planet)') no-repeat center;
+                                -webkit-mask-size:contain"
+                       ></div>;
+            default:
+                return @<div />;
+        }
     }
 
-    private RenderFragment RenderSvgZodiac(IMatToaster Toaster, Zodiac z)
+    private RenderFragment RenderSvgZodiac(StructThemeAstral e, IMatToaster Toaster, Zodiac z)
     {
         OpenSvg openSvg = new OpenSvg(z.Svg);
         openSvg.LoadSvgB64();
@@ -84,23 +104,29 @@
             string sizePx = this._computeThemeAstral.whZodiacSize + "px";
             string leftPx = z.XYZodiac.dx + "px";
             string topPx = z.XYZodiac.dy + "px";
-            return @<MatTooltip Tooltip="@z.Sign">
-                        <div @ref="context.Current"
-                             class="element svg-zodiac"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(z.Element.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@z.Sign">
+                                <div @ref="context.Current"
+                                     class="element svg-zodiac"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(z.Element.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                    default:
+                        return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgHouse(IMatToaster Toaster, House h)
+    private RenderFragment RenderSvgHouse(StructThemeAstral e, IMatToaster Toaster, House h)
     {
         OpenSvg openSvg = new OpenSvg(h.Svg);
         openSvg.LoadSvgB64();
@@ -115,21 +141,27 @@
             string leftPx = h.XYHouse.dx + "px";
             string topPx = h.XYHouse.dy + "px";
             string tooltip = "Maison " + h.Id.ToString();
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-house"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-image:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-house"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-image:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                        return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgAngleSymbol(IMatToaster Toaster, Angle a)
+    private RenderFragment RenderSvgAngleSymbol(StructThemeAstral e, IMatToaster Toaster, Angle a)
     {
         OpenSvg openSvg = new OpenSvg(a.Svg);
         openSvg.LoadSvgB64();
@@ -144,23 +176,29 @@
             string leftPx = a.XYAngle.dx + "px";
             string topPx = a.XYAngle.dy + "px";
             string tooltip = a.Id + " " + a.SignPos;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-angle"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(a.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-angle"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(a.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgAngleDegSymbol(IMatToaster Toaster, Angle a)
+    private RenderFragment RenderSvgAngleDegSymbol(StructThemeAstral e, IMatToaster Toaster, Angle a)
     {
         OpenSvg openSvg = new OpenSvg(a.SvgDegre);
         openSvg.LoadSvgB64();
@@ -175,23 +213,29 @@
             string leftPx = a.XYDeg.dx + "px";
             string topPx = a.XYDeg.dy + "px";
             string tooltip = a.Id + " " + a.SignPos;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-angle"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(a.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-angle"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(a.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgAngleMinSymbol(IMatToaster Toaster, Angle a)
+    private RenderFragment RenderSvgAngleMinSymbol(StructThemeAstral e, IMatToaster Toaster, Angle a)
     {
         OpenSvg openSvg = new OpenSvg(a.SvgMin);
         openSvg.LoadSvgB64();
@@ -206,23 +250,29 @@
             string leftPx = a.XYMin.dx + "px";
             string topPx = a.XYMin.dy + "px";
             string tooltip = a.Id + " " + a.SignPos;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-angle"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(a.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-angle"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(a.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgPlanetRetrogradeSymbol(IMatToaster Toaster, Planet p)
+    private RenderFragment RenderSvgPlanetRetrogradeSymbol(StructThemeAstral e, IMatToaster Toaster, Planet p)
     {
         OpenSvg openSvg = new OpenSvg(SVGRETROGRADE);
         openSvg.LoadSvgB64();
@@ -237,23 +287,29 @@
             string leftPx = p.XYPlanet.dx + "px";
             string topPx = p.XYPlanet.dy + "px";
             string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-planet"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(p.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-planet"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(p.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgPlanetSymbol(IMatToaster Toaster, Planet p)
+    private RenderFragment RenderSvgPlanetSymbol(StructThemeAstral e, IMatToaster Toaster, Planet p)
     {
         OpenSvg openSvg = new OpenSvg(p.Svg);
         openSvg.LoadSvgB64();
@@ -268,23 +324,29 @@
             string leftPx = p.XYPlanet.dx + "px";
             string topPx = p.XYPlanet.dy + "px";
             string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-planet"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(p.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-planet"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(p.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgPlanetDegSymbol(IMatToaster Toaster, Planet p)
+    private RenderFragment RenderSvgPlanetDegSymbol(StructThemeAstral e, IMatToaster Toaster, Planet p)
     {
         OpenSvg openSvg = new OpenSvg(p.SvgDegre);
         openSvg.LoadSvgB64();
@@ -299,23 +361,29 @@
             string leftPx = p.XYDeg.dx + "px";
             string topPx = p.XYDeg.dy + "px";
             string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-planet"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(p.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-planet"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(p.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 
-    private RenderFragment RenderSvgPlanetMinSymbol(IMatToaster Toaster, Planet p)
+    private RenderFragment RenderSvgPlanetMinSymbol(StructThemeAstral e, IMatToaster Toaster, Planet p)
     {
         OpenSvg openSvg = new OpenSvg(p.SvgMin);
         openSvg.LoadSvgB64();
@@ -330,19 +398,25 @@
             string leftPx = p.XYMin.dx + "px";
             string topPx = p.XYMin.dy + "px";
             string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
-            return @<MatTooltip Tooltip="@tooltip">
-                        <div @ref="context.Current"
-                             class="element svg-planet"
-                             style="
-                                    width:@sizePx;
-                                    height:@sizePx;
-                                    left:@leftPx;
-                                    top:@topPx;
-                                    background-color:@ColorTranslator.ToHtml(p.Color);
-                                    -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
-                                    -webkit-mask-size:contain"
-                        ></div>
-                    </MatTooltip>;
+            switch (e)
+            {
+                case StructThemeAstral.Css:
+                    return @<MatTooltip Tooltip="@tooltip">
+                                <div @ref="context.Current"
+                                     class="element svg-planet"
+                                     style="
+                                            width:@sizePx;
+                                            height:@sizePx;
+                                            left:@leftPx;
+                                            top:@topPx;
+                                            background-color:@ColorTranslator.ToHtml(p.Color);
+                                            -webkit-mask:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64') no-repeat center;
+                                            -webkit-mask-size:contain"
+                                ></div>
+                            </MatTooltip>;
+                default:
+                    return @<div />;
+            }
         }
     }
 }
