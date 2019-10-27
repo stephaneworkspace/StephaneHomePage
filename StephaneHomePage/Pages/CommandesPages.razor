@@ -1,0 +1,59 @@
+﻿@page "/commandes"
+
+<h2 class="commande-title">.Net / Entity framework</h2>
+<h3>Créer une migration</h3>
+<p class="code">dotnet ef database migrate leNomDeMaMigration</p>
+<h3>Valider une migration</h3>
+<p class="code">dotnet ef database update</p>
+
+<h2 class="commande-title">Python / Pip</h2>
+<h3>Publier un paquet</h3>
+<p class="code">python3 setup.py sdist</p>
+<p class="code">pip install twine</p>
+<p class="code">twine upload dist/*</p>
+
+<h2 class="commande-title">Docker</h2>
+<h3>Commandes pratiques</h3>
+<p class="code">docker ps -a</p>
+<p class="code">docker ps</p>
+<p class="code">docker start</p>
+<p class="code">docker stop</p>
+<p class="code">docker run -t container_name</p>
+<p class="code">docker logs container_name</p>
+<p class="code">docker logs container_name</p>
+<p class="code">docker exec -t -i container_name /bin/bash</p>
+<p class="code">docker cp dummy:/path/to/file /dest/to/file</p>
+<h3>Libérer de l'espace en supprimant le(s) container(s) stopé(s)</h3>
+<p class="code">docker rm $(docker ps -aq)</p>
+<h3>Libérer de l'espace en supprimant le(s) image(s)</h3>
+<p class="code">@dockerClean</p>
+
+<h2 class="commande-title">Debian</h2>
+<h3>Service pour .net dans etc/systemd/system -> LeNomDeMonService.service</h3>
+<p class="code">[Unit]
+<br/>Description=StéphaneHomePage
+<br />
+<br />[Service]
+<br />WorkingDirectory=/path/to/www/dotnet
+<br />ExecStart=/bin/bash /path/to/www/dotnetrun.sh
+<br />Restart=always
+<br />RestartSec=10
+<br />KillSignal=SIGINT
+<br />SyslogIdentifier=stephanehomepage
+<br />Environment=ASPNETCORE_ENVIRONMENT=Production
+<br />Environment=DOTNET_PRIN_TELEMETRY_MESSAGE=false
+<br />
+<br />[Install]
+<br />WantedBy=multi-user.target</p>
+<h3>Service pour .net dans etc/systemd/system -> Commandes</h3>
+<p class="code">journalctl --unit=stephanehomepage -n 20
+<br />systemctl daemon-reload
+<br />systemctl enabled stephanehomepage
+<br />systemctl stop stephanehomepage
+<br />systemctl start stephanehomepage
+</p>
+<h3>Download</h3>
+<p class="code">curl -o lenomdemontar.tar.gz https://etc....</p>
+@code {
+    string dockerClean = "docker rmi $(docker images | grep '^<none>' | awk '{print $3}')";
+}

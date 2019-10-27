@@ -195,3 +195,11 @@ app {
     background-repeat:repeat-y; 
     background-size: contain;
 }
+
+.code {
+    font-family: 'Lucida Console';
+}
+
+.commande-title {
+    font-weight: bold;
+}
