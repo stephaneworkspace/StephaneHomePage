@@ -200,6 +200,7 @@
         else
         {
             string sizePx = this._computeThemeAstral.whHouseSize + "px";
+            string sizePxImg = this._computeThemeAstral.whHouseSize.ToString();
             string leftPx = h.XYHouse.dx + "px";
             string topPx = h.XYHouse.dy + "px";
             string tooltip = "Maison " + h.Id.ToString();
@@ -217,6 +218,19 @@
                                             background-image:url('data:image/svg+xml;base64,@openSvg.getSvg().SvgB64');"
                                 ></div>
                             </MatTooltip>;
+                case StructThemeAstral.Img:
+                    return @<div
+                                 class="element"
+                                 style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;">
+                                <img 
+                                     width="@sizePxImg"
+                                     height="@sizePxImg"
+                                     src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64" />
+                            </div>;
                 default:
                         return @<div />;
             }
