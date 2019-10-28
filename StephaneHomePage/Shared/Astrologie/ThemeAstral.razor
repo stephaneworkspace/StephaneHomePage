@@ -69,8 +69,12 @@
                                 -webkit-mask:url('data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)') no-repeat center;
                                 -webkit-mask-size:contain"
                        ></div>;
+            case StructThemeAstral.Img:
+                return@<div class="element">
+                            <img style="fill:@ColorTranslator.ToHtml(angle.Color);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)"/>
+                       </div>;
             default:
-                return @<div />;
+                return@<div />;
         }
     }
 
