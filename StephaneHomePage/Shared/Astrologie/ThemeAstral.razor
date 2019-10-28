@@ -548,7 +548,7 @@
                                 <img
                                     width="@sizePxImg"
                                     height="@sizePxImg"
-                                    style="filter: url(#planet-@p.Id)"
+                                    style="filter: url(#planet-@p.Id);"
                                     src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64"
                                 />
                             </div>;
@@ -570,6 +570,7 @@
         else
         {
             string sizePx = this._computeThemeAstral.whPlanetMinSymbolSize + "px";
+            string sizePxImg = this._computeThemeAstral.whPlanetMinSymbolSize.ToString();
             string leftPx = p.XYMin.dx + "px";
             string topPx = p.XYMin.dy + "px";
             string tooltip = p.Id + " " + p.SignPos + " " + p.Movement;
@@ -589,6 +590,22 @@
                                             -webkit-mask-size:contain"
                                 ></div>
                             </MatTooltip>;
+                case StructThemeAstral.Img:
+                    return @<div
+                                 class="element"
+                                 style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;"
+                            >
+                                <img
+                                    width="@sizePxImg"
+                                    height="@sizePxImg"
+                                    style="filter: url(#planet-@p.Id);"
+                                    src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64"
+                                />
+                            </div>;
                 default:
                     return @<div />;
             }
