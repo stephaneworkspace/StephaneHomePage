@@ -14,6 +14,8 @@
                     @ComputeMatrixSvgFilter("angle-line-" + a.Id, a.Color)
                 @foreach (Planet p in this._computeThemeAstral.Planet)
                     @ComputeMatrixSvgFilter("planet-line-" + p.Id, p.Color)
+                @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
+                    @ComputeMatrixSvgFilter("zodiac-" + z.Id, z.Element.Color)
             </defs>
         </svg>
     }
@@ -146,6 +148,7 @@
         else
         {
             string sizePx = this._computeThemeAstral.whZodiacSize + "px";
+            string sizePxImg = this._computeThemeAstral.whZodiacSize.ToString();
             string leftPx = z.XYZodiac.dx + "px";
             string topPx = z.XYZodiac.dy + "px";
             switch (e)
@@ -164,8 +167,23 @@
                                             -webkit-mask-size:contain"
                                 ></div>
                             </MatTooltip>;
-                    default:
-                        return @<div />;
+                case StructThemeAstral.Img:
+                    return @<div 
+                                class="element"
+                                style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;"
+                            >
+                                <img 
+                                    width="@sizePxImg"
+                                    height="@sizePxImg"
+                                    style="filter:url(#zodiac-@z.Id);" 
+                                    src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64"/>
+                            </div>;
+                default:
+                    return @<div />;
             }
         }
     }
