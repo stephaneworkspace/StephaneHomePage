@@ -179,7 +179,7 @@
                                 <img 
                                     width="@sizePxImg"
                                     height="@sizePxImg"
-                                    style="filter:url(#zodiac-@z.Id);" 
+                                    style="filter: url(#zodiac-@z.Id); object-fit: contain;" 
                                     src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64"/>
                             </div>;
                 default:
@@ -356,6 +356,7 @@
         else
         {
             string sizePx = this._computeThemeAstral.whAngleMinSymbolSize + "px";
+            string sizePxImg = this._computeThemeAstral.whAngleMinSymbolSize.ToString();
             string leftPx = a.XYMin.dx + "px";
             string topPx = a.XYMin.dy + "px";
             string tooltip = a.Id + " " + a.SignPos;
@@ -375,6 +376,20 @@
                                             -webkit-mask-size:contain"
                                 ></div>
                             </MatTooltip>;
+                case StructThemeAstral.Img:
+                    return @<div 
+                                class="element"
+                                style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;">
+                                <img 
+                                    width="@sizePxImg"
+                                    height="@sizePxImg"
+                                    style="filter: url(#angle-@a.Id);"
+                                    src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64" />
+                            </div>;
                 default:
                     return @<div />;
             }
