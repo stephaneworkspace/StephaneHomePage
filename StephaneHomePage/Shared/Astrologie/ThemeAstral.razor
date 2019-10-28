@@ -11,9 +11,9 @@
         <svg height="0px" width="0px">
             <defs>
                 @foreach (Angle a in this._computeThemeAstral.Angle)
-                    @ComputeMatrixSvgFilter("angle-line-" + a.Id, a.Color)
+                    @ComputeMatrixSvgFilter("angle-" + a.Id, a.Color)
                 @foreach (Planet p in this._computeThemeAstral.Planet)
-                    @ComputeMatrixSvgFilter("planet-line-" + p.Id, p.Color)
+                    @ComputeMatrixSvgFilter("planet-" + p.Id, p.Color)
                 @foreach (Zodiac z in this._computeThemeAstral.Zodiac)
                     @ComputeMatrixSvgFilter("zodiac-" + z.Id, z.Element.Color)
             </defs>
@@ -109,7 +109,7 @@
                        ></div>;
             case StructThemeAstral.Img:
                 return@<div class="element">
-                            <img style="filter:url(#angle-line-@angle.Id);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)"/>
+                            <img style="filter:url(#angle-@angle.Id);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)"/>
                        </div>;
             default:
                 return@<div />;
@@ -129,7 +129,7 @@
                        ></div>;
             case StructThemeAstral.Img:
                 return@<div class="element">
-                            <img style="filter:url(#planet-line-@planet.Id);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgPlanetLine(true, planet)" />
+                            <img style="filter:url(#planet-@planet.Id);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgPlanetLine(true, planet)" />
                        </div>;
             default:
                 return @<div />;
