@@ -5,6 +5,17 @@
 @using StephaneHomePage.Struct.Astrologie.Text;
 @if (_swOk)
 {
+    /* Define Color */
+    @if (Struct == StructThemeAstral.Img)
+    {
+        <svg height="0px" width="0px">
+            <defs>
+                @foreach (Angle a in this._computeThemeAstral.Angle)
+                    @ComputeMatrix(a.Id, a.Color)
+            </defs>
+        </svg>
+    }
+    /* Define Svg content */
     <center>
         <div class="canvas" style="height: @_sizeThemeAstralpx; width:@_sizeThemeAstralpx;">
             @RenderSvgCircle(Struct)
@@ -72,6 +83,18 @@
               </filter>
             </defs>
         </svg>;
+    }
+
+    private RenderFragment ComputeMatrix(string id, Color color)
+    {
+        string hexa = ColorTranslator.ToHtml(color);
+        int r = Convert.ToInt16(color.R);
+        int g = Convert.ToInt16(color.G);
+        int b = Convert.ToInt16(color.B);
+        string matrix = "";
+        return @<filter id="id" color-interpolation-filters="sRGB">
+                    <feColorMatric type="matrix" values="@matrix" />
+                </filter>
     }
 
     private RenderFragment RenderSvgAngleLine(StructThemeAstral e, Angle angle)
