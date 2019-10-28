@@ -11,7 +11,7 @@
         <svg height="0px" width="0px">
             <defs>
                 @foreach (Angle a in this._computeThemeAstral.Angle)
-                    @ComputeMatrix(a.Id, a.Color)
+                    @ComputeMatrixSvgFilter("angle-" + a.Id, a.Color)
             </defs>
         </svg>
     }
@@ -69,32 +69,27 @@
         }
     }
 
-    private RenderFragment RenderColorSvgAngleLine(Angle angle)
-    {
-        // yellow
-        return @<svg height="0px" width="0px">
-            <defs>
-              #ffff00
-              <filter id="recolorme" color-interpolation-filters="sRGB">
-                <feColorMatrix type="matrix" values="0 0 0 0 1
-                                                     0 0 0 0 1
-                                                     0 0 0 0 0
-                                                     0 0 0 1 0"/>
-              </filter>
-            </defs>
-        </svg>;
-    }
-
-    private RenderFragment ComputeMatrix(string id, Color color)
+    private RenderFragment ComputeMatrixSvgFilter(string id, Color color)
     {
         string hexa = ColorTranslator.ToHtml(color);
-        int r = Convert.ToInt16(color.R);
-        int g = Convert.ToInt16(color.G);
-        int b = Convert.ToInt16(color.B);
-        string matrix = "";
-        return @<filter id="id" color-interpolation-filters="sRGB">
-                    <feColorMatric type="matrix" values="@matrix" />
-                </filter>
+        double r = Convert.ToInt16(color.R);
+        r = (((r / 255) * 100) / 100);
+        double g = Convert.ToInt16(color.G);
+        g = (((g / 255) * 100) / 100);
+        double b = Convert.ToInt16(color.B);
+        b = (((b / 255) * 100) / 100);
+        string[] matrix = new string[4];
+        matrix[0] = $"0 0 0 0 {r}";
+        matrix[1] = $"0 0 0 0 {g}";
+        matrix[2] = $"0 0 0 0 {b}";
+        matrix[3] = $"0 0 0 1 0"; // alpha
+        string matrixString = $"{matrix[0]} " +
+                              $"{matrix[1]} " +
+                              $"{matrix[2]} " +
+                              $"{matrix[3]}";
+        return @<filter id="@id" color-interpolation-filters="sRGB">
+                    <feColorMatrix type="matrix" rgbaToFeColorMatrix = "255, 0, 0, 1" values="@matrixString" />
+                </filter>;
     }
 
     private RenderFragment RenderSvgAngleLine(StructThemeAstral e, Angle angle)
@@ -110,7 +105,7 @@
                        ></div>;
             case StructThemeAstral.Img:
                 return@<div class="element">
-                            <img style="fill:@ColorTranslator.ToHtml(angle.Color);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)"/>
+                            <img style="filter:url(#angle-@angle.Id);" src="data:image/svg+xml;base64,@this._drawImage.GetSvgAngleLine(true, angle)"/>
                        </div>;
             default:
                 return@<div />;
