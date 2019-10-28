@@ -19,7 +19,6 @@ using StephaneHomePage.Services.Http;
 using EmbeddedBlazorContent;
 using MatBlazor;
 using StephaneHomePage.Services.Core;
-using StephaneHomePage.Services.Js;
 
 namespace StephaneHomePage
 {
