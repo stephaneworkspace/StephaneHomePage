@@ -249,6 +249,7 @@
         else
         {
             string sizePx = this._computeThemeAstral.whAngleSymbolSize + "px";
+            string sizePxImg = this._computeThemeAstral.whAngleSymbolSize.ToString();
             string leftPx = a.XYAngle.dx + "px";
             string topPx = a.XYAngle.dy + "px";
             string tooltip = a.Id + " " + a.SignPos;
@@ -268,6 +269,22 @@
                                             -webkit-mask-size:contain"
                                 ></div>
                             </MatTooltip>;
+                case StructThemeAstral.Img:
+                    return @<div
+                                class="element"
+                                style="
+                                    width:@sizePx;
+                                    height:@sizePx;
+                                    left:@leftPx;
+                                    top:@topPx;"
+                                 >
+                                <img 
+                                     width="@sizePxImg"
+                                     height="@sizePxImg"
+                                     style="filter:url(#angle-@a.Id);"
+                                     src="data:image/svg+xml;base64,@openSvg.getSvg().SvgB64"
+                                />
+                            </div>;
                 default:
                     return @<div />;
             }
