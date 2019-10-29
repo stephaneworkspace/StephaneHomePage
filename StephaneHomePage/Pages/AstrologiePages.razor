@@ -102,6 +102,9 @@
     </div>
     @if (swLoaded)
     {
+        <NavLink class="nav-link" style="padding: 0!important;" target="_blank" href="@("astrologie-print/" + @model.year_month_day.Replace('/', '-') + "/" + @model.hour_min.Substring(0, 5) + "/" + @model.lat + "/" + @model.lng + "/")">
+            <span class="oi oi-print" aria-hidden="true"></span> Version imprimable
+        </NavLink>
         <ThemeAstral Json="data" MaxWidth="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" MaxHeight="@(375 * AppStateServiceCore.AppBarStruct.AstroZoom)" LockBook="@AppStateServiceCore.AppBarStruct.LockBook" Struct="StructThemeAstral.Css" />
     }
 </EditForm>
