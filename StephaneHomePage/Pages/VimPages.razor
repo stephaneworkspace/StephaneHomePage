@@ -20,28 +20,27 @@
 <br />
 <p class="code">git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim</p>
 <p class="code">touch ~/.vimrc</p>
-<p class="code">
-    set nocompatible              " required
-    filetype off                  " required
-
-    " set the runtime path to include Vundle and initialize
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
-
-    " alternatively, pass a path where Vundle should install plugins
-    "call vundle#begin('~/some/path/here')
-
-    " let Vundle manage Vundle, required
-    Plugin 'gmarik/Vundle.vim'
-
-    " add all your plugins here (note older versions of Vundle
-    " used Bundle instead of Plugin)
-
-    " ...
-
-    " All of your Plugins must be added before the following line
-    call vundle#end()            " required
-    filetype plugin indent on    " required
+<p class="code">set nocompatible              " required
+<br/>filetype off                  " required
+<br />
+<br />" set the runtime path to include Vundle and initialize
+<br />set rtp+=~/.vim/bundle/Vundle.vim
+<br />call vundle#begin()
+<br />
+<br />" alternatively, pass a path where Vundle should install plugins
+<br />"call vundle#begin('~/some/path/here')
+<br/>
+<br />" let Vundle manage Vundle, required
+<br />Plugin 'gmarik/Vundle.vim'
+<br />
+<br />" add all your plugins here (note older versions of Vundle
+<br />" used Bundle instead of Plugin)
+<br />
+<br />" ...
+<br />
+<br />" All of your Plugins must be added before the following line
+<br />call vundle#end()            " required
+<br />filetype plugin indent on    " required
 </p>
 <p class="code">:PluginInstall</p>
 <br />
@@ -57,7 +56,27 @@
 <p class="code">Esc</p>
 <p></p>
 <h3>Split layout</h3>
+<br />
 <p>Vertical</p>
 <p class="code">:sp filename</p>
 <p>Horizontal</p>
 <p class="code">:vs filename</p>
+<p>Switch (setup) -> ~/.vimrc</p>
+<p class="code">
+    @foreach(var s in setupSplitLayout)
+    {
+        @s<br />
+    }
+</p>
+@code {
+    List<string> setupSplitLayout = new List<String>();
+    protected override void OnInitialized()
+    {
+        setupSplitLayout.Add("\"split navigations");
+        setupSplitLayout.Add("nnoremap <C-J> <C-W><C-J>");
+        setupSplitLayout.Add("nnoremap <C-K> <C-W><C-K>");
+        setupSplitLayout.Add("nnoremap <C-L> <C-W><C-L>");
+        setupSplitLayout.Add("nnoremap <C-H> <C-W><C-H>");
+    }
+
+}
