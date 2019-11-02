@@ -81,16 +81,19 @@
     @foreach (var s in setupFold)
     {
         @s<br />
-        <br />
-        <span>
-            The initial command, set foldmethod=indent, creates folds based upon line indents. This, however, often creates more folds than you really want. But have no fear! There are several extensions that attempt to rectify that. We recommend SimpylFold. Install it with Vundle by adding the following line to .vimrc:
-            <br />
-            <br />Plugin 'tmhedberg/SimpylFold'
-            <br />
-            <br />Note: Don’t forget to install the plugin - :PluginInstall.
-        </span>
     }
 </p>
+<br />
+<span>
+The initial command, set foldmethod=indent, creates folds based upon line indents. This, however, often creates more folds than you really want. But have no fear! There are several extensions that attempt to rectify that. We recommend SimpylFold. Install it with Vundle by adding the following line to .vimrc:
+<br />
+<br />Plugin 'tmhedberg/SimpylFold'
+<br />
+<br />Note: Don’t forget to install the plugin - :PluginInstall.
+<br />
+<br />For docstring:
+<p class="code">let g:SimpylFold_docstring_preview=1</p>
+</span>
 
 @code {
     List<string> setupSplitLayout = new List<String>();
