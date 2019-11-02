@@ -3,9 +3,26 @@
 <p>Finis la galère avec nano en ssh... je suis les précieux conseil de mon enseignant du temps ou j'étais sur les bons scolaires de l'informatique, j'utiliserai désomrais vi</p>
 <p>Du coup je rempli cette page au fur et a mesure pour apprendre ces commandes avec le temps...</p>
 <br />
+<h2>Setup Debian/Ubuntu</h2>
+<br />
+<p class="code">apt-get remove vim-tiny</p>
+<p class="code">apt-get update</p>
+<p class="code">apt-get install vim</p>
+<p class="code">apt-get install vim-python</p>
+<p class="code">apt-get install vim-nox</p>
+<br />
+<h2>Test setup</h2>
+<br />
+<p class="code">vim --version</p>
+<p class="code">:python3 import sys; print(sys.version)</p>
+<br />
 <h2 class="commande-title">Vim</h2>
 <h3>Commandes de base</h3>
-<p>Insertion</p>
+<p>Vi fonctionne dans 3 modes différents, le mode commande, le mode insertion et le mode sélection</p>
+<br />
+<p>Insertion avant la ligne courante</p>
+<p class="code">:i</p>
+<p>Insertion après la ligne courante</p>
 <p class="code">:i</p>
 <p>Quitter insertion</p>
 <p class="code">Esc</p>
