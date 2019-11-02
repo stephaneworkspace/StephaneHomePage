@@ -1,6 +1,12 @@
 ﻿@page "/git"
-<h2>Bible de git</h2>
-<br />https://www.le-fab-lab.com/git-les-branches.html
+<h2>Commandes de git</h2>
+<br />
+@*https://www.le-fab-lab.com/git-les-branches.html*@
+<h3>Setup</h3>
+<p class="code">git remote add origin git@github.com:User/UserRepo.git</p>
+<p class="code">git config --global user.email "e-mail"</p>
+<p class="code">git config --global user.name "User"</p>
+<br />
 <h3>Branches</h3>
 <p>Créer une branche et y basculer directement :</p>
 <p class="code">git checkout -b nom_nouvelle_branche</p>
@@ -11,19 +17,19 @@
 <p class="code">git branch nom_nouvelle_branche [A]</p>
 <p>Facultatif : préciser le commit [A] sur lequel pointe la branche.</p>
 <br />
-<h3>Setup</h3>
-<p class="code">git remote add origin git@github.com:User/UserRepo.git</p>
-<p class="code">git config --global user.email "s.bressani@bluewin.ch"</p>
-<p class="code">git config --global user.name "stephaneworkspace"</p>
-<br />
 <h3>Commandes pratiques</h3>
 <p>Add all</p>
-<p class="code">git add .<br />git commit -m "Message"</p>
+<p class="code">git add .
+<br />git commit -m "Message"</p>
 <p>Push sur une branche (origin déclaré, voir setup)</p>
-<p class="code">git push --set-upstream origin nom_branche</p>
+<p class="code">git push --set-upstream origin nom_branche
+<br />Ou push normal git push</p>
 <br />
-Conventions de nomage:
+<p>
+    Conventions de nomage des branches pour travail en équipe:
+    <NavLink class="nav-link" style="padding: 0!important;" target="_blank" href="https://github.com/betagouv/pix/wiki/Conventions-de-nommage">
+        <span class="oi oi-code" aria-hidden="true"></span> Url
+    </NavLink>
+</p>
 <br />
-https://github.com/betagouv/pix/wiki/Conventions-de-nommage
-
 
