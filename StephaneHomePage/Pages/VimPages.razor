@@ -4,8 +4,10 @@
 <p>Du coup je rempli cette page au fur et a mesure pour apprendre ces commandes avec le temps...</p>
 <p>Annuraire : 
 <br />https://realpython.com/vim-and-python-a-match-made-in-heaven/
+<br />http://www.linux-france.org/prj/support/outils/vi.html
 </p>
 <br />
+@*
 <h2>Setup Debian/Ubuntu</h2>
 <br />
 <p class="code">apt-get remove vim-tiny</p>
@@ -46,7 +48,7 @@
 <br />filetype plugin indent on    " required
 </p>
 <p class="code">:PluginInstall</p>
-<br />
+<br />*@
 <h2 class="commande-title">Vim</h2>
 <h3>Commandes de base</h3>
 <p>Vi fonctionne dans 3 modes différents, le mode commande, le mode insertion et le mode sélection</p>
@@ -54,30 +56,34 @@
 <p>Insertion avant la ligne courante</p>
 <p class="code">:i</p>
 <p>Insertion après la ligne courante</p>
-<p class="code">:i</p>
+<p class="code">:a</p>
+<p>	Passe en mode insertion sur une nouvelle ligne sous la ligne courante</p>
+<p class="code">:o</p>
 <p>Quitter insertion</p>
 <p class="code">Esc</p>
 <p></p>
+<p>Remplace le caractère</p>
+<p class="code">r</p>
 <h3>Split layout</h3>
 <br />
 <p>Vertical</p>
 <p class="code">:sp filename</p>
 <p>Horizontal</p>
 <p class="code">:vs filename</p>
-<p>Switch (setup) -> ~/.vimrc</p>
+@*<p>Switch (setup) -> ~/.vimrc</p>
 <p class="code">
     @foreach(var s in setupSplitLayout)
     {
         @s<br />
     }
-</p>
+</p>*@
 <p>Ctrl+J move to the split below
 <br />Ctrl+K move to the split above
 <br />Ctrl+L move to the split to the right
 <br />Ctrl+H move to the split to the left
 </p>
 <p>Code fold setup for key space (za = default)</p>
-<p class="code">
+@*<p class="code">
     @foreach (var s in setupFold)
     {
         @s<br />
@@ -93,6 +99,10 @@ The initial command, set foldmethod=indent, creates folds based upon line indent
 <br />
 <br />For docstring:
 <p class="code">let g:SimpylFold_docstring_preview=1</p>
+
+Nerd tree
+Ctrl + N
+
 </span>
 
 @code {
@@ -115,3 +125,4 @@ The initial command, set foldmethod=indent, creates folds based upon line indent
     }
 
 }
+*@
