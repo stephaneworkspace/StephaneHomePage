@@ -13,6 +13,7 @@ namespace StephaneHomePage.Services.Http
     public interface IAstrologieServiceHttp
     {
         Task<HttpResponseMessage> GetThemeAstral(ThemeAstralModel model);
+        Task<HttpResponseMessage> GetNombres(ThemeNombresModel model);
         Task<HttpResponseMessage> GetSwagger();
     }
 }

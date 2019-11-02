@@ -19,6 +19,7 @@ namespace StephaneHomePage
     static class Constants
     {
         public const string URL_BASE = "http://www.stephane-bressani.ch:8000/";
+        public const string URL_BASE_TEST = "http://www.stephane-bressani.ch:8888/";
     }
 
     public class Program

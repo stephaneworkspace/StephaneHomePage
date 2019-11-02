@@ -1,0 +1,23 @@
+﻿@page "/nombres/{date}/{nom}/{prenom}/"
+@layout PrintLayout
+@using System
+@using System.Web
+
+@if (swLoaded)
+{
+    <h3>TestPages</h3>
+    // @RenderTest()
+}
+else
+{
+    <h3>Chargement...</h3>
+}
+
+@functions
+{
+    private RenderFragment RenderTest()
+    {
+        //string text = HttpUtility.HtmlEncode(r.Text);
+        return@<div>@((MarkupString)contentHtml)</div>;
+}
+}

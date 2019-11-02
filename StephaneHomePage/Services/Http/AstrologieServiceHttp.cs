@@ -42,6 +42,17 @@ namespace StephaneHomePage.Services.Http
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);
         }
+
+        public async Task<HttpResponseMessage> GetNombres(ThemeNombresModel model)
+        {
+            string queryString = $"date={model.date}";
+            queryString += $"&nom={Uri.EscapeUriString(model.nom)}";
+            queryString += $"&prenom={Uri.EscapeUriString(model.prenom)}";
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE_TEST}?{queryString.ToString()}");
+            //return await _httpClient.PostAsync($"{Constants.URL_BASE_TEST}", httpContent);
+            return await _httpClient.SendAsync(req);
+        }
+
         public async Task<HttpResponseMessage> GetSwagger()
         {
             var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/swagger");
