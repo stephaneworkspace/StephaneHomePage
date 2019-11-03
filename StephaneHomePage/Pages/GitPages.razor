@@ -10,8 +10,16 @@
 <h3>Branches</h3>
 <p>Créer une branche et y basculer directement :</p>
 <p class="code">git checkout -b nom_nouvelle_branche</p>
+<p>Changer de branche</p>
+<p class="code">git checkout nom_branche</p>
+<p></p>
 <p>Supprimer une branche</p>
 <p class="code">git branch -d branche_à_supprimer</p>
+<p>Supprimer remote</p>
+<p class="code">git push origin --delete branche_à_supprimer</p>
+<p>Forcer supprimer une branche</p>
+<p class="code">git branch -D branche_à_supprimer</p>
+
 <p></p>
 <p>Créer une nouvelle branche</p>
 <p class="code">git branch nom_nouvelle_branche [A]</p>
@@ -19,11 +27,15 @@
 <br />
 <h3>Commandes pratiques</h3>
 <p>Add all</p>
-<p class="code">git add .
-<br />git commit -m "Message"</p>
+<p class="code">
+    git add .
+    <br />git commit -m "Message"
+</p>
 <p>Push sur une branche (origin déclaré, voir setup)</p>
-<p class="code">git push --set-upstream origin nom_branche
-<br />Ou push normal git push</p>
+<p class="code">
+    git push --set-upstream origin nom_branche
+    <br />Ou push normal git push
+</p>
 <br />
 <p>
     Conventions de nomage des branches pour travail en équipe:
