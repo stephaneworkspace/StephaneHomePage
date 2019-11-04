@@ -55,6 +55,12 @@
 <h3>Download</h3>
 <p class="code">curl -o lenomdemontar.tar.gz https://etc....</p>
 <br/>
+<h3>Monter un iso</h3>
+<p class="code">sudo mkdir /media/iso</p>
+<p class="code">sudo umount /media/iso</p>
+<p class="code">sudo mount -o loop /chemin/vers/image.mdf /media/iso</p>
+<p class="code">sudo umount /media/iso</p>
+<br/>
 @code {
     string dockerClean = "docker rmi $(docker images | grep '^<none>' | awk '{print $3}')";
 }
