@@ -8,39 +8,57 @@
 <p class="code">git config --global user.name "User"</p>
 <br />
 <h3>Branches</h3>
+<br />
 <p>Créer une branche et y basculer directement :</p>
 <p class="code">git checkout -b nom_nouvelle_branche</p>
 <p>Changer de branche</p>
 <p class="code">git checkout nom_branche</p>
+<br />
 <p>Pull de la branche</p>
-<p class="code">git pull origin nom_branche</p>
-<p></p>
+<p class="code">git pull origin nom_branche</p> <i>(origin ou azure ou etc...)</i>
+<p>(je ne trouve pas l’option à la souris correct dans visual studio 2019, car tirer ne fait rien, donc a faire dans la console)</p>
+<p>Push branche</p>
+<p class="code">git push --set-upstream origin nom_branche</p> <i>(origin ou azure ou etc...)</i>
+<p>Fetch</p>
+<p class="code">git fetsh</p>
+<p>Diff</p>
+<p class="code">git diff --name-only ..origin</p>
+<br />
 <p>Supprimer une branche</p>
 <p class="code">git branch -d branche_à_supprimer</p>
 <p>Supprimer remote</p>
-<p class="code">git push origin --delete branche_à_supprimer</p>
+<p class="code">git push origin --delete branche_à_supprimer</p> <i>(origin ou azure ou etc...)</i>
 <p>Forcer supprimer une branche</p>
 <p class="code">git branch -D branche_à_supprimer</p>
 
 <p></p>
-<p>Créer une nouvelle branche</p>
+<p>Créer une nouvelle branche depuis un commit (jamais utilisé... je pull la branche plustôt, je laisse pour info)</p>
 <p class="code">git branch nom_nouvelle_branche [A]</p>
 <p>Facultatif : préciser le commit [A] sur lequel pointe la branche.</p>
 <br />
 <h3>Commandes pratiques</h3>
 <p>Add all</p>
-<p class="code">
-    git add .
-    <br />git commit -m "Message"
-</p>
-<p>Push sur une branche (origin déclaré, voir setup)</p>
-<p class="code">
-    git push --set-upstream origin nom_branche
-    <br />Ou push normal git push
-</p>
+<p class="code">git add .</p>
+<p>Add un fichier</p>
+<p class="code">git add mon_fichier</p>
+<p>Commit</p>
+<p class="code">git commit -m "Message"</p>
+<p>Push en local et sur une branche</p>
+<p class="code">git push</p>
+<p class="code">git push origin nom_branche</p> <i>(origin ou azure ou etc...)</i>
 <br />
+<p>Exemples de remote azure</p>
+<p class="code">git remote add azure https://steee-fx@dev.azure.com/steee-fx/StephaneHomePage/_git/StephaneHomePage </p> <i>(origin ou azure ou etc...)</i>
+<p class="code">git remote add azure git@ssh.dev.azure.com:v3/steee-fx/StephaneHomePage/StephaneHomePage </p> <i>(origin ou azure ou etc...)</i>
+<p>git push -u azure --all</p> <i>(origin ou azure ou etc...)</i>
+<br />
+<p>Exemples de remote github</p>
+<p class="code">git remote add origin https://github.com/stephaneworkspace/StephaneHomePage.git </p> <i>(origin ou azure ou etc...)</i>
+<p class="code">git remote add origin git@github.com:stephaneworkspace/StephaneHomePage.git </p> <i>(origin ou azure ou etc...)</i>
+<p>git push -u origin --all</p> <i>(origin ou azure ou etc...)</i>
+<br />
+<p>Conventions de nomage des branches pour travail en équipe:</p>
 <p>
-    Conventions de nomage des branches pour travail en équipe:
     <NavLink class="nav-link" style="padding: 0!important;" target="_blank" href="https://github.com/betagouv/pix/wiki/Conventions-de-nommage">
         <span class="oi oi-code" aria-hidden="true"></span> Url
     </NavLink>
