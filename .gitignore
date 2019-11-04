@@ -2,10 +2,10 @@
 # Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/StephaneHomePage
 /StephaneHomePage/bin/Debug/netcoreapp3.0
 /StephaneHomePage/bin/Debug/netcoreapp3.1
 /StephaneHomePage/obj/Container
 /StephaneHomePage/obj
 /StephaneHomePage/password.json
 /StephaneHomePage/assets
+.vs
