@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace StephaneHomePage.Pages
 {
-    public partial class VimPages
+    public partial class ViPages
     {
         [Inject]
         public AppStateServiceCore AppStateServiceCore { get; set; }
