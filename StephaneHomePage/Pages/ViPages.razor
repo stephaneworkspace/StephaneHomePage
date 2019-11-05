@@ -1,0 +1,71 @@
+﻿@page "/vim"
+<h2>Commandes de vi</h2>
+@*<p>
+    Annuraire :
+    <br />https://realpython.com/vim-and-python-a-match-made-in-heaven/
+    <br />http://www.linux-france.org/prj/support/outils/vi.html
+    <br />https://dev.to/rf_schubert/how-to-create-a-pip-package-and-host-on-private-github-repo-58pa
+</p>
+*@
+<h2 class="commande-title">Vim</h2>
+<br />
+<h3>Commandes de base</h3>
+<p>Vi fonctionne dans 3 modes différents, le mode commande, le mode insertion et le mode sélection</p>
+<br />
+<p>Fin de ligne</p>
+<p class="code">$ ou END</p>
+<p>Début de ligne</p>
+<p class="code">0 our HOME</p>
+<br />
+<p>Insertion sur caractère ou au début de la ligne courante</p>
+<p class="code">i ou SHIFT + i</p>
+<p>Insertion après caractère ou à la fin de ligne courante</p>
+<p class="code">a ou SHIFT + a</p>
+<p>	Passe en mode insertion sur une nouvelle ligne de la ligne courante ou au dessus</p>
+<p class="code">o ou SHIFT + o</p>
+<p>Quitter insertion</p>
+<p class="code">Esc</p>
+<p></p>
+<p>Remplace le caractère</p>
+<p class="code">r</p>
+<p>Supprimer le caractère</p>
+<p class="code>s</p>
+<p>Supprimer la ligne courante</p>
+<p class="code">dd</p>
+<br />
+<p>Aller à la ligne</p>
+<p class="code"><i>n</i>G</p>
+<p>Aller à la dernière ligne</p>
+<p class="code">G</p>
+<br />
+<p>Aller à la page suivante</p>
+<p class="code">Ctrl + F</p>
+<p>Aller à la page précédante</p>
+<p class="code">Ctrl + B</p>
+<br />
+<p>Commencer une sélection en mode caractère</p>
+<p class="code">v</p>
+<p>Commencer une sélection en mode ligne</p>
+<p class="code">V</p>
+<p>Supprime la sélection et passe en insetion</p>
+<p class="code">c</p>
+<h3>Split layout</h3>
+<br />
+<p>Vertical</p>
+<p class="code">:sp filename</p>
+<p>Horizontal</p>
+<p class="code">:vs filename</p>
+<br />
+<p>Commandes de changement de fenêtre</p>
+<p class="code">Ctrl+J move to the split below</p>
+<p class="code>Ctrl+K move to the split above</p>
+<p class="code">Ctrl+L move to the split to the right</p>
+<p class="code">Ctrl+H move to the split to the left</p>
+<br />
+<p>Code fold (za = default ou space = dans .vimrc)</p>
+<br />For docstring:
+<p class="code">let g:SimpylFold_docstring_preview=1</p>
+<br />
+<p>Nerd tree</p>
+<p class="code">Ctrl + N</p>
+<br />
