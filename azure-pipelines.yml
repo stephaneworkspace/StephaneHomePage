@@ -6,7 +6,7 @@
 
 trigger:
   branches:
-      include:
+    include:
       - release/*
     exclude:
       - release/old*
