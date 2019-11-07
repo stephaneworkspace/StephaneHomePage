@@ -66,6 +66,10 @@ app {
     font-size: 1.1rem;
 }
 
+.navbar-brand {
+    color: white!important;
+}
+
 .sidebar .oi {
     width: 2rem;
     font-size: 1.1rem;
