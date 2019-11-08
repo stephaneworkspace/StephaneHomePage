@@ -20,7 +20,9 @@ namespace StephaneHomePage
     {
         public const string URL_BASE = "http://www.stephane-bressani.ch:8000/";
         public const string URL_BASE_TEST = "http://www.stephane-bressani.ch:8888/";
-    }
+		// Définit si je travail en local en http avec docker sur mon desktop debian ou sur le web https / ou iis windows 10
+		public const bool PROD = true;
+	}
 
     public class Program
     {
@@ -39,7 +41,7 @@ namespace StephaneHomePage
             })*/
             .ConfigureWebHostDefaults(webBuilder =>
             {
-                webBuilder
+                //webBuilder
                     /*.ConfigureKestrel(serverOptions =>
                     {
                         serverOptions.Listen(IPAddress.Any, 80);
@@ -48,8 +50,11 @@ namespace StephaneHomePage
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
                     })*/
-                    .UseUrls("http://0.0.0.0:80;https://0.0.0.0:443")
-                    .UseStartup<Startup>()
+                if (Constants.PROD)
+                    webBuilder.UseUrls("http://0.0.0.0:80;https://0.0.0.0:443");
+				else
+					webBuilder.UseUrls("http://0.0.0.0:80");
+				webBuilder.UseStartup<Startup>()
                     .UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
     }
