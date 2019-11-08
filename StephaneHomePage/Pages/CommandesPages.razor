@@ -71,7 +71,10 @@
 <p>Dans le serveur vérifier qu'il y a les bons droit</p>
 <p class="code">chmod o-w ~/; chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys</p>
 @*<p>Dans le server accepter la clé</p>
-<p class="code>su<br/>vi /etc/ssh/ssh_config<br /></p>*@
+<p class="code">su<br/>vi /etc/ssh/ssh_config<br /></p>*@
+<br />
+<h3>Redemarer gnome</h3>
+<p class="code">kill -HUP $(pidof gnome-shell)</p>
 <br />
 <h3>Monter un iso</h3>
 <p class="code">sudo mkdir /media/iso</p>
