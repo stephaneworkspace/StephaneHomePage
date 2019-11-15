@@ -19,6 +19,7 @@ using StephaneHomePage.Services.Http;
 using EmbeddedBlazorContent;
 using MatBlazor;
 using StephaneHomePage.Services.Core;
+using McMaster.AspNetCore.LetsEncrypt;
 
 namespace StephaneHomePage
 {
@@ -37,8 +38,12 @@ namespace StephaneHomePage
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            if (Constants.PROD) 
-				services.AddLetsEncrypt();
+            if (Constants.PROD)
+            {
+                var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("password.json").Build();
+                services.AddLetsEncrypt();
+                // services.PersistCertificatesToDirectory(new DirectoryInfo("/home/stephane/www/cert"), config.GetSection("password").Value);
+            }
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
