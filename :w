@@ -52,7 +52,7 @@ namespace StephaneHomePage.Pages
                 SearchCity();
             }
         }
-        private string _citySearch { get; set; }
+        private string _citySearch;
 
         public string citySearchId
         {
@@ -63,7 +63,7 @@ namespace StephaneHomePage.Pages
                 BindCity();
             }
         }
-        public string _citySearchId { get; set; }
+        public string _citySearchId;
 
         private async Task HandleValidSubmit()
         {
@@ -99,13 +99,13 @@ namespace StephaneHomePage.Pages
             {
                 if (swRefreshQuery == "refresh")
                 {
-                    this.model = new ThemeAstralModel();
-                    this.citySearch = "";
-                    this.citySearchId = "";
-                    this.model.lat = "46.20222";
-                    this.model.lng = "6.14569";
-                    this.swLock = false;
-                    this.swLoaded = false;
+                    model = new ThemeAstralModel();
+                    citySearch = "";
+                    citySearchId = "";
+                    model.lat = "46.20222";
+                    model.lng = "6.14569";
+                    swLock = false;
+                    swLoaded = false;
                 }
             }
             StateHasChanged();
