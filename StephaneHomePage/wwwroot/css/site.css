@@ -1,17 +1,19 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
-html, body {
+html,
+body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-a, .btn-link {
+a,
+.btn-link {
     color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 app {
@@ -33,6 +35,7 @@ app {
         padding-top: 0px !important;
     }
 }
+
 @media (min-width: 768px) {
     .mat-navbar-fixed-max-width {
         width: calc(100% - 250px) !important;
@@ -49,7 +52,7 @@ app {
     justify-content: flex-end;
 }
 
-.main .top-row > a {
+.main .top-row>a {
     margin-left: 1.5rem;
 }
 
@@ -59,7 +62,8 @@ app {
 }
 
 .sidebar .top-row {
-    /*background-color: #283593;*/ /* Mat Indigo 800 */
+    /*background-color: #283593;*/
+    /* Mat Indigo 800 */
 }
 
 .sidebar .navbar-brand {
@@ -67,7 +71,7 @@ app {
 }
 
 .navbar-brand {
-    color: white!important;
+    color: white !important;
 }
 
 .sidebar .oi {
@@ -100,12 +104,12 @@ app {
 }
 
 .nav-item a.active {
-    background-color: rgba(0,0,0,0.25);
+    background-color: rgba(0, 0, 0, 0.25);
     color: white;
 }
 
 .nav-item a:hover {
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     color: white;
 }
 
@@ -160,7 +164,7 @@ app {
         top: 0;
     }
 
-    .main > div {
+    .main>div {
         /*padding-left: 2rem !important;
         padding-right: 1.5rem !important;*/
     }
@@ -191,12 +195,12 @@ app {
 }
 
 .index-background {
-    width: 75%!important; 
-    height: 522px; 
-    box-shadow: 1px 2px 20px 2px rgb(128, 128, 128); 
-    border-radius: 50% 20% / 10% 40%; 
-    background-image: url('/img/index.png'); 
-    background-repeat:repeat-y; 
+    width: 75% !important;
+    height: 522px;
+    box-shadow: 1px 2px 20px 2px rgb(128, 128, 128);
+    border-radius: 50% 20% / 10% 40%;
+    background-image: url('/img/index.png');
+    background-repeat: repeat-y;
     background-size: contain;
 }
 
@@ -212,22 +216,22 @@ app {
     transform: rotate(0deg) skew(5deg);
     animation: animate-startup 10s ease-in-out infinite;
 }
-@keyframes animate-startup
-{
-    0%
-    {
-        transform: rotate(0deg) skew(5deg) translate(0,0);
-        box-shadow: -5px 5px rgba(0,0,0,.2);
+
+@keyframes animate-startup {
+    0% {
+        transform: rotate(0deg) skew(5deg) translate(0, 0);
+        box-shadow: -5px 5px rgba(0, 0, 0, .2);
     }
+
     80% {
-        transform: rotate(0deg) skew(5deg) translate(0,0);
-        box-shadow: -10px 10px rgba(0,0,0,.2);
+        transform: rotate(0deg) skew(5deg) translate(0, 0);
+        box-shadow: -10px 10px rgba(0, 0, 0, .2);
         filter: blur(5px);
     }
-    90%
-    {
-        transform: rotate(180deg) skew(5deg) translate(50px,-50px);
-        box-shadow: -10px 10px 0 rgba(0,0,0,.2);
+
+    90% {
+        transform: rotate(180deg) skew(5deg) translate(50px, -50px);
+        box-shadow: -10px 10px 0 rgba(0, 0, 0, .2);
         filter: blur(15px);
     }
 }

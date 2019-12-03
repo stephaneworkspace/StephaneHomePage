@@ -14,7 +14,7 @@ namespace StephaneHomePage.Struct.AutoComplete
         public string Country { get; set; }
         public string Flag { get; set; }
 
-        public CityWithFlag(int id, string name, double lat, double lng, string country, string flag)
+        public CityWithFlag(int id, string name, double lat, double lng, string country, string flag) 
         {
             Id = id;
             Name = name;
