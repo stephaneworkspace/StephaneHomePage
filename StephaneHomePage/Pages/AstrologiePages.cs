@@ -34,14 +34,14 @@ namespace StephaneHomePage.Pages
         [Inject]
         private ICityServiceHttp CityServiceHttp { get; set; }
 
-        public bool swLock { get; set; } = false;
-        public bool swLoaded = false;
+        public bool swLock { get; set; }
+        public bool swLoaded {get; set; }
 
-        public ThemeAstralModel model = new ThemeAstralModel();
-        public ImportJson data;
+        public ThemeAstralModel model { get; set; }
+        public ImportJson data { get; set; }
         
-        public bool swSearch { get; set; } = false;
-        public List<CityWithFlag> search = new List<CityWithFlag>();
+        public bool swSearch { get; set; }
+        public List<CityWithFlag> search { get; set; }
 
         public string citySearch
         {
@@ -52,7 +52,7 @@ namespace StephaneHomePage.Pages
                 SearchCity();
             }
         }
-        private string _citySearch;
+        private string _citySearch { get; set; }
 
         public string citySearchId
         {
@@ -63,22 +63,30 @@ namespace StephaneHomePage.Pages
                 BindCity();
             }
         }
-        public string _citySearchId;
+        public string _citySearchId { get; set; }
 
         private async Task HandleValidSubmit()
         {
-            await LoadDatas();
+            await this.LoadDatas();
         }
 
         protected override async Task OnInitializedAsync()
         {
-            NavigationManager.LocationChanged += OnLocationChanges;
-            var oldStruct = AppStateServiceCore.AppBarStruct;
+            // Init fields
+            this.swLock = false;
+            this.swLoaded = false;
+            this.model = new ThemeAstralModel();
+            this.model.lat = "46.20222";
+            this.model.lng = "6.14569";
+            this.swSearch = false;
+            this.search = new List<CityWithFlag>(); 
+            
+            // Event
+            this.NavigationManager.LocationChanged += OnLocationChanges;
+            var oldStruct = this.AppStateServiceCore.AppBarStruct;
             var newStruct = new AppBarStruct("Astrologie", true, oldStruct.AstroZoom, oldStruct.LockBook);
-            await AppStateServiceCore.ChangeStruct(newStruct);
-            AppStateServiceCore.OnChange += OnStructChange;
-            model.lat = "46.20222";
-            model.lng = "6.14569";
+            await this.AppStateServiceCore.ChangeStruct(newStruct);
+            this.AppStateServiceCore.OnChange += OnStructChange;
         }
 
         private void OnLocationChanges(object sender, LocationChangedEventArgs e)
@@ -91,13 +99,13 @@ namespace StephaneHomePage.Pages
             {
                 if (swRefreshQuery == "refresh")
                 {
-                    model = new ThemeAstralModel();
-                    citySearch = "";
-                    citySearchId = "";
-                    model.lat = "46.20222";
-                    model.lng = "6.14569";
-                    swLock = false;
-                    swLoaded = false;
+                    this.model = new ThemeAstralModel();
+                    this.citySearch = "";
+                    this.citySearchId = "";
+                    this.model.lat = "46.20222";
+                    this.model.lng = "6.14569";
+                    this.swLock = false;
+                    this.swLoaded = false;
                 }
             }
             StateHasChanged();
@@ -110,20 +118,20 @@ namespace StephaneHomePage.Pages
             {
                 case HttpStatusCode.OK:
                     string content = await response.Content.ReadAsStringAsync();
-                    data = JsonConvert.DeserializeObject<ImportJson>(content);
-                    swLoaded = true;
-                    swLock = true;
+                    this.data = JsonConvert.DeserializeObject<ImportJson>(content);
+                    this.swLoaded = true;
+                    this.swLock = true;
                     break;
                 default:
-                    MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                    NavigationManager.NavigateTo("/");
+                    this.MatToaster.Add("Impossible de recevoir les données du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
+                    this.NavigationManager.NavigateTo("/");
                     break;
             }
         }
 
         private async void SearchCity()
         {
-            swSearch = false;
+            this.swSearch = false;
             var response = await CityServiceHttp.GetCitys(_citySearch);
             switch (response.StatusCode)
             {
@@ -136,22 +144,22 @@ namespace StephaneHomePage.Pages
                         if (data_city_filter.filter != null)
                             foreach (var d in data_city_filter.filter)
                             {
-                                swSearch = true;
+                                this.swSearch = true;
                                 data_return.Add(new CityWithFlag(d.id, d.name, d.lat, d.lng, d.country, ""));
                             }
-                        search = data_return;
+                        this.search = data_return;
                     } else
                     {
-                        search = new List<CityWithFlag>();
-                        model.lat = "46.20222";
-                        model.lng = "6.14569";
+                        this.search = new List<CityWithFlag>();
+                        this.model.lat = "46.20222";
+                        this.model.lng = "6.14569";
                     }
                     StateHasChanged();
                     break;
                 default:
-                    MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
-                    NavigationManager.NavigateTo("/");
-                    search = null;
+                    this.MatToaster.Add("Impossible de recevoir les données des villes du serveur", MatToastType.Danger, "Erreur http " + response.StatusCode, "danger");
+                    this.NavigationManager.NavigateTo("/");
+                    this.search = null;
                     StateHasChanged();
                     break;
             }
@@ -159,14 +167,14 @@ namespace StephaneHomePage.Pages
 
         private void BindCity()
         {
-            model.lat = "";
-            model.lng = "";
+            this.model.lat = "";
+            this.model.lng = "";
             foreach (var b in search)
             {
-                if (b.Id.ToString() == _citySearchId)
+                if (b.Id.ToString() == this._citySearchId)
                 {
-                    model.lat = b.Lat.ToString();
-                    model.lng = b.Lng.ToString();
+                    this.model.lat = b.Lat.ToString();
+                    this.model.lng = b.Lng.ToString();
                 }
             }
             StateHasChanged();
@@ -181,10 +189,9 @@ namespace StephaneHomePage.Pages
         #pragma warning disable 1998
         private async Task OnStructChange(AppBarStruct appBarStruct)
         {
-            AppStateServiceCore.AppBarStruct = appBarStruct;
+            this.AppStateServiceCore.AppBarStruct = appBarStruct;
             StateHasChanged();
         }
         #pragma warning restore 1998
     }
 }
-

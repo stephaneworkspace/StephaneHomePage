@@ -19,7 +19,7 @@ namespace StephaneHomePage.Shared
         [Inject]
         public AppStateServiceCore AppStateServiceCore { get; set; }
 
-        [Parameter] 
+        [Parameter]
         public string Title { get; set; }
 
         [Parameter]
@@ -31,35 +31,43 @@ namespace StephaneHomePage.Shared
         [Parameter]
         public bool LockBook { get; set; }
 
-        bool unlockDialogIsOpen = false;
-        bool unlockDialogIsOpen2 = false;
-        string password = null;
-        bool swSecret = false;
+        bool unlockDialogIsOpen { get; set; }
+        bool unlockDialogIsOpen2 { get; set; }
+        string password { get; set; }
+        bool swSecret { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            this.unlockDialogIsOpen = false;
+            this.unlockDialogIsOpen = false;
+            this.password = null;
+            this.swSecret = false;
+        }
 
         public void NewThemeOnClick(MouseEventArgs e)
         {
-            NavigationManager.NavigateTo("/astrologie?swRefresh=refresh");
+            this.NavigationManager.NavigateTo("/astrologie?swRefresh=refresh");
         }
 
         public async Task ZoomThemeInOnClick(MouseEventArgs e)
         {
-            Zoom += 1;
-            var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
-            await AppStateServiceCore.ChangeStruct(newStruct);
+            this.Zoom += 1;
+            var newStruct = new AppBarStruct("Astrologie", true, this.Zoom, this.LockBook);
+            await this.AppStateServiceCore.ChangeStruct(newStruct);
             StateHasChanged();
         }
 
         public async Task ZoomThemeOutOnClick(MouseEventArgs e)
         {
-            Zoom = 1;
-            var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
-            await AppStateServiceCore.ChangeStruct(newStruct);
+            this.Zoom = 1;
+            var newStruct = new AppBarStruct("Astrologie", true, this.Zoom, this.LockBook);
+            await this.AppStateServiceCore.ChangeStruct(newStruct);
             StateHasChanged();
         }
 
         public void UnlockOnClick(MouseEventArgs e)
         {
-            unlockDialogIsOpen = true;
+            this.unlockDialogIsOpen = true;
         }
 
         public async Task UnlockVerifPasswordOnClick()
@@ -67,14 +75,14 @@ namespace StephaneHomePage.Shared
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("password.json").Build();
-            if (password == config.GetSection("password").Value)
+            if (this.password == config.GetSection("password").Value)
             {
-                swSecret = true;
-                unlockDialogIsOpen = false;
-                unlockDialogIsOpen2 = true;
-                LockBook = true;
-                var newStruct = new AppBarStruct("Astrologie", true, Zoom, LockBook);
-                await AppStateServiceCore.ChangeStruct(newStruct);
+                this.swSecret = true;
+                this.unlockDialogIsOpen = false;
+                this.unlockDialogIsOpen2 = true;
+                this.LockBook = true;
+                var newStruct = new AppBarStruct("Astrologie", true, this.Zoom, this.LockBook);
+                await this.AppStateServiceCore.ChangeStruct(newStruct);
                 StateHasChanged();
             }
         }
