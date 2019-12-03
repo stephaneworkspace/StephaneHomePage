@@ -25,8 +25,10 @@ namespace StephaneHomePage.Services.Http
         public async Task<HttpResponseMessage> GetCitys(string name)
         {
             NameValueCollection queryString = System.Web.HttpUtility.ParseQueryString(string.Empty);
-            queryString["name"] = name;
-            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/citys_filter?{queryString.ToString()}");
+            queryString["filter"] = name;
+            // queryString["name"] = name;
+            // var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE}api/citys_filter?{queryString.ToString()}");
+            var req = new HttpRequestMessage(HttpMethod.Get, $"{Constants.URL_BASE_RUST}city?{queryString.ToString()}");
             // req.Headers.Add("Authorization", $"Bearer {_storage["token"]}");
             return await _httpClient.SendAsync(req);
         }

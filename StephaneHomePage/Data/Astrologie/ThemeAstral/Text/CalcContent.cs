@@ -38,7 +38,7 @@ namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Text
 
         public List<Content> makeContent(String s)
         {
-            int temp = 0;
+            // int temp = 0;
             List<Content> l = new List<Content>();
             bool swLoop = true;
             ContentNext cn = new ContentNext(TypeContent.Null, 0, "");

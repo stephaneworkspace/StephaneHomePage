@@ -38,12 +38,14 @@ namespace StephaneHomePage
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+#pragma warning disable CS0162
             if (Constants.PROD)
             {
                 var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("password.json").Build();
                 services.AddLetsEncrypt();
                 // services.PersistCertificatesToDirectory(new DirectoryInfo("/home/stephane/www/cert"), config.GetSection("password").Value);
             }
+#pragma warning restore CS0162
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<HttpClient>();
@@ -74,11 +76,15 @@ namespace StephaneHomePage
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+#pragma warning disable CS0162
                 if (Constants.PROD)
 					app.UseHsts();
+#pragma warning restore CS0162
             }
+#pragma warning disable CS0162
 			if (Constants.PROD)
 				app.UseHttpsRedirection();
+#pragma warning restore CS0162
             app.UseStaticFiles();
     
             app.UseRouting();
