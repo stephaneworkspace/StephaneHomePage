@@ -22,7 +22,7 @@ namespace StephaneHomePage
         public const string URL_BASE_TEST = "http://www.stephane-bressani.ch:8888/";
         public const string URL_BASE_RUST = "http://www.stephane-bressani.ch:3000/";
 		// Définit si je travail en local en http avec docker sur mon desktop debian ou sur le web https / ou iis windows 10
-		public const bool PROD = false;
+		public const bool PROD = true;
 	}
 
     public class Program
