@@ -3,15 +3,12 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Configuration;
 using StephaneHomePage.Services.Core;
 using StephaneHomePage.Struct.Layout;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StephaneHomePage.Shared
 {
-    public partial class AppBar
+    public partial class AppBar : ComponentBase
     {
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -36,7 +33,7 @@ namespace StephaneHomePage.Shared
         string password { get; set; }
         bool swSecret { get; set; }
 
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized() 
         {
             this.unlockDialogIsOpen = false;
             this.unlockDialogIsOpen = false;
