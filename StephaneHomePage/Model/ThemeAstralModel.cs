@@ -1,25 +1,39 @@
-﻿using StephaneHomePage.Struct.AutoComplete;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace StephaneHomePage.Model
 {
-    public class ThemeAstralModel
+/// Non PascalCase, the backend for astrology is snake_case
+#pragma warning disable CA1707
+public class ThemeAstralModel
+{
+    [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
+    [Display(Name = "date")]
+    public string year_month_day
     {
-        [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
-        [Display(Name = "date")]
-        public string year_month_day { get; set; }
-        [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
-        [Display(Name = "hh:mm")]
-        public string hour_min { get; set; }
-        [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
-        [Display(Name = "latitude")]
-        public string lat { get; set; }
-        [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
-        [Display(Name = "longitude")]
-        public string lng { get; set; }
+        get;
+        set;
     }
+    [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
+    [Display(Name = "hh:mm")]
+    public string hour_min
+    {
+        get;
+        set;
+    }
+    [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
+    [Display(Name = "latitude")]
+    public string lat
+    {
+        get;
+        set;
+    }
+    [Required(ErrorMessage = "Le champ « {0} » est obligatoire.")]
+    [Display(Name = "longitude")]
+    public string lng
+    {
+        get;
+        set;
+    }
+}
+#pragma warning restore CA1707
 }

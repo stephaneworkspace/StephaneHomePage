@@ -154,11 +154,13 @@ public class ComputeThemeAstral
         get;
         set;
     }
+#pragma warning disable CA2227
     public List<ZodiacT> ZodiacT
     {
         get;
         set;
     }
+#pragma warning restore CA2227
 
     public ComputeThemeAstral(ImportJson json, double maxWidth, double maxHeight)
     {

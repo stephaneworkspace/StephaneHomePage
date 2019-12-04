@@ -1,17 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StephaneHomePage.Struct.ImportJson
 {
-    public class ImportHouses
+/// Non PascalCase, the backend for astrology is snake_case
+#pragma warning disable CA1707
+public class ImportHouses
+{
+    public int id
     {
-        public int id { get; set; }
-        public int id_by_asc { get; set; }
-        public Double pos_circle_360 { get; set; }
-        public String sign { get; set; }
-        public String sign_pos { get; set; }
-        public String svg { get; set; }
+        get;
+        set;
     }
+    public int id_by_asc
+    {
+        get;
+        set;
+    }
+    public Double pos_circle_360
+    {
+        get;
+        set;
+    }
+    public String sign
+    {
+        get;
+        set;
+    }
+    public String sign_pos
+    {
+        get;
+        set;
+    }
+    public String svg
+    {
+        get;
+        set;
+    }
+}
+#pragma warning restore CA1707
 }
