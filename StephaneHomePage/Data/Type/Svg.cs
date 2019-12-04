@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace StephaneHomePage.Data.Type
 {
     public class Svg
     {
-        public String SvgB64;
-        public String SvgStringWithoutMod;
-        public String SvgStringWithMod;
+        public String SvgB64 { get; set; }
+        public String SvgStringWithoutMod { get; set; }
+        public String SvgStringWithMod { get; set; }
 
         /// <summary>
         /// inspired from https://github.com/yoksel/url-encoder/
