@@ -164,58 +164,57 @@ public class ComputeThemeAstral
 
     public ComputeThemeAstral(ImportJson json, double maxWidth, double maxHeight)
     {
-        CalcZodiac = new CalcZodiac();
-        Zodiac = new List<Zodiac>();
-        CalcHouse = new CalcHouse();
-        House = new List<House>();
-        CalcAngle = new CalcAngle();
-        Angle = new List<Angle>();
-        CalcPlanet = new CalcPlanet();
-        Planet = new List<Planet>();
-        CalcZodiac.parseJson(json.zodiac);
-        CalcHouse.parseJson(json.houses);
-        CalcAngle.parseJson(json.angles);
-        CalcPlanet.parseJson(json.planets);
+        this.CalcZodiac = new CalcZodiac();
+        this.Zodiac = new List<Zodiac>();
+        this.CalcHouse = new CalcHouse();
+        this.House = new List<House>();
+        this.CalcAngle = new CalcAngle();
+        this.Angle = new List<Angle>();
+        this.CalcPlanet = new CalcPlanet();
+        this.Planet = new List<Planet>();
+        this.CalcZodiac.parseJson(json.zodiac);
+        this.CalcHouse.parseJson(json.houses);
+        this.CalcAngle.parseJson(json.angles);
+        this.CalcPlanet.parseJson(json.planets);
 
-        CalcDraw = new CalcDraw(maxWidth, maxHeight);
+        this.CalcDraw = new CalcDraw(maxWidth, maxHeight);
         // At °0, no importance, ist juste for have the size of zodiac container care
-        XYZodiacSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), CalcDraw.getRadiusCircle(0));
-        whZodiacSize = CalcDraw.sizeZodiac(XYZodiacSizeLine[0], XYZodiacSizeLine[1]);
-        whZodiacSize = (whZodiacSize * 50) / 100;
-        Zodiac = CalcZodiac.calcDrawZodiac(CalcDraw, whZodiacSize);
+        this.XYZodiacSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCircleZodiacCIRCLE1WithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whZodiacSize = this.CalcDraw.sizeZodiac(this.XYZodiacSizeLine[0], this.XYZodiacSizeLine[1]);
+        this.whZodiacSize = (this.whZodiacSize * 50) / 100;
+        this.Zodiac = this.CalcZodiac.calcDrawZodiac(this.CalcDraw, this.whZodiacSize);
 
-        XYHouseSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), CalcDraw.getRadiusCircle(0));
-        whHouseSize = CalcDraw.sizeHouse(XYHouseSizeLine[0], XYHouseSizeLine[1]);
-        whHouseSize = (whHouseSize * 70) / 100;
-        House = CalcHouse.calcDrawHouse(CalcDraw, whHouseSize);
+        this.XYHouseSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCircleHouseCIRCLE2WithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whHouseSize = this.CalcDraw.sizeHouse(this.XYHouseSizeLine[0], this.XYHouseSizeLine[1]);
+        this.whHouseSize = (this.whHouseSize * 70) / 100;
+        this.House = this.CalcHouse.calcDrawHouse(this.CalcDraw, this.whHouseSize);
 
-        XYAngleSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whAngleSymbolSize = CalcDraw.sizePlanet(XYAngleSizeLine[0], XYAngleSizeLine[1]);
-        whAngleSymbolSize = (whAngleSymbolSize * 150) / 100;
-        XYAngleDegSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whAngleDegSymbolSize = CalcDraw.sizeAngle(XYAngleDegSizeLine[0], XYAngleDegSizeLine[1]);
-        whAngleDegSymbolSize = (whAngleDegSymbolSize * 110) / 100;
-        XYAngleMinSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whAngleMinSymbolSize = CalcDraw.sizeAngle(XYAngleMinSizeLine[0], XYAngleMinSizeLine[1]);
-        whAngleMinSymbolSize = (whAngleMinSymbolSize * 80) / 100;
-        Angle = CalcAngle.calcDrawAngle(CalcDraw, whAngleSymbolSize, whAngleDegSymbolSize, whAngleMinSymbolSize); // todo angle size for outside circle
+        this.XYAngleSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whAngleSymbolSize = this.CalcDraw.sizePlanet(this.XYAngleSizeLine[0], this.XYAngleSizeLine[1]);
+        this.whAngleSymbolSize = (this.whAngleSymbolSize * 150) / 100;
+        this.XYAngleDegSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whAngleDegSymbolSize = this.CalcDraw.sizeAngle(this.XYAngleDegSizeLine[0], this.XYAngleDegSizeLine[1]);
+        this.whAngleDegSymbolSize = (this.whAngleDegSymbolSize * 110) / 100;
+        this.XYAngleMinSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whAngleMinSymbolSize = this.CalcDraw.sizeAngle(this.XYAngleMinSizeLine[0], this.XYAngleMinSizeLine[1]);
+        this.whAngleMinSymbolSize = (this.whAngleMinSymbolSize * 80) / 100;
+        this.Angle = this.CalcAngle.calcDrawAngle(this.CalcDraw, this.whAngleSymbolSize, this.whAngleDegSymbolSize, this.whAngleMinSymbolSize); // todo angle size for outside circle
 
-        XYPlanetSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whPlanetSymbolSize = CalcDraw.sizePlanet(XYPlanetSizeLine[0], XYPlanetSizeLine[1]);
-        whPlanetSymbolSize = (whPlanetSymbolSize * 150) / 100;
-        XYPlanetDegSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whPlanetDegSymbolSize = CalcDraw.sizePlanet(XYPlanetDegSizeLine[0], XYPlanetDegSizeLine[1]);
-        whPlanetDegSymbolSize = (whPlanetDegSymbolSize * 110) / 100;
-        XYPlanetMinSizeLine = CalcDraw.lineTrigo(0, CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), CalcDraw.getRadiusCircle(0));
-        whPlanetMinSymbolSize = CalcDraw.sizeAngle(XYPlanetMinSizeLine[0], XYPlanetMinSizeLine[1]);
-        whPlanetMinSymbolSize = (whPlanetMinSymbolSize * 80) / 100;
-        Planet = CalcPlanet.calcDrawPlanet(CalcDraw, whPlanetSymbolSize, whPlanetDegSymbolSize, whPlanetMinSymbolSize);
+        this.XYPlanetSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE4INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whPlanetSymbolSize = this.CalcDraw.sizePlanet(this.XYPlanetSizeLine[0], this.XYPlanetSizeLine[1]);
+        this.whPlanetSymbolSize = (this.whPlanetSymbolSize * 150) / 100;
+        this.XYPlanetDegSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE5INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whPlanetDegSymbolSize = this.CalcDraw.sizePlanet(this.XYPlanetDegSizeLine[0], this.XYPlanetDegSizeLine[1]);
+        this.whPlanetDegSymbolSize = (this.whPlanetDegSymbolSize * 110) / 100;
+        this.XYPlanetMinSizeLine = this.CalcDraw.lineTrigo(0, this.CalcDraw.getRadiusCirclePlanetCIRCLE6INVISIBLEWithoutLine(), this.CalcDraw.getRadiusCircle(0));
+        this.whPlanetMinSymbolSize = this.CalcDraw.sizeAngle(this.XYPlanetMinSizeLine[0], this.XYPlanetMinSizeLine[1]);
+        this.whPlanetMinSymbolSize = (this.whPlanetMinSymbolSize * 80) / 100;
+        this.Planet = this.CalcPlanet.calcDrawPlanet(this.CalcDraw, this.whPlanetSymbolSize, this.whPlanetDegSymbolSize, this.whPlanetMinSymbolSize);
 
         // Compute text
-
-        CalcZodiactText = new CalcZodiacText();
-        ZodiacT = new List<ZodiacT>();
-        ZodiacT = CalcZodiactText.parseJson(json.zodiac_text);
+        this.CalcZodiactText = new CalcZodiacText();
+        this.ZodiacT = new List<ZodiacT>();
+        this.ZodiacT = this.CalcZodiactText.parseJson(json.zodiac_text);
     }
 }
 }

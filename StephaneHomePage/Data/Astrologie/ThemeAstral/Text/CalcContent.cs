@@ -39,13 +39,17 @@ public class CalcContent
 
     public List<Content> makeContent(String s)
     {
+        if (s == null)
+        {
+            s = "";
+        }
         // int temp = 0;
         List<Content> l = new List<Content>();
         bool swLoop = true;
         ContentNext cn = new ContentNext(TypeContent.Null, 0, "");
         while (swLoop)
         {
-            cn = _nextContent(s);
+            cn = this._nextContent(s);
             if (cn.Type == TypeContent.Null)
             {
                 s = "";
