@@ -2,11 +2,7 @@
 using StephaneHomePage.Struct.Astrologie;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace StephaneHomePage.Data.Astrologie.ThemeAstral.Draw
 {
@@ -87,6 +83,9 @@ public class DrawImage
 
     public string GetSvgAngleLine(bool swEncodeB64, Angle angle)
     {
+        // Supress warning CA1062
+        if (angle == null)
+            return "";
         string br = swEncodeB64 ? "\\n" : Environment.NewLine;
         int size = Convert.ToInt32(this.Compute.CalcDraw.getSizeWH());
         string s = "";
@@ -124,6 +123,9 @@ public class DrawImage
 
     public string GetSvgPlanetLine(bool swEncodeB64, Planet planet)
     {
+        // Supress warning CA1062
+        if (planet == null)
+            return "";
         string br = swEncodeB64 ? "\\n" : Environment.NewLine;
         int size = Convert.ToInt32(this.Compute.CalcDraw.getSizeWH());
         string s = "";
