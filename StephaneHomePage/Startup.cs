@@ -58,7 +58,6 @@ namespace StephaneHomePage
                 config.MaximumOpacity = 95;
                 config.VisibleStateDuration = 10000;
             });
-            services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<IAstrologieServiceHttp, AstrologieServiceHttp>();
             services.AddSingleton<ICityServiceHttp, CityServiceHttp>();
             services.AddSingleton<AppStateServiceCore>();
