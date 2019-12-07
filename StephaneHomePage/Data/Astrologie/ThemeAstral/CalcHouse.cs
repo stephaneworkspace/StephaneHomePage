@@ -22,6 +22,7 @@ public class CalcHouse
         }
     }
 
+#pragma warning disable CA1062
     public List<House> calcDrawHouse(CalcDraw calcDraw, double size)
     {
         List<House> z = new List<House>();
@@ -63,4 +64,5 @@ public class CalcHouse
         return z;
     }
 }
+#pragma warning restore CA1062
 }
