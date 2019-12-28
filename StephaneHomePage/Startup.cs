@@ -1,25 +1,14 @@
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using StephaneHomePage.Data;
 using StephaneHomePage.Services.Http;
 using EmbeddedBlazorContent;
 using MatBlazor;
 using StephaneHomePage.Services.Core;
-// using McMaster.AspNetCore.LetsEncrypt;
 
 namespace StephaneHomePage
 {
@@ -42,8 +31,6 @@ namespace StephaneHomePage
             if (Constants.PROD)
             {
                 var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("password.json").Build();
-                services.AddLetsEncrypt();
-                // services.PersistCertificatesToDirectory(new DirectoryInfo("/home/stephane/www/cert"), config.GetSection("password").Value);
             }
 #pragma warning restore CS0162
             services.AddRazorPages();
@@ -74,16 +61,9 @@ namespace StephaneHomePage
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-#pragma warning disable CS0162
-                if (Constants.PROD)
-					app.UseHsts();
-#pragma warning restore CS0162
+//				app.UseHsts(); -> Https -> nginx
             }
-#pragma warning disable CS0162
-			if (Constants.PROD)
-				app.UseHttpsRedirection();
-#pragma warning restore CS0162
+//			app.UseHttpsRedirection(); -> Https -> nginx
             app.UseStaticFiles();
     
             app.UseRouting();
