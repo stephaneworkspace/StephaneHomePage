@@ -53,7 +53,7 @@ namespace StephaneHomePage
                     })*/
 #pragma warning disable CS0162
                 if (Constants.PROD)
-                    webBuilder.UseUrls("http://www.stephane-bressani.ch:80;https://www.stephane-bressani.ch:443");
+                    webBuilder.UseUrls("http://164.132.99.183:80;https://164.132.99.183:443");
 				else
 					webBuilder.UseUrls("http://0.0.0.0:80");
 #pragma warning restore CS0162
