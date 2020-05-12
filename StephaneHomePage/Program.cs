@@ -51,12 +51,15 @@ namespace StephaneHomePage
                             listenOptions.UseHttps(new X509Certificate2(@"./dev_cert.pfx", "123456", X509KeyStorageFlags.Exportable));
                         });
                     })*/
+                /*
 #pragma warning disable CS0162
                 if (Constants.PROD)
                     webBuilder.UseUrls("http://164.132.99.183:80;https://164.132.99.183:443");
 				else
 					webBuilder.UseUrls("http://0.0.0.0:80");
 #pragma warning restore CS0162
+                */
+                webBuilder.UseUrls("http://0.0.0.0:4000");
 				webBuilder.UseStartup<Startup>()
                     .UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
             });
